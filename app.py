@@ -1,29 +1,27 @@
-from os import environ
-from psycopg2 import connect
 from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3 as sql
 
 app = Flask(__name__)
 
+# @app.route("/", methods=['POST', 'GET'])
+# def first_filter(): #число компаний по первому фильтру (Российский/Евразийский)
+#     filter = 'Российский'
+
+#     # filter = request.form['filter']
+
+#     with sql.connect("company.db") as conn:
+#         cursor = conn.cursor()
+#         cursor.execute(f"""SELECT COUNT(id) FROM company
+#             WHERE country = '{filter}'""")
+#         active_records_count = cursor.fetchone()[0]
+
+#     conn.close()
+#     # return jsonify(count_company)
+#     return render_template("index.html", active_records_count = active_records_count)
+
 @app.route("/", methods=['POST', 'GET'])
-def first_filter(): #число компаний по первому фильтру (Российский/Евразийский)
-    filter = 'Российский'
-
-    # filter = request.form['filter']
-
-    with sql.connect("company.db") as conn:
-        cursor = conn.cursor()
-        cursor.execute(f"""SELECT COUNT(id) FROM company
-            WHERE country = '{filter}'""")
-        count_company = cursor.fetchone()
-
-    conn.close()
-    return jsonify(count_company)
-    # return render_template("list.html", company = company)
-
-@app.route("/second", methods=['POST', 'GET'])
 def second_filter(): #число компаний по второму фильтру (ПО/ПАК)
-    filter = 'ПО'
+    filter = 'ПАК'
 
     # filter = request.form['filter']
 
@@ -31,11 +29,11 @@ def second_filter(): #число компаний по второму фильт
         cursor = conn.cursor()
         cursor.execute(f"""SELECT COUNT(id) FROM company
             WHERE ecosystem = '{filter}'""")
-        count_company = cursor.fetchone()
+        active_records_count = cursor.fetchone()[0]
 
     conn.close()
-    return jsonify(count_company)
-    # return render_template("list.html", company = company)
+    # return jsonify(active_records_count)
+    return render_template("index.html", active_records_count = active_records_count)
 
 @app.route("/third", methods=['POST', 'GET'])
 def third_filter(): #компании по фильтру ПО
