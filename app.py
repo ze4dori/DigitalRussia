@@ -20,32 +20,44 @@ app = Flask(__name__)
 #     return render_template("index.html", active_records_count = active_records_count)
 
 @app.route("/", methods=['POST', 'GET'])
-def second_filter(): #число компаний по второму фильтру (ПО/ПАК)
-    filter = 'ПАК'
+def second_filter():
+    filter = "ПАК"
 
-    # filter = request.form['filter']
+    if request.method == "POST":
+        button_id = request.form["active_button"]
+        if button_id == "ButtonPO":
+            filter = "ПО"
+        else:
+            filter = "ПАК"
+        
+        with sql.connect("company.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT COUNT(id) FROM company WHERE ecosystem = '{filter}'""")
+            active_records_count = cursor.fetchone()[0]
 
-    with sql.connect("company.db") as conn:
-        cursor = conn.cursor()
-        cursor.execute(f"""SELECT COUNT(id) FROM company
-            WHERE ecosystem = '{filter}'""")
-        active_records_count = cursor.fetchone()[0]
+        conn.close()
+        return jsonify({'active_records_count': active_records_count})
+    else:
+        with sql.connect("company.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT COUNT(id) FROM company WHERE ecosystem = '{filter}'""")
+            active_records_count = cursor.fetchone()[0]
 
-    conn.close()
-    # return jsonify(active_records_count)
-    return render_template("index.html", active_records_count = active_records_count)
+        conn.close()
+        return render_template("index.html", active_records_count=active_records_count)
 
 @app.route("/third", methods=['POST', 'GET'])
 def third_filter(): #компании по фильтру ПО
     filter_first = 'ПО'
-    filter_second = 'регион'
-    filter_third = 'Наименование класса ПО'
-    filter_fourth = 'Область применений'
+    filter_second = ''
+    filter_third = ''
+    filter_fourth = ''
 
-    # filter_first = request.form['ecosystem']
-    # filter_second = request.form['region']
-    # filter_third = request.form['softwareclass']
-    # filter_fourth = request.form['field']
+    # if request.method == 'POST':
+    #     filter_first = request.form['ecosystem']
+    #     filter_second = request.form['region']
+    #     filter_third = request.form['softwareclass']
+    #     filter_fourth = request.form['field']
 
     with sql.connect("company.db") as conn:
         cursor = conn.cursor()
@@ -81,9 +93,9 @@ def third_filter(): #компании по фильтру ПО
 @app.route("/fourth", methods=['POST', 'GET'])
 def fourth_filter(): #компании по фильтру ПАК
     filter_first = 'ПАК'
-    filter_second = 'регион'
-    filter_third = 'Наименование класса ПАК'
-    filter_fourth = 'Область применений'
+    filter_second = 'Краснодарский край'
+    filter_third = 'Выбор 1'
+    filter_fourth = 'Выбор 1'
 
     # filter_first = request.form['ecosystem']
     # filter_second = request.form['region']
@@ -105,9 +117,9 @@ def fourth_filter(): #компании по фильтру ПАК
 
         if filter_third is not None:
             if query[-1] == ' ':
-                query += " AND software_classname = '" + filter_third + "'"
+                query += " AND hardware_classname = '" + filter_third + "'"
             else:
-                query += f" AND software_classname = '{filter_third}'"
+                query += f" AND hardware_classname = '{filter_third}'"
 
         if filter_fourth is not None:
             if query[-1] == ' ':
@@ -116,9 +128,9 @@ def fourth_filter(): #компании по фильтру ПАК
                 query += f" AND field = '{filter_fourth}'"
 
         cursor.execute(query)
-        company = cursor.fetchone()
+        company = cursor.fetchall()
 
-        return jsonify(company)
+        return company
         # return render_template("list.html", company = company)
 
 @app.route("/fifth", methods=['POST', 'GET'])

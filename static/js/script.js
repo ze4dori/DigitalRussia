@@ -14,9 +14,6 @@ function toggleState() {
     }
 }
 
-// Предположим, что newNumber - это обновленное число, полученное от сервера
-let newNumber = '12345';
-document.getElementById('dynamicNumber').innerText = newNumber;
 /*
 // Сохраняем id активной кнопки
 var activeButtonId = null;
@@ -49,7 +46,7 @@ function myFunctionClick(id) {
 */
 
 var activeButtonId = 'ButtonPAK';
-
+  
 function myFunctionClick(id) {
 
     // Если на экране отображается модальные окна, функция не выполняется
@@ -72,12 +69,42 @@ function myFunctionClick(id) {
 
     // Обновляем id активной кнопки
     activeButtonId = id;
-
+    sendActiveButtonId(activeButtonId)
     
     var myModal = document.getElementById('myModal');
     myModal.style.display = 'none';
-
 }
+
+function sendActiveButtonId(active_button) {
+    var request = new XMLHttpRequest();
+    var params = 'active_button=' + active_button;
+    
+    request.open('POST', '/', true);
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            // Обработка ответа от сервера
+            console.log(request.responseText);
+        }
+    };
+    
+    request.send(params);
+
+    request.onload = function() {
+        if (request.status >= 200 && request.status < 300) {
+            // Получаем ответ от сервера и обрабатываем его
+            var response = JSON.parse(request.response);
+            console.log(response);
+    
+            // Обновляем элемент интерфейса
+            document.getElementById('dynamicNumber').innerHTML = response.active_records_count;
+        } else {
+            alert('Ошибка при отправке запроса!');
+        }
+    };
+}
+
 
 function myFunctionForMyButton() {
     // Если на экране отображается модальные окна, функция не выполняется

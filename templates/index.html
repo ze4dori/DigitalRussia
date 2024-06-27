@@ -7,12 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:slnt@-10..0&display=swap" rel="stylesheet"> <!--Для шрифтра из фигмы (не работает)-->
     <title>Map</title>
-	<link rel="stylesheet" href="static/css/style.css">
-    <script type="text/javascript" src="static/js/script.js"></script>
-
-    <script>
-        const data = { active_records_count };
-    </script>
+	<link rel="stylesheet" href="static/css/style.css"> <!--ИЗМЕНЕНО-->
+    <script type="text/javascript" src="static/js/script.js"></script> <!--ИЗМЕНЕНО-->
 </head>
 
 
@@ -29,8 +25,12 @@
                     <div class="label label-right" style="color: rgb(31, 43, 106, 0.5);">Евразийский</div>
                 </div>
                 <div class="menu">
-                    <button class="menu-item" id = "ButtonPO" onclick="myFunctionClick(this.id)">Программное обеспечение</button>
-                    <button class="menu-item active" id = "ButtonPAK" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
+                    <!-- <button class="menu-item" id = "ButtonPO" onclick="myFunctionClick(this.id)">Программное обеспечение</button> -->
+                    <form action="/" method="post">
+                        <input type="hidden" name="active_button" id="active_button" value="">
+                        <button class="menu-item" id="ButtonPO" type="button" onclick="myFunctionClick(this.id)">Программное обеспечение</button>
+                        <button class="menu-item active" id="ButtonPAK" type="button" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
+                    </form>
                     <button class="menu-item" class ="filter" id="myButton" onclick="myFunction(); myFunctionForMyButton()">
                         Фильтр
                         <img src="static/images/filter.svg" alt="Кнопка_фильтр" class="filter-icon" />
@@ -45,7 +45,7 @@
             </div>  
             <div class = "activerec" id = "activerec">
                     <p class="labelnum">Активные записи</p>
-                    <p class="number" id="dynamicNumber">{{ active_records_count }}</p>
+                    <p class="number" id="dynamicNumber">{{ active_records_count }}</p> <!--ИЗМЕНЕНО-->
             </div>
         
         
