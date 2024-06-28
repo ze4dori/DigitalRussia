@@ -247,15 +247,15 @@ function myFunctionS() {
     }, 3000); 
 
     var region = document.getElementById('searchInput').value;
-    var hardwareclass = document.querySelector('select[name="nameclasspo"]');
-    var field = document.querySelector('select[name="opt"]').value;
+    var hardwareclass = console.log(document.querySelector('select[name="nameclasspo"]'));
+    var field = console.log(document.querySelector('select[name="opt"]').value);
   
     const request = new XMLHttpRequest();
     request.open('POST', '/filter');
     request.setRequestHeader('Content-Type', 'application/json');
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            alert(hardwareclass)
+            console.log(response);
         }
     };
 
