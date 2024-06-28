@@ -25,8 +25,7 @@
                     <div class="label label-right" style="color: rgb(31, 43, 106, 0.5);">Евразийский</div>
                 </div>
                 <div class="menu">
-                    <!-- <button class="menu-item" id = "ButtonPO" onclick="myFunctionClick(this.id)">Программное обеспечение</button> -->
-                    <form action="/" method="post">
+                    <form action="/" method="post"> <!--ИЗМЕНЕНО-->
                         <input type="hidden" name="active_button" id="active_button" value="">
                         <button class="menu-item" id="ButtonPO" type="button" onclick="myFunctionClick(this.id)">Программное обеспечение</button>
                         <button class="menu-item active" id="ButtonPAK" type="button" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
@@ -234,15 +233,15 @@
                 <div class = "filter-item">Наименование класса ПО 
                     <select name = "nameclasspo">
                         <option value = "1" selected>Выбрать</option>
-                        <option value = "2">1 выбор</option>
-                        <option value = "3">2 выбор</option>
+                        <option value = "2">Выбор 1</option>
+                        <option value = "3">Выбор 2</option>
                     </select>
                 </div>
                 <div class = "filter-item">Есть опыт в отрасли
                     <select name = "opt">
                         <option value = "1" selected>Выбрать</option>
-                        <option value = "2">1 выбор</option>
-                        <option value = "3">2 выбор</option>
+                        <option value = "2">Выбор 1</option>
+                        <option value = "3">Выбор 2</option>
                     </select>
                 </div>
                 <div class = "checkbox">
@@ -276,33 +275,14 @@
             <div class="list-items">
                 <div class="list-item" id = "myBlock" onclick="myFunctionInfo()">
 
-                    <div class="container">
+                    <!-- <div class="container">
                         <img src="static/images/icon_IT_novazy.png" alt="Иконка">
-                    
                         <div class="info_container">
-                            <h2>Айти новация</h2>
-                            <p>информационная безопасность</p>
+                            <h2>{{ company_name }}</h2>
+                            <p>{{ position_company }}</p>
+                            <p>{{ address }}</p>
                         </div>
-                    </div>    
-
-                    <div class="container">
-                    <div class="location">
-                        <img src="static/images/location-icon.svg" alt="Иконка местоположения">
-                        <p>г.Краснодар, ул.Рашпилевская, д. 287</p>
-                    </div>
-
-                    <div class="number_container">
-                    <div class="number">
-                        <img src="static/images/phone-icon.png" alt="Иконка телефона">
-                        <p>8 (800) 101-44-56</p>
-                       
-                    </div>
-                    <div class="number">
-                        <img src="static/images/phone-icon.png" alt="Иконка телефона">
-                        <p>8 (800) 302-71-48</p>
-                    </div>
-                    </div>
-                    </div>
+                    </div> -->
                     <img class ="line" src="static/images/line.svg" alt="Линия">
                 </div>
             </div>

@@ -19,7 +19,7 @@ app = Flask(__name__)
 #     # return jsonify(count_company)
 #     return render_template("index.html", active_records_count = active_records_count)
 
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/", methods=['POST', 'GET']) #КОЛИЧЕСТВО АКТИВНЫХ ЗАПИСЕЙ
 def second_filter():
     filter = "ПАК"
 
@@ -90,48 +90,40 @@ def third_filter(): #компании по фильтру ПО
         return jsonify(company)
         # return render_template("list.html", company = company)
 
-@app.route("/fourth", methods=['POST', 'GET'])
-def fourth_filter(): #компании по фильтру ПАК
-    filter_first = 'ПАК'
-    filter_second = 'Краснодарский край'
-    filter_third = 'Выбор 1'
-    filter_fourth = 'Выбор 1'
+@app.route("/filter", methods=['POST', 'GET']) #СПИСОК КОМПАНИЙ
+def fourth_filter(): #компании по фильтру ПАК 
 
-    # filter_first = request.form['ecosystem']
-    # filter_second = request.form['region']
-    # filter_third = request.form['softwareclass']
-    # filter_fourth = request.form['field']
+    if request.method == "POST":
+        data = request.get_json()
+        ecosystem = data.get('ecosystem')
+        region = data.get('region')
+        hardwareclass = data.get('hardwareclass')
+        field = data.get('field')
 
-    with sql.connect("company.db") as conn:
-        cursor = conn.cursor()
-        query = "SELECT name, position, (SELECT SUBSTR(address, 1, INSTR(address, ',') - 1) FROM company) AS region, contact FROM company"
+        with sql.connect("company.db") as conn:
+                cursor = conn.cursor()
+                query = "SELECT id, name, position, address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region FROM company"
 
-        if filter_first is not None:
-            query += f" WHERE ecosystem = '{filter_first}'"
+                conditions = []
+                if ecosystem is not None:
+                    conditions.append(f"ecosystem = '{ecosystem}'")
+                if region is not None:
+                    conditions.append(f"region = '{region}'")
+                if hardwareclass is not None:
+                    conditions.append(f"hardware_classname = '{hardwareclass}'")
+                if field is not None:
+                    conditions.append(f"field = '{field}'")
 
-        if filter_second is not None:
-            if query[-1] == ' ':
-                query += " AND region = '" + filter_second + "'"
-            else:
-                query += f" AND region = '{filter_second}'"
+                if conditions:
+                    query += ' WHERE ' + ' AND '.join(conditions)
 
-        if filter_third is not None:
-            if query[-1] == ' ':
-                query += " AND hardware_classname = '" + filter_third + "'"
-            else:
-                query += f" AND hardware_classname = '{filter_third}'"
+                cursor.execute(query)
+                companies = cursor.fetchall()
 
-        if filter_fourth is not None:
-            if query[-1] == ' ':
-                query += " AND field = '" + filter_fourth + "'"
-            else:
-                query += f" AND field = '{filter_fourth}'"
+                # Преобразуем результаты в список словарей
+                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region} for id, name, position, address, region in companies]
 
-        cursor.execute(query)
-        company = cursor.fetchall()
-
-        return company
-        # return render_template("list.html", company = company)
+        return companies_list   
 
 @app.route("/fifth", methods=['POST', 'GET'])
 def about_company(): #информация по выбранной компании

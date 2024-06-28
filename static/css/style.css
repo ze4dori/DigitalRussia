@@ -636,6 +636,8 @@ input[type="checkbox"]:checked + label:before {
 
     margin-left: 1.04vw;
     padding: 0.78vw;
+
+    margin-bottom:1.04vw;
 }
 
 .list-items img{

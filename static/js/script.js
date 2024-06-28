@@ -84,7 +84,6 @@ function sendActiveButtonId(active_button) {
     
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            // Обработка ответа от сервера
             console.log(request.responseText);
         }
     };
@@ -93,11 +92,8 @@ function sendActiveButtonId(active_button) {
 
     request.onload = function() {
         if (request.status >= 200 && request.status < 300) {
-            // Получаем ответ от сервера и обрабатываем его
             var response = JSON.parse(request.response);
             console.log(response);
-    
-            // Обновляем элемент интерфейса
             document.getElementById('dynamicNumber').innerHTML = response.active_records_count;
         } else {
             alert('Ошибка при отправке запроса!');
@@ -200,7 +196,7 @@ function myFunctionB() {
 document.getElementById('myButtonS').onclick = myFunctionS;
 
 function myFunctionS() {
-var myModal = document.getElementById('myModal');
+    var myModal = document.getElementById('myModal');
     myModal.style.display = 'none';
 
     var button = document.getElementById('myButton');
@@ -213,71 +209,131 @@ var myModal = document.getElementById('myModal');
 
     } else {
         myList.style.display = 'none';
-       
     }
 
-        var svgElement = document.getElementById("mySvg");
-        var partOfSvg = document.getElementById("Krsn");
-        var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
+    var svgElement = document.getElementById("mySvg");
+    var partOfSvg = document.getElementById("Krsn");
+    var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
 
-        // Добавьте это, чтобы установить плавную анимацию
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+    // Добавьте это, чтобы установить плавную анимацию
+    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
 
-        svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
-        partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
+    svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
+    partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
 
-        //Для pop up
-        // Задержка в 3 секунды перед показом блока
-        setTimeout(function() {
-            var svgContainer = document.getElementById('mySvgContainer');
-            var krsnSvg = document.getElementById('Krsn');
+    //Для pop up
+    // Задержка в 3 секунды перед показом блока
+    setTimeout(function() {
+        var svgContainer = document.getElementById('mySvgContainer');
+        var krsnSvg = document.getElementById('Krsn');
 
-            // Получить координаты элемента SVG
-            //var svgRect = krsnSvg.getBoundingClientRect();
+        // Получить координаты элемента SVG
+        //var svgRect = krsnSvg.getBoundingClientRect();
 
-            // Установить координаты блока равными координатам элемента SVG
-            //svgContainer.style.left = svgRect.left + 'px';
-            //svgContainer.style.top = (svgRect.top - 150) + 'px';
+        // Установить координаты блока равными координатам элемента SVG
+        //svgContainer.style.left = svgRect.left + 'px';
+        //svgContainer.style.top = (svgRect.top - 150) + 'px';
 
-            //В ручную для примера
-            svgContainer.style.left = "45vw";
-            svgContainer.style.top = "-45vh";
-            var InfoInPopUp = document.getElementById('InfoInPopUp');
-            //InfoInPopUp.style.left = "45vw";
-            //InfoInPopUp.style.top = "-80vh";
+        //В ручную для примера
+        svgContainer.style.left = "45vw";
+        svgContainer.style.top = "-45vh";
+        var InfoInPopUp = document.getElementById('InfoInPopUp');
+        //InfoInPopUp.style.left = "45vw";
+        //InfoInPopUp.style.top = "-80vh";
 
-            // Показать блок
-            svgContainer.style.display = 'block';
-  
-        }, 3000);
+        // Показать блок
+        svgContainer.style.display = 'block';
     
+    }, 3000); 
+
+    var region = document.getElementById('searchInput').value;
+    var hardwareclass = document.querySelector('select[name="nameclasspo"]');
+    var field = document.querySelector('select[name="opt"]').value;
+  
+    const request = new XMLHttpRequest();
+    request.open('POST', '/filter');
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            alert(hardwareclass)
+        }
+    };
+
+    request.send(JSON.stringify({ region, hardwareclass, field }));
+
+    request.onload = function() {
+        if (request.status >= 200 && request.status < 300) {
+            var response = JSON.parse(request.response);
+            console.log(response);
+            updateHTML(response);
+        } else {
+            alert('Ошибка при отправке запроса!');
+        }
+    };
 }
 
-//Обработчик кнопки назад на списке
-function myFunctionBack() {
-    var list = document.getElementById("myList");
-    list.style.display = "none";
+function updateHTML(response) {
+    const listContainer = document.querySelector('.list-items');
 
-    var myModal = document.getElementById('myModal');
-    myModal.style.display = 'block';
+    response.forEach(item => {
+        const listItem = document.createElement('div');
+        listItem.classList.add('list-item');
+    
+        listItem.innerHTML = `
+            <div class="container">
+                <div class="icon_container">
+                    <img src="static/images/icon_IT_novazy.png" alt="Иконка">
+                    <img src="static/images/location-icon.svg" alt="Иконка местоположения" class="location">
+                </div>
+                <div class="info_container">
+                    <h2>${item.company_name}</h2>
+                    <p>${item.position_company}</p>
+                    <p class="location">${item.address}</p>
+                </div>
+            </div>
+        `;
+    
+        listContainer.appendChild(listItem);
+    });
+}
 
-    var button = document.getElementById('myButton');
-    button.classList.toggle('active');
+// Обработчик события при клике на блоке list-item
+function myFunctionInfo(companyId) {
+    // Ваша логика обработки клика на блоке
+    console.log('Clicked company ID:', companyId);
 }
 
 
-//Появление блока инфо
-function myFunctionInfo() {
-    var myITinfo = document.getElementById('myITinfo');
-    var myBlock = document.getElementById('myBlock');
 
-    if (myITinfo.style.display === 'none' || myITinfo.style.display === '') {
-        myITinfo.style.display = 'block';
-        myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)'; // Изменяем цвет на голубой
-    } else {
-        myITinfo.style.display = 'none';
-        myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет
+
+
+
+
+    //Обработчик кнопки назад на списке
+    function myFunctionBack() {
+        var list = document.getElementById("myList");
+        list.style.display = "none";
+
+        var myModal = document.getElementById('myModal');
+        myModal.style.display = 'block';
+
+        var button = document.getElementById('myButton');
+        button.classList.toggle('active');
     }
+
+
+    //Появление блока инфо
+    function myFunctionInfo() {
+        var myITinfo = document.getElementById('myITinfo');
+        var myBlock = document.getElementById('myBlock');
+
+        if (myITinfo.style.display === 'none' || myITinfo.style.display === '') {
+            myITinfo.style.display = 'block';
+            myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)'; // Изменяем цвет на голубой
+        } else {
+            myITinfo.style.display = 'none';
+            myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет
+        }
 }
 
 document.getElementById('close').onclick = closeMyModalInfo;
