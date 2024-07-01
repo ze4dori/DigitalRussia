@@ -304,18 +304,20 @@ body {
     margin-left: 16vw;
 }
 
-/* Стили для контейнера поиска */
-#searchContainer {
+ /* Стили для контейнера поиска */
+ .searchContainer {
     border: 0.052vw solid rgba(240, 242, 255, 1);
     border-radius: 0.26vw;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 23.96vw;
-    height: 9.9vw; /* Установите фиксированную высоту */
-    display: none; /* Скрываем контейнер по умолчанию */
+    width: 23.4vw;
+    height: 9.9vw;
+    /* Установите фиксированную высоту */
+    display: none;
+    /* Скрываем контейнер по умолчанию */
 }
 
-.filter-item input{
+.filter-item input {
     color: rgba(31, 43, 106, 0.5);
     font-size: 0.73vw;
     border-color: rgba(240, 242, 255, 1);
@@ -326,8 +328,12 @@ body {
     margin: 0.26vw;
 }
 
-.searchContainer li{
+.searchContainer li {
     margin-left: 1.04vw;
+}
+
+.searchContainer input {
+    width: 22.88vw;
 }
 
 /* Стили для подсветки совпадений */
@@ -336,10 +342,38 @@ body {
     border-radius: 0.26vw;
 }
 
-  /* Убираем маркеры "кругов" перед каждым пунктом списка */
-  #listContainer {
+/* Убираем маркеры "кругов" перед каждым пунктом списка */
+.listContainer {
     list-style-type: none;
     padding: 0;
+
+}
+
+.selectButton {
+    appearance: none;
+    /* safari */
+    -webkit-appearance: none;
+    /* other styles for aesthetics */
+    width: 100%;
+    height: 2.08vw;
+
+    padding-left: 1.04vw;
+    margin-bottom: 0.93vh;
+    background-color: #fff;
+    border: 0.078vw solid #F0F2FF;
+    border-radius: 0.46vh;
+    color: rgb(31 43 106 /50%);
+    ;
+    cursor: pointer;
+
+    font-weight: 300;
+    font-size: 0.73vw;
+    font-family: Inter;
+    /*Доступная замена*/
+
+    display: flex;
+    align-items: center;
+    margin-top: 0.52vw;
 }
 
 /* Стилизация ползунка прокрутки */
@@ -361,66 +395,15 @@ body {
     background: #555; /* Цвет ползунка при наведении */
 }
 
-
-
-
-#selectButton {
-    appearance: none;
-    /* safari */
-    -webkit-appearance: none;
-    /* other styles for aesthetics */
-    width: 100%;
-    height: 2.08vw;
-
-    padding-left: 1.04vw;
-    margin-bottom: 0.93vh;
-    background-color: #fff;
-    border: 0.078vw solid #F0F2FF;
-    border-radius: 0.46vh;
-    color:  rgb(31 43 106 /50%);;
-    cursor: pointer;
-
-    font-weight: 300;
-    font-size: 0.73vw;
-    font-family: Inter; /*Доступная замена*/
-
-    display: flex;
-    align-items: center;
-    margin-top: 0.52vw;
-}
-
-
-select{
-    appearance: none;
-    /* safari */
-    -webkit-appearance: none;
-    /* other styles for aesthetics */
-    width: 100%;
-    height: 1.56vw;
-
-    padding-left: 1.04vw;
-    margin-bottom: 0.93vh;
-    background-color: #fff;
-    border: 0.078vw solid #F0F2FF;
-    border-radius: 0.46vh;
-    color:  rgb(31 43 106 /50%);;
-    cursor: pointer;
-
-    font-weight: 300;
-    font-size: 0.73vw;
-    font-family: Inter; /*Доступная замена*/
-
-    margin-top: 0.52vw;
-}
 .input{
-    /*width: 300px;*/
+    
     height: 1.56vw;
 
     padding-left: 1.04vw;
-    margin-bottom: 0.93vh;
+    margin-bottom: 0.52vw;
     background-color: #fff;
     border: 0.078vw solid #F0F2FF;
-    border-radius: 0.46vh;
+    border-radius: 0.26vw;
     color:  rgb(31 43 106 /50%);;
     cursor: pointer;
 
@@ -429,7 +412,6 @@ select{
     font-family: Inter; /*Доступная замена*/
 
 }
-
 
 /* Скрываем оригинальный чекбокс */
 input[type="checkbox"] {
@@ -444,7 +426,7 @@ input[type="checkbox"] + label {
     cursor: pointer;
 }
 
-input[type="checkbox"] + label:before {
+input[type="checkbox"] + label::before {
     content: "";
     background-color: #F0F2FF;
     position: absolute;
@@ -452,34 +434,27 @@ input[type="checkbox"] + label:before {
     top: 0;
     width: 1.04vw;
     height: 1.04vw;
-    border: 0.19vh solid rgba(31, 43, 106, 0.5);
-    border-radius: 0.28vh;
+    border: 0.12vw solid rgba(31, 43, 106, 0.5);
+    border-radius: 0.16vw;
+}
+/* Стилизуем чекбокс, когда он отмечен*/
+input[type="checkbox"]:checked + label::before {
+    background-image: url(../images/checked.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0.73vw 0.73vw;
 }
 
-/* Стилизуем чекбокс, когда он отмечен*/ 
-input[type="checkbox"]:checked + label:before {
-    background-color: #1F2B6A;
-}
 
 .checkbox label{
     order: 2;
-    margin-left: 0.93vh; /* Отступ между меткой и чекбоксом*/ 
+    margin-left: 0.52vw;
     width: 19.53vw;
 }
-
-.filter-item{
-    display: flex;
-    flex-direction: column;
-    color: rgb(31 43 106 /40%);
-
-    margin: 0.83vw 0vw;
-}
-
-
 .checkbox{
 
     color: rgb(31 43 106 /40%);
-    margin: 1.48vh 1.48vh;
+    margin: 0.83vw 0.83vw;
 }
 
 .checkAI{
@@ -491,6 +466,13 @@ input[type="checkbox"]:checked + label:before {
     padding-bottom: 1.72vw;
 }
 
+.filter-item{
+    display: flex;
+    flex-direction: column;
+    color: rgb(31 43 106 /40%);
+
+    margin: 0.83vw 0vw;
+}
 
 .winfilter h1{
     
@@ -529,7 +511,7 @@ input[type="checkbox"]:checked + label:before {
     margin-right: 1.04vw;
 
     border:  0.078vw solid rgb(31 43 106 /50%);
-    border-radius: 0.46vh;
+    border-radius: 0.26vw;
 
     
     font-weight: 400;
@@ -537,6 +519,7 @@ input[type="checkbox"]:checked + label:before {
     font-family: Inter; /*Доступная замена*/
 
     width: 9vw;
+    height: 2.08vw;
 }
 
 .knopochka_sinya{
@@ -545,15 +528,15 @@ input[type="checkbox"]:checked + label:before {
     text-decoration: none;
 
     border: 0.078vw solid rgb(31 43 106 /50%);
-    border-radius: 0.46vh;
-    padding: 0.74vh 9.26vh;
+    border-radius: 0.26vw;
+    padding: 0.42vw 5.2vw;
 
     font-weight: 400;
     font-size: 0.73vw;
     font-family: Inter; /*Доступная замена*/
 
     width: 14.3vw;
-
+    height: 2.08vw;
 }
 
 /* Стилизация ползунка прокрутки */
@@ -638,11 +621,14 @@ input[type="checkbox"]:checked + label:before {
     padding: 0.78vw;
 
     margin-bottom:1.04vw;
+
+    display: flex;
 }
 
+
 .list-items img{
-    width: 2.29vw;
-    height: 2.29vw;
+    width: 4.5vw;
+    height: 4.5vw;
 }
 .list-items h2 {
     font-size: 0.94vw;
