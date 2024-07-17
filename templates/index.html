@@ -31,7 +31,7 @@
                 <form action="/" method="post"> <!--ИЗМЕНЕНО-->
                     <input type="hidden" name="active_button" id="active_button" value="">
                     <button class="menu-item" id="ButtonPO" type="button" onclick="myFunctionClick(this.id)">Программное обеспечение</button>
-                    <button class="menu-item" id="ButtonPAK" type="button" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
+                    <button class="menu-item active" id="ButtonPAK" type="button" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
                 </form>
                 <button class="menu-item" class ="filter" id="myButton" onclick="myFunction(); myFunctionForMyButton()">
                     Фильтр
@@ -1031,12 +1031,13 @@
 
         <!--Окно фильтры для ПО-->
         <div class="winfilter" id="myModal"> 
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                    d="M1 5.5C0.723858 5.5 0.5 5.72386 0.5 6C0.5 6.27614 0.723858 6.5 1 6.5V5.5ZM9.35355 6.35355C9.54882 6.15829 9.54882 5.84171 9.35355 5.64645L6.17157 2.46447C5.97631 2.2692 5.65973 2.2692 5.46447 2.46447C5.2692 2.65973 5.2692 2.97631 5.46447 3.17157L8.29289 6L5.46447 8.82843C5.2692 9.02369 5.2692 9.34027 5.46447 9.53553C5.65973 9.7308 5.97631 9.7308 6.17157 9.53553L9.35355 6.35355ZM1 6.5H9V5.5H1V6.5Z"
-                    fill="#383874" />
-                <path d="M11.5 1V11" stroke="#383874" stroke-linecap="round" />
-            </svg> -->
+            <span class = "hide-button" id ="hide" onclick="hideFilterFunction();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="50" viewBox="0 0 18 50" fill="none">
+                    <path d="M0 5C0 2.23858 2.23858 0 5 0H18V50H5C2.23858 50 0 47.7614 0 45V5Z" fill="white"/>
+                    <path d="M4 24.5C3.72386 24.5 3.5 24.7239 3.5 25C3.5 25.2761 3.72386 25.5 4 25.5V24.5ZM12.3536 25.3536C12.5488 25.1583 12.5488 24.8417 12.3536 24.6464L9.17157 21.4645C8.97631 21.2692 8.65973 21.2692 8.46447 21.4645C8.2692 21.6597 8.2692 21.9763 8.46447 22.1716L11.2929 25L8.46447 27.8284C8.2692 28.0237 8.2692 28.3403 8.46447 28.5355C8.65973 28.7308 8.97631 28.7308 9.17157 28.5355L12.3536 25.3536ZM4 25.5H12V24.5H4V25.5Z" fill="#383874"/>
+                    <path d="M14.5 20V30" stroke="#383874" stroke-linecap="round"/>
+                </svg>
+            </span>
             <div class="container-4">
                 <h1>Фильтр</h1>
 
@@ -1095,12 +1096,13 @@
 
         <!--Окно фильтры для ПАК-->
         <div class="winfilter" id="myModalPAK">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                    d="M1 5.5C0.723858 5.5 0.5 5.72386 0.5 6C0.5 6.27614 0.723858 6.5 1 6.5V5.5ZM9.35355 6.35355C9.54882 6.15829 9.54882 5.84171 9.35355 5.64645L6.17157 2.46447C5.97631 2.2692 5.65973 2.2692 5.46447 2.46447C5.2692 2.65973 5.2692 2.97631 5.46447 3.17157L8.29289 6L5.46447 8.82843C5.2692 9.02369 5.2692 9.34027 5.46447 9.53553C5.65973 9.7308 5.97631 9.7308 6.17157 9.53553L9.35355 6.35355ZM1 6.5H9V5.5H1V6.5Z"
-                    fill="#383874" />
-                <path d="M11.5 1V11" stroke="#383874" stroke-linecap="round" />
-            </svg> -->
+            <span class = "hide-button" id ="hidePAK" onclick="hideFilterFunctionPAK();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="50" viewBox="0 0 18 50" fill="none">
+                    <path d="M0 5C0 2.23858 2.23858 0 5 0H18V50H5C2.23858 50 0 47.7614 0 45V5Z" fill="white"/>
+                    <path d="M4 24.5C3.72386 24.5 3.5 24.7239 3.5 25C3.5 25.2761 3.72386 25.5 4 25.5V24.5ZM12.3536 25.3536C12.5488 25.1583 12.5488 24.8417 12.3536 24.6464L9.17157 21.4645C8.97631 21.2692 8.65973 21.2692 8.46447 21.4645C8.2692 21.6597 8.2692 21.9763 8.46447 22.1716L11.2929 25L8.46447 27.8284C8.2692 28.0237 8.2692 28.3403 8.46447 28.5355C8.65973 28.7308 8.97631 28.7308 9.17157 28.5355L12.3536 25.3536ZM4 25.5H12V24.5H4V25.5Z" fill="#383874"/>
+                    <path d="M14.5 20V30" stroke="#383874" stroke-linecap="round"/>
+                </svg>
+            </span>
             <div class="container-4">
                 <h1>Фильтр</h1>
 

@@ -14,9 +14,6 @@ function toggleState() {
 }
 
 
-// Предположим, что newNumber - это обновленное число, полученное от сервера
-let newNumber = '12345';
-document.getElementById('dynamicNumber').innerText = newNumber;
 /*
 // Сохраняем id активной кнопки
 var activeButtonId = null;
@@ -119,14 +116,13 @@ function myFunctionForMyButton() {
     button.classList.toggle('active');
 
 }
-var activeButtonId = 'ButtonPAK'; //Не видит начальное значение global переменной !!!
-
+window.activeButtonId = 'ButtonPAK'; //Не видит начальное значение global переменной !!!
 
 // Обработчик кнопки Фильтр
 document.getElementById('myButton').onclick = myFunction;
 
 function myFunction() {
-    //alert(activeButtonId); //Для проверки значения
+    // alert(activeButtonId); //Для проверки значения
 
     // Если на экране отображается модальные окна, функция не выполняется
     var myITinfo = document.getElementById('myITinfo');
@@ -156,6 +152,21 @@ function myFunction() {
 
 //ДЛЯ ОКНА ФИЛЬТРА ПО
 
+//Кнопка свернуть
+document.getElementById('hide').onclick = hideFilterFunction();
+
+function hideFilterFunction(){
+    var Filter = document.getElementById('myModal');
+    var button = document.getElementById('hide');
+
+    if (myModal.style.right === '1.04vw'){
+        Filter.style.right = "-30vw";
+        button.style.right = "0vw"; 
+    } else {
+        Filter.style.right = "1.04vw";
+        button.style.right = "27vw"; 
+    }
+}
 document.getElementById('close').onclick = closeMyModal;
 // Функция для закрытия окна и очистки полей ввода и чекбоксов
 function closeMyModal() {
@@ -270,7 +281,7 @@ function myFunctionS() {
     const ai = document.getElementById('AI');
 
     let errp;
-    let software_ai
+    let software_ai;
 
     if (gosreg.checked) {
         errp = 1
@@ -313,6 +324,21 @@ listItems.forEach(item => {
 });
 
 //ДЛЯ ОКНА ФИЛЬТРА ПАК
+
+document.getElementById('hidePAK').onclick = hideFilterFunctionPAK();
+
+function hideFilterFunctionPAK(){
+    var Filter = document.getElementById('myModalPAK');
+    var button = document.getElementById('hidePAK');
+
+    if (myModalPAK.style.right === '1.04vw'){
+        Filter.style.right = "-30vw";
+        button.style.right = "0vw"; 
+    } else {
+        Filter.style.right = "1.04vw";
+        button.style.right = "27vw"; 
+    }
+}
 
 document.getElementById('closePAK').onclick = closeMyModalPAK;
 // Функция для закрытия окна и очистки полей ввода и чекбоксов
@@ -481,19 +507,6 @@ function updateHTML(response) {
         </div>
         `;
 
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET', 'https://getfile.dokpub.com/yandex/get/' + item.logo_company, true);
-        // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-        // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-        
-        // xhr.addEventListener('load', function() {
-        //     if (xhr.status === 200) {
-        //     // Вы можете выполнить дополнительные действия с изображением здесь
-        //     console.log('Изображение успешно загружено:', item.logo_company);
-        //     } else {
-        //     console.error('Произошла ошибка при загрузке изображения:', item.logo_company);
-        //     }
-        // });
         listContainer.appendChild(listItem);
     });
 
@@ -539,45 +552,59 @@ function myFunctionBack() {
     svgElement.style.transform = "scale(" + scale + ") translateX(0) translateY(0)";
 }
 
-
+window.idBlock;
 //Появление блока инфо
 function myFunctionInfo(id) {
     const myITinfo = document.getElementById('myITinfo');
     const myBlock = document.getElementById(id);
+    let prevBlock;
 
-    if (myITinfo.style.display === 'none' || myITinfo.style.display === '') {
+    if (window.idBlock !== undefined) {
+        prevBlock = document.getElementById(window.idBlock);
+        prevBlock.style.backgroundColor = '';
+    }
+
+    var info = document.getElementById("myITinfo")
+    while (info.firstChild) {
+        info.removeChild(info.firstChild)
+    }
+
+    if ((myITinfo.style.display === 'none' || myBlock.style.backgroundColor === '') && id !== window.idBlock) {
         myITinfo.style.display = 'block';
         myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
+
+
+        const request = new XMLHttpRequest();
+        request.open('POST', '/info');
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                console.log(request.responseText);
+            }
+        };
+        let idCompany = id;
+    
+        request.send(JSON.stringify({ idCompany }));
+    
+        request.onload = function () {
+            if (request.status >= 200 && request.status < 300) {
+                var response = JSON.parse(request.response);
+                console.log(response);
+                infoHTML(response);
+            } else {
+                alert('Ошибка при отправке запроса!');
+            }
+        };
+
+        idBlock = id;
     } else {
+        idBlock = id;
         myITinfo.style.display = 'none';
         myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет
     }
-
-    const request = new XMLHttpRequest();
-    request.open('POST', '/info');
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText);
-        }
-    };
-    let idCompany = id;
-
-    request.send(JSON.stringify({ idCompany }));
-
-    request.onload = function () {
-        if (request.status >= 200 && request.status < 300) {
-            var response = JSON.parse(request.response);
-            console.log(response);
-            infoHTML(response);
-        } else {
-            alert('Ошибка при отправке запроса!');
-        }
-    };
 }
 
 function infoHTML(response) {
-
     const listContainer = document.querySelector('.info');
 
     response.forEach(item => {
@@ -634,8 +661,7 @@ function infoHTML(response) {
             </svg>
             <h2>Продукты компании</h2>
             <ul>    
-                ${item.product}
-                
+                ${product(item.product)}
             </ul>
          
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
@@ -644,7 +670,7 @@ function infoHTML(response) {
             </svg>
             <h2>Услуги компании</h2>
             <ul>
-                ${item.service}
+                ${product(item.service)}
             </ul>
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
                 fill="none">
@@ -666,22 +692,80 @@ function infoHTML(response) {
             </svg>
         </div>
         <div class="links">
-            <img class="link-icon" src="static/images/whatsapp.png" alt="WA">
-            <img class="link-icon" src="static/images/telegram.png" alt="T">
-            <img class="link-icon" src="static/images/viber.png" alt="V">
-            <img class="link-icon" src="static/images/vk.png" alt="vk">
-            <a href="${item.site}/">
-                <img class="link-icon" src="static/images/web.png" alt="web">
-            </a>
-            <img class="link-icon" src="static/images/bookmark.png" alt="BM">
-            <img class="link-icon" src="static/images/link.png" alt="link">
-
+        <div class="link"><img class="link-icon" src="static/images/bookmark.png"></div>
+        <div class="link"><img class="link-icon" src="static/images/link.png"></div>
         </div>
         </div>
         `;
+
+        listContainer.appendChild(listItem);
+
+        // Вызов функции generateICON после добавления элемента в DOM
+        generateICON(item.id);
+    });
+}
+
+function product(product) {
+    var result = product.split(",");
+    return result.map(item => `<li>${item}</li>`).join('');
+}
+
+function service(service) {
+    var result = service.split(",");
+    return result.map(item => `<li>${item}</li>`).join('');
+}
+
+function generateICON(id) {
+    const request = new XMLHttpRequest();
+    request.open('POST', '/icon');
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            try {
+                var response = JSON.parse(request.responseText);
+                console.log(response);
+                updateICON(response);
+            } catch (e) {
+                console.error('Ошибка при разборе ответа:', e);
+            }
+        } else if (request.readyState == 4) {
+            alert('Ошибка при отправке запроса!!');
+        }
+    };
+    let idCompany = id;
+
+    request.send(JSON.stringify({ idCompany }));
+}
+
+function updateICON(response) {
+    const listContainer = document.querySelector('.links');
+
+    response.forEach(item => {
+        const listItem = document.createElement('div');
+        listItem.classList.add('link');
+        
+        let html = ``;
+        if (item.whatsapp) {
+            html += `<a href="${item.whatsapp}/"><img class="link-icon" src="static/images/whatsapp.png"></a>`;
+        }
+        if (item.telegram) {
+            html += `<a href="${item.telegram}/"><img class="link-icon" src="static/images/telegram.png"></a>`;
+        }
+        if (item.viber) {
+            html += `<a href="${item.viber}/"><img class="link-icon" src="static/images/viber.png"></a>`;
+        }
+        if (item.vk) {
+            html += `<a href="${item.vk}/"><img class="link-icon" src="static/images/vk.png"></a>`;
+        }
+        if (item.site) {
+            html += `<a href="${item.site}/"><img class="link-icon" src="static/images/web.png"></a>`;
+        }
+        html += `</div>`;
+        listItem.innerHTML = html;
         listContainer.appendChild(listItem);
     });
 }
+
 
 document.getElementById('close').onclick = closeMyModalInfo;
 // Функция для закрытия окна инфо

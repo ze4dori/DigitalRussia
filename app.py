@@ -137,12 +137,34 @@ def about_company(): #информация по выбранной компан�
 
         with sql.connect("company.db") as conn:
             cursor = conn.cursor()
-            cursor.execute(f"""SELECT id, name, position, product, service, SUBSTR(address, INSTR(address, ',') + 1) as address, description, contact, site, images FROM company
+            cursor.execute(f"""SELECT id, name, position, product, service, SUBSTR(address, INSTR(address, ',') + 1) as address, description, contact, images FROM company
                 WHERE id = {id}""")
             company = cursor.fetchall()
 
-        info = [{'id': id, 'company_name': name, 'position_company': position, 'product': product, 'service': service, 'address': address, 'description': description,  'contact': contact, 'site': site, 'image': image} for id, name, position, product, service, address, description, contact, site, image in company]
+        info = [{'id': id, 'company_name': name, 'position_company': position, 'product': product, 'service': service, 'address': address, 'description': description,  'contact': contact, 'image': image} for id, name, position, product, service, address, description, contact, image in company]
     return info
+
+@app.route("/icon", methods=['POST', 'GET']) #ИКОНКИ
+def icon_contact(): #информация по выбранной компании
+    if request.method == "POST":
+        data = request.get_json()
+        id = data.get('idCompany')
+
+        with sql.connect("company.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT whatsapp, telegram, viber, vk, site FROM company
+                WHERE id = {id}""")
+            company = cursor.fetchall()
+
+        icon = []
+        for whatsapp, telegram, viber, vk, site in company:
+            icon.append({'whatsapp': whatsapp})
+            icon.append({'telegram': telegram})
+            icon.append({'viber': viber})
+            icon.append({'vk': vk})
+            icon.append({'site': site})
+            
+    return icon
 
 if __name__ == '__main__':
     app.run(debug=True)
