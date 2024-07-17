@@ -1,4 +1,3 @@
-
 //Тумблер Российский /евразийский
 function toggleState() {
     const toggleButton = document.querySelector('.toggle-button');
@@ -84,19 +83,19 @@ function myFunctionClick(id) {
 function sendActiveButtonId(active_button) {
     var request = new XMLHttpRequest();
     var params = 'active_button=' + active_button;
-    
+
     request.open('POST', '/', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    
-    request.onreadystatechange = function() {
+
+    request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             console.log(request.responseText);
         }
     };
-    
+
     request.send(params);
 
-    request.onload = function() {
+    request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
             var response = JSON.parse(request.response);
             console.log(response);
@@ -127,7 +126,7 @@ var activeButtonId = 'ButtonPAK'; //Не видит начальное знач�
 document.getElementById('myButton').onclick = myFunction;
 
 function myFunction() {
-    //alert(activeButtonId); Для проверки значения
+    //alert(activeButtonId); //Для проверки значения
 
     // Если на экране отображается модальные окна, функция не выполняется
     var myITinfo = document.getElementById('myITinfo');
@@ -139,13 +138,13 @@ function myFunction() {
 
     var myModalPAK = document.getElementById('myModalPAK');
     var myModal = document.getElementById('myModal');
-    
+
 
     if (myModal.style.display === 'none' || myModalPAK.style.display === 'none') {
         if (activeButtonId === 'ButtonPAK') {
-            myModalPAK.style.display = 'block';  
+            myModalPAK.style.display = 'block';
         } else {
-        myModal.style.display = 'block';
+            myModal.style.display = 'block';
         }
     } else {
         myModal.style.display = 'none';
@@ -177,6 +176,14 @@ function closeMyModal() {
     // Сбросить состояние чекбоксов
     document.getElementById('gosreg').checked = true;
     document.getElementById('AI').checked = false;
+
+    // Скрыть блок с классом "searchContainer"
+    const container1 = document.getElementById('searchContainerRegion');
+    container1.style.display = container1.style.display = 'none';
+    const container2 = document.getElementById('searchContainerClassPO');
+    container2.style.display = container2.style.display = 'none';
+    const container3 = document.getElementById('searchContainerExperience');
+    container3.style.display = container3.style.display = 'none'; 
 }
 
 // Обработчик кнопки Сбросить фильтр
@@ -192,6 +199,13 @@ function myFunctionB() {
     document.getElementById('gosreg').checked = true;
     document.getElementById('AI').checked = false;
 
+    // Скрыть блок с классом "searchContainer"
+    const container1 = document.getElementById('searchContainerRegion');
+    container1.style.display = container1.style.display = 'none';
+    const container2 = document.getElementById('searchContainerClassPO');
+    container2.style.display = container2.style.display = 'none';
+    const container3 = document.getElementById('searchContainerExperience');
+    container3.style.display = container3.style.display = 'none';
 }
 
 // Обработчик кнопки Применить (недописан)
@@ -254,7 +268,7 @@ function myFunctionS() {
     var field = document.getElementById('selectButtonExperience').innerText;
     const gosreg = document.getElementById('gosreg');
     const ai = document.getElementById('AI');
-    
+
     let errp;
     let software_ai
 
@@ -273,7 +287,7 @@ function myFunctionS() {
     const request = new XMLHttpRequest();
     request.open('POST', '/filterPO');
     request.setRequestHeader('Content-Type', 'application/json');
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             console.log(request.responseText);
         }
@@ -281,7 +295,7 @@ function myFunctionS() {
 
     request.send(JSON.stringify({ region, softwareclass, field, errp, software_ai }));
 
-    request.onload = function() {
+    request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
             var response = JSON.parse(request.response);
             console.log(response);
@@ -292,6 +306,11 @@ function myFunctionS() {
     };
 }
 
+// Привязываем обработчик события к списку
+const listItems = document.querySelectorAll('.list-item');
+listItems.forEach(item => {
+    item.addEventListener('click', myFunctionInfo);
+});
 
 //ДЛЯ ОКНА ФИЛЬТРА ПАК
 
@@ -314,6 +333,14 @@ function closeMyModalPAK() {
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
+
+    //Закрытие контейнеров
+    const container1 = document.getElementById('searchContainerRegionPAK');
+    container1.style.display = container1.style.display = 'none';
+    const container2 = document.getElementById('searchContainerClassPAK');
+    container2.style.display = container2.style.display = 'none';
+    const container3 = document.getElementById('searchContainerExperiencePAK');
+    container3.style.display = container3.style.display = 'none';
 }
 
 // Обработчик кнопки Сбросить фильтр
@@ -329,6 +356,14 @@ function myFunctionBPAK() {
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
+    
+    //Закрытие контейнеров
+    const container1 = document.getElementById('searchContainerRegionPAK');
+    container1.style.display = container1.style.display = 'none';
+    const container2 = document.getElementById('searchContainerClassPAK');
+    container2.style.display = container2.style.display = 'none';
+    const container3 = document.getElementById('searchContainerExperiencePAK');
+    container3.style.display = container3.style.display = 'none';
 
 }
 
@@ -392,7 +427,7 @@ function myFunctionSPAK() {
     var hardwareclass = document.getElementById('selectButtonClassPAK').innerText;
     var field = document.getElementById('selectButtonExperiencePAK').innerText;
     const gosreg = document.getElementById('gosregPAK');
-    
+
     let errp;
 
     if (gosreg.checked) {
@@ -404,7 +439,7 @@ function myFunctionSPAK() {
     const request = new XMLHttpRequest();
     request.open('POST', '/filterPAK');
     request.setRequestHeader('Content-Type', 'application/json');
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             console.log(request.responseText);
         }
@@ -412,7 +447,7 @@ function myFunctionSPAK() {
 
     request.send(JSON.stringify({ region, hardwareclass, field, errp }));
 
-    request.onload = function() {
+    request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
             var response = JSON.parse(request.response);
             console.log(response);
@@ -430,11 +465,12 @@ function updateHTML(response) {
     response.forEach(item => {
         const listItem = document.createElement('div');
         listItem.classList.add('list-item');
-    
+
         listItem.innerHTML = `
-            <div class="container">
+        <div class="list-item">
+            <div class="container" id="${item.id}" onclick="myFunctionInfo(${item.id})">
                 <div class="icon_container">
-                    <img src="static/images/icon_IT_novazy.png" alt="Иконка">
+                    <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
                 </div>
                 <div class="info_container">
                     <h2>${item.company_name}</h2>
@@ -442,7 +478,22 @@ function updateHTML(response) {
                     <p class="location">${item.address}</p>
                 </div>
             </div>
+        </div>
         `;
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET', 'https://getfile.dokpub.com/yandex/get/' + item.logo_company, true);
+        // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+        // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+        
+        // xhr.addEventListener('load', function() {
+        //     if (xhr.status === 200) {
+        //     // Вы можете выполнить дополнительные действия с изображением здесь
+        //     console.log('Изображение успешно загружено:', item.logo_company);
+        //     } else {
+        //     console.error('Произошла ошибка при загрузке изображения:', item.logo_company);
+        //     }
+        // });
         listContainer.appendChild(listItem);
     });
 
@@ -464,32 +515,192 @@ function myFunctionBack() {
     while (listItems.firstChild) {
         listItems.removeChild(listItems.firstChild)
     }
+
+    //Для обратной анимации временно!
+    var svgElement = document.getElementById("mySvg");
+    var partOfSvg = document.getElementById("Krsn");
+    var scale = 1; // возвращаем к исходному масштабу
+
+    setTimeout(() => {
+        // Возвращаем исходный цвет заливки
+        partOfSvg.style.fill = "rgba(255,255,255,1)";
+    }, 3000);
+
+    // Скрываем svgContainer
+    var svgContainer = document.getElementById('mySvgContainer');
+    svgContainer.style.display = 'none';
+
+    // Возвращаем исходные координаты блока (если они были изменены)
+    svgContainer.style.left = ""; // убираем стили
+    svgContainer.style.top = "";
+
+    // Возвращаем исходный масштаб элемента SVG
+    svgElement.style.transition = "transform 3s";
+    svgElement.style.transform = "scale(" + scale + ") translateX(0) translateY(0)";
 }
 
 
 //Появление блока инфо
-function myFunctionInfo() {
-    var myITinfo = document.getElementById('myITinfo');
-    var myBlock = document.getElementById('myBlock');
+function myFunctionInfo(id) {
+    const myITinfo = document.getElementById('myITinfo');
+    const myBlock = document.getElementById(id);
 
     if (myITinfo.style.display === 'none' || myITinfo.style.display === '') {
         myITinfo.style.display = 'block';
-        myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)'; // Изменяем цвет на голубой
+        myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
     } else {
         myITinfo.style.display = 'none';
         myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет
     }
+
+    const request = new XMLHttpRequest();
+    request.open('POST', '/info');
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            console.log(request.responseText);
+        }
+    };
+    let idCompany = id;
+
+    request.send(JSON.stringify({ idCompany }));
+
+    request.onload = function () {
+        if (request.status >= 200 && request.status < 300) {
+            var response = JSON.parse(request.response);
+            console.log(response);
+            infoHTML(response);
+        } else {
+            alert('Ошибка при отправке запроса!');
+        }
+    };
+}
+
+function infoHTML(response) {
+
+    const listContainer = document.querySelector('.info');
+
+    response.forEach(item => {
+        const listItem = document.createElement('div');
+        listItem.classList.add('myITinfo');
+
+        listItem.innerHTML = `
+        <div class="informations">
+        <svg class="close" id="close" width="18" height="18" viewBox="0 0 18 18" fill="none"
+            xmlns="http://www.w3.org/2000/svg" onclick="closeMyModalInfo()"
+            style="position: absolute; top: 0.52vw; right: 0.52vw; z-index: 9999;">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M17.7728 1.32372C18.0756 1.0209 18.0756 0.529933 17.7728 0.227114C17.47 -0.0757047 16.979 -0.0757047 16.6762 0.227114L8.99974 7.90357L1.32372 0.227552C1.0209 -0.0752664 0.529933 -0.0752668 0.227114 0.227552C-0.0757048 0.530371 -0.0757044 1.02134 0.227114 1.32416L7.90313 9.00017L0.22714 16.6762C-0.0756778 16.979 -0.0756782 17.47 0.227141 17.7728C0.529959 18.0756 1.02093 18.0756 1.32374 17.7728L8.99974 10.0968L16.6762 17.7732C16.979 18.076 17.47 18.076 17.7728 17.7732C18.0756 17.4704 18.0756 16.9794 17.7728 16.6766L10.0963 9.00017L17.7728 1.32372Z"
+                fill="#383874" fill-opacity="0.2" />
+        </svg>
+        <div class="slideshow-container">
+            <div class="mySlides fade" style="display: block;">
+                <video controls autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/lwBExgINCnQpzw"></video>
+            </div>
+            <div class="mySlides fade">
+                <img src="https://getfile.dokpub.com/yandex/get/${item.image}" width="100%">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/BRYoFHKTZFUGag" width="100%">
+            </div>
+            <div class="mySlides fade">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/irKoIshooua9yg" width="100%">
+            </div>
+            <div class="mySlides fade">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/VcPwjFZc9FFt8Q" width="100%">
+            </div>
+        </div>
+        <br>
+        <div class="dots" style="text-align:center">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+        </div>
+        <div class="textInfo">
+            <h1>${item.company_name}</h1>
+            <span>${item.position_company}</span>
+            <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
+                fill="none">
+                <line y1="0.5" x2="460" y2="0.5" stroke="#383874" stroke-opacity="0.5" />
+            </svg>
+            <h2>О компании</h2>
+            <p>${item.description}</p>
+            <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
+                fill="none">
+                <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
+            </svg>
+            <h2>Продукты компании</h2>
+            <ul>    
+                ${item.product}
+                
+            </ul>
+         
+            <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
+                fill="none">
+                <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
+            </svg>
+            <h2>Услуги компании</h2>
+            <ul>
+                ${item.service}
+            </ul>
+            <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
+                fill="none">
+                <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
+            </svg>
+            <h2>Адрес</h2>
+            <div class="location_info">
+                <img src="static/images/location-icon.svg" alt="Иконка местоположения">
+                <p>${item.address}</p>
+            </div>
+            <h2>Контакты</h2>
+            <div class="number_info">
+                <img src="static/images/phone-icon.png" alt="Иконка телефона">
+                <p>${item.contact}</p>
+            </div>
+            <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
+                fill="none">
+                <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
+            </svg>
+        </div>
+        <div class="links">
+            <img class="link-icon" src="static/images/whatsapp.png" alt="WA">
+            <img class="link-icon" src="static/images/telegram.png" alt="T">
+            <img class="link-icon" src="static/images/viber.png" alt="V">
+            <img class="link-icon" src="static/images/vk.png" alt="vk">
+            <a href="${item.site}/">
+                <img class="link-icon" src="static/images/web.png" alt="web">
+            </a>
+            <img class="link-icon" src="static/images/bookmark.png" alt="BM">
+            <img class="link-icon" src="static/images/link.png" alt="link">
+
+        </div>
+        </div>
+        `;
+        listContainer.appendChild(listItem);
+    });
 }
 
 document.getElementById('close').onclick = closeMyModalInfo;
 // Функция для закрытия окна инфо
 function closeMyModalInfo() {
     // Закрываем окно
+    const listItems = document.querySelectorAll('.container');
+    listItems.forEach((element) => {
+    element.style.backgroundColor = ''; // Возвращаем начальный цвет  
+    console.log(element.textContent);
+    });
 
     var myModal = document.getElementById('myITinfo');
     myModal.style.display = 'none';
     myITinfo.style.display = 'none';
-    myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет  
+
+    var info = document.getElementById("myITinfo")
+    while (info.firstChild) {
+        info.removeChild(info.firstChild)
+    }
 }
 
 //Для фото-видео карусели
@@ -589,10 +800,10 @@ document.getElementById('selectButtonClassPO').onclick = searchListClassPO;
 function searchListClassPO() {
     const listItemsNameClassPO = [
         "Выбрать",
-        "11.06 Инструменты обработки, анализа и распознавания изображений",
-        "01.04 Программное обеспечение интернета вещей, робототехники и сенсорики",
-        "01.03 Встроенные прикладные программы",
-        "12.10 Программное обеспечение для решения отраслевых задач в области информации и связи",
+        "Инструменты обработки, анализа и распознавания изображений",
+        "Программное обеспечение интернета вещей, робототехники и сенсорики",
+        "Встроенные прикладные программы",
+        "Программное обеспечение для решения отраслевых задач в области информации и связи",
     ];
 
     const input = document.getElementById('searchInputClassPO');
@@ -696,6 +907,63 @@ function toggleSearchContainerRegionPAK() {
     container.style.display = container.style.display === 'none' ? 'block' : 'none';
 }
 
+//Работа поиска Отрасль
+function searchListExperience() {
+
+    const listItemsTypeExperience = [
+        "Приборостроение",
+        "Медицина",
+        "Наука",
+        "Геофизическое моделирование и обработка исследований",
+        "Образование",
+        "Умный дом",
+        "Банки и финансы",
+        "Универсальное решение",
+        "Колл-центры",
+        "Телекоммуникации"
+    ];
+
+
+    const input = document.getElementById('searchInputExperience');
+    const filter = input.value.toUpperCase();
+    const ul = document.getElementById('listContainerExperience');
+    ul.innerHTML = '';
+
+    const sortedItems = listItemsTypeExperience
+        .map(item => {
+            const matchIndex = item.toUpperCase().indexOf(filter);
+            if (matchIndex !== -1) {
+                const beforeMatch = item.substring(0, matchIndex);
+                const matchText = item.substring(matchIndex, matchIndex + filter.length);
+                const afterMatch = item.substring(matchIndex + filter.length);
+                return {
+                    item,
+                    itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                    matchIndex
+                };
+            }
+            return { item, matchIndex: -1 };
+        })
+        .filter(item => item.matchIndex !== -1)
+        .sort((a, b) => a.matchIndex - b.matchIndex);
+
+    sortedItems.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = item.itemHtml;
+        li.addEventListener('click', () => {
+            document.getElementById('selectButtonExperience').innerText = item.item;
+            toggleSearchContainerExperience();
+        });
+        ul.appendChild(li);
+    });
+}
+
+function toggleSearchContainerExperience() {
+    const container = document.getElementById('searchContainerExperience');
+    container.style.display = container.style.display === 'none' ? 'block' : 'none';
+}
+
+
 
 // Обработчик кнопки Выбрать
 document.getElementById('selectButtonClassPAK').onclick = searchListClassPAK;
@@ -704,11 +972,11 @@ document.getElementById('selectButtonClassPAK').onclick = searchListClassPAK;
 function searchListClassPAK() {
     const listItemsNameClassPAK = [
         "Выбрать",
-        "03.14 Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
-        "17.01 Программно-аппаратные комплексы организации обучения и контроля навыков",
-        "02.01 Программно-аппаратные комплексы системы хранения данных",
-        "11.05 Программно-аппаратные комплексы автоматизированного управления технологическим процессом",
-        "03.02 Программно-аппаратные комплексы мониторинга и управления",
+        "Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
+        "Программно-аппаратные комплексы организации обучения и контроля навыков",
+        "Программно-аппаратные комплексы системы хранения данных",
+        "Программно-аппаратные комплексы автоматизированного управления технологическим процессом",
+        "Программно-аппаратные комплексы мониторинга и управления",
     ];
 
     const input = document.getElementById('searchInputClassPAK');
@@ -733,7 +1001,7 @@ function searchListClassPAK() {
         })
         .filter(item => item.matchIndex !== -1)
         .sort((a, b) => a.matchIndex - b.matchIndex);
-        
+
 
     sortedItems.forEach(item => {
         const li = document.createElement('li');

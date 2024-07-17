@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer" />
     <!--Этот элемент определяет параметры отображения на мобильных устройствах width=device-width указывает, что ширина страницы должна соответствовать ширине устройства, а initial-scale=1.0 задает начальный масштаб отображения-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +20,9 @@
 
         <div class="header-line"> <!--Шапка с менюшкой -->
 
-            <div class="container-3">
-                <div class="label label-left" style="color: rgb(31, 43, 106);">Российский</div>
-                <div class="toggle-container" onclick="toggleState()">
+            <div class="container-3" onclick="toggleState()">
+                <div class="label label-left" style="color: rgb(31, 43, 106);" >Российский</div>
+                <div class="toggle-container">
                     <div class="toggle-button"></div>
                 </div>
                 <div class="label label-right" style="color: rgb(31, 43, 106, 0.5);">Евразийский</div>
@@ -1183,38 +1184,35 @@
 
     <!--Окно информации о компании-->
     <div class="info" id="myITinfo">
-        <svg class="close" id="close" width="18" height="18" viewBox="0 0 18 18" fill="none"
+        <!-- <svg class="close" id="close" width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg" onclick="closeMyModalInfo()"
             style="position: absolute; top: 0.52vw; right: 0.52vw; z-index: 9999;">
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M17.7728 1.32372C18.0756 1.0209 18.0756 0.529933 17.7728 0.227114C17.47 -0.0757047 16.979 -0.0757047 16.6762 0.227114L8.99974 7.90357L1.32372 0.227552C1.0209 -0.0752664 0.529933 -0.0752668 0.227114 0.227552C-0.0757048 0.530371 -0.0757044 1.02134 0.227114 1.32416L7.90313 9.00017L0.22714 16.6762C-0.0756778 16.979 -0.0756782 17.47 0.227141 17.7728C0.529959 18.0756 1.02093 18.0756 1.32374 17.7728L8.99974 10.0968L16.6762 17.7732C16.979 18.076 17.47 18.076 17.7728 17.7732C18.0756 17.4704 18.0756 16.9794 17.7728 16.6766L10.0963 9.00017L17.7728 1.32372Z"
                 fill="#383874" fill-opacity="0.2" />
-        </svg>
-        <div class="slideshow-container">
+        </svg> -->
+        <!-- <div class="slideshow-container">
             <div class="mySlides fade" style="display: block;">
-                <video controls autoplay muted loop id="myVideo" src="static/images/video_primer.mp4"></video>
+                <video controls autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/lwBExgINCnQpzw"></video>
             </div>
             <div class="mySlides fade">
-                <img src="static/images/1.png" width="100%">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/9oqlQK7S43h9Nw" width="100%">
             </div>
 
             <div class="mySlides fade">
-                <img src="static/images/2.jpg" width="100%">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/BRYoFHKTZFUGag" width="100%">
             </div>
             <div class="mySlides fade">
-                <img src="static/images/3.jpg" width="100%">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/irKoIshooua9yg" width="100%">
             </div>
             <div class="mySlides fade">
-                <img src="static/images/4.jpg" width="100%">
+                <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/VcPwjFZc9FFt8Q" width="100%">
             </div>
-            <!-- Вперед назад кнопки 
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>-->
         </div>
-        <br>
+        <br> -->
 
         <!-- Точки переключалки -->
-        <div class="dots" style="text-align:center">
+        <!-- <div class="dots" style="text-align:center">
             <span class="dot active" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(3)"></span>
@@ -1292,7 +1290,7 @@
             <img class="link-icon" src="static/images/bookmark.png" alt="BM">
             <img class="link-icon" src="static/images/link.png" alt="link">
 
-        </div>
+        </div> -->
     </div>
     <!-- Конец Окно информации о компании-->
 

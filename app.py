@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3 as sql
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # @app.route("/", methods=['POST', 'GET'])
 # def first_filter(): #число компаний по первому фильтру (Российский/Евразийский)
@@ -60,7 +62,7 @@ def third_filter(): #компании по фильтру ПАК
 
         with sql.connect("company.db") as conn:
                 cursor = conn.cursor()
-                query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region FROM company"
+                query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images FROM company"
 
                 conditions = []
                 if ecosystem is not None:
@@ -81,7 +83,7 @@ def third_filter(): #компании по фильтру ПАК
                 companies = cursor.fetchall()
 
                 # Преобразуем результаты в список словарей
-                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region} for id, name, position, address, region in companies]
+                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
 
         return companies_list
 
@@ -101,7 +103,7 @@ def fourth_filter(): #компании по фильтру ПО
 
         with sql.connect("company.db") as conn:
                 cursor = conn.cursor()
-                query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region FROM company"
+                query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images FROM company"
 
                 conditions = []
                 if ecosystem is not None:
@@ -124,25 +126,23 @@ def fourth_filter(): #компании по фильтру ПО
                 companies = cursor.fetchall()
 
                 # Преобразуем результаты в список словарей
-                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region} for id, name, position, address, region in companies]
-
+                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
         return companies_list   
 
-# @app.route("/info", methods=['POST', 'GET']) #ИНФОРМАЦИЯ
-# def about_company(): #информация по выбранной компании
-#     name = 'Компания 1'
+@app.route("/info", methods=['POST', 'GET']) #ИНФОРМАЦИЯ
+def about_company(): #информация по выбранной компании
+    if request.method == "POST":
+        data = request.get_json()
+        id = data.get('idCompany')
 
-#     if request.method == "POST":
-#         id = request.form["idCompany"]
+        with sql.connect("company.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT id, name, position, product, service, SUBSTR(address, INSTR(address, ',') + 1) as address, description, contact, site, images FROM company
+                WHERE id = {id}""")
+            company = cursor.fetchall()
 
-#         with sql.connect("company.db") as conn:
-#             cursor = conn.cursor()
-#             cursor.execute(f"""SELECT name, position, product, service, address, description, contact, site, whatsapp, telegram, viber, vk FROM company
-#                 WHERE name = '{name}'""")
-#             company = cursor.fetchone()
-
-#     conn.close()
-#     return jsonify(company)
+        info = [{'id': id, 'company_name': name, 'position_company': position, 'product': product, 'service': service, 'address': address, 'description': description,  'contact': contact, 'site': site, 'image': image} for id, name, position, product, service, address, description, contact, site, image in company]
+    return info
 
 if __name__ == '__main__':
     app.run(debug=True)
