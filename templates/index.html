@@ -1030,7 +1030,7 @@
         <!--Конец блока pop-up-->
 
         <!--Окно фильтры для ПО-->
-        <div class="winfilter" id="myModal"> 
+        <div class="winfilter" id="myModal" style="display: none; right: 1.04vw"> 
             <span class = "hide-button" id ="hide" onclick="hideFilterFunction();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="50" viewBox="0 0 18 50" fill="none">
                     <path d="M0 5C0 2.23858 2.23858 0 5 0H18V50H5C2.23858 50 0 47.7614 0 45V5Z" fill="white"/>
@@ -1055,22 +1055,34 @@
             <h2>Программное обеспечение</h2>
             <div class="wfilter">
                 <div class = "filter-item">Регион
-                    <div class ="selectButton" id="selectButtonRegion" onclick="toggleSearchContainerRegion()">Вся Россия</div>
-                    <div class ="searchContainer" id="searchContainerRegion">
+                    <div class ="selectButton" id="selectButtonRegion" onclick="toggleSearchContainerRegion()">Вся Россия
+                        <svg class ="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class ="searchContainer" id="searchContainerRegion" style ="display: none">
                         <input type="text" id="searchInputRegion" oninput="searchListRegion()" placeholder="Поиск">
                         <ul class ="listContainer" id="listContainerRegion"></ul>
                     </div>
                 </div> 
                 <div class = "filter-item">Наименование класса ПО
-                    <div class ="selectButton" id="selectButtonClassPO" onclick="toggleSearchContainerClassPO()">Выбрать</div>
-                    <div class ="searchContainer" id="searchContainerClassPO">
+                    <div class ="selectButton" id="selectButtonClassPO" onclick="toggleSearchContainerClassPO()">Выбрать
+                        <svg class ="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class ="searchContainer" id="searchContainerClassPO" style ="display: none">
                         <input type="text" id="searchInputClassPO" oninput="searchListClassPO()" placeholder="Поиск">
                         <ul class ="listContainer" id="listContainerClassPO"></ul>
                     </div>
                 </div>  
                 <div class = "filter-item">Отрасли применения 
-                    <div class ="selectButton" id="selectButtonExperience" onclick="toggleSearchContainerExperience()">Выбрать</div>
-                    <div class ="searchContainer" id="searchContainerExperience">
+                    <div class ="selectButton" id="selectButtonExperience" onclick="toggleSearchContainerExperience()">Выбрать
+                        <svg class ="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class ="searchContainer" id="searchContainerExperience" style ="display: none">
                         <input type="text" id="searchInputExperience" oninput="searchListExperience()" placeholder="Поиск">
                         <ul class ="listContainer" id="listContainerExperience"></ul>
                     </div>
@@ -1095,7 +1107,7 @@
         <!--Конец Окно фильтры-->
 
         <!--Окно фильтры для ПАК-->
-        <div class="winfilter" id="myModalPAK">
+        <div class="winfilter" id="myModalPAK" style="display: none; right: 1.04vw">
             <span class = "hide-button" id ="hidePAK" onclick="hideFilterFunctionPAK();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="50" viewBox="0 0 18 50" fill="none">
                     <path d="M0 5C0 2.23858 2.23858 0 5 0H18V50H5C2.23858 50 0 47.7614 0 45V5Z" fill="white"/>
@@ -1120,22 +1132,34 @@
             <h2>Программно-аппаратные комплексы</h2>
             <div class="wfilter">
                 <div class = "filter-item">Регион
-                    <div class ="selectButton" id="selectButtonRegionPAK" onclick="toggleSearchContainerRegionPAK()">Вся Россия</div>
-                    <div class ="searchContainer" id="searchContainerRegionPAK">
+                    <div class ="selectButton" id="selectButtonRegionPAK" onclick="toggleSearchContainerRegionPAK()">Вся Россия
+                        <svg class ="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class ="searchContainer" id="searchContainerRegionPAK" style ="display: none">
                         <input type="text" id="searchInputRegionPAK" oninput="searchListRegionPAK()" placeholder="Поиск">
                         <ul class ="listContainer" id="listContainerRegionPAK"></ul>
                     </div>
                 </div> 
                 <div class = "filter-item">Наименование класса ПАК
-                    <div class ="selectButton" id="selectButtonClassPAK" onclick="toggleSearchContainerClassPAK()">Выбрать</div>
-                    <div class ="searchContainer" id="searchContainerClassPAK">
+                    <div class ="selectButton" id="selectButtonClassPAK" onclick="toggleSearchContainerClassPAK()">Выбрать
+                        <svg class ="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class ="searchContainer" id="searchContainerClassPAK" style ="display: none">
                         <input type="text" id="searchInputClassPAK" oninput="searchListClassPAK()" placeholder="Поиск">
                         <ul class ="listContainer" id="listContainerClassPAK"></ul>
                     </div>
                 </div>  
                 <div class = "filter-item">Отрасли применения 
-                    <div class ="selectButton" id="selectButtonExperiencePAK" onclick="toggleSearchContainerExperiencePAK()">Выбрать</div>
-                    <div class ="searchContainer" id="searchContainerExperiencePAK">
+                    <div class ="selectButton" id="selectButtonExperiencePAK" onclick="toggleSearchContainerExperiencePAK()">Выбрать
+                        <svg class ="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none">
+                            <path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class ="searchContainer" id="searchContainerExperiencePAK" style ="display: none">
                         <input type="text" id="searchInputExperiencePAK" oninput="searchListExperiencePAK()" placeholder="Поиск">
                         <ul class ="listContainer" id="listContainerExperiencePAK"></ul>
                     </div>

@@ -268,13 +268,13 @@ body {
 
 /*Окно фильтры*/
 .winfilter {
-    display: none;
+    /* display: none; */
     width: 26.04vw;
     height: 90vh;
 
     background-color: #FFFF;
     position: fixed;
-    right: 1.04vw; 
+    /* right: 1.04vw;  */
     top: 7.4vh;
     box-shadow: 0 0 0.46vh rgb(143 143 143 /25%);
     font-weight: 400;
@@ -293,6 +293,12 @@ body {
     top: 4.95vw;
     right: 27vw;
     /*transition: right 1s;*/
+}
+
+.strelka{
+    position: absolute;
+    right: 3.125vw;
+    rotate: 180deg;
 }
 
 .winfilter.show {
@@ -323,7 +329,7 @@ body {
     width: 23.4vw;
     height: 9.9vw;
     /* Установите фиксированную высоту */
-    display: none;
+    /* display: none; */
     /* Скрываем контейнер по умолчанию */
 }
 

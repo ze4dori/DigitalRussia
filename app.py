@@ -145,7 +145,7 @@ def about_company(): #информация по выбранной компан�
     return info
 
 @app.route("/icon", methods=['POST', 'GET']) #ИКОНКИ
-def icon_contact(): #информация по выбранной компании
+def icon_contact():
     if request.method == "POST":
         data = request.get_json()
         id = data.get('idCompany')

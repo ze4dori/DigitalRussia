@@ -136,16 +136,19 @@ function myFunction() {
     var myModal = document.getElementById('myModal');
 
 
-    if (myModal.style.display === 'none' || myModalPAK.style.display === 'none') {
-        if (activeButtonId === 'ButtonPAK') {
-            myModalPAK.style.display = 'block';
-        } else {
-            myModal.style.display = 'block';
-        }
-    } else {
-        myModal.style.display = 'none';
-        myModalPAK.style.display = 'none';
-
+    switch (activeButtonId) {
+        case 'ButtonPO':
+            myModal.style.display = (myModal.style.display === 'none') ? 'block' : 'none';
+            myModalPAK.style.display = 'none';
+            break;
+        case 'ButtonPAK':
+            myModalPAK.style.display = (myModalPAK.style.display === 'none') ? 'block' : 'none';
+            myModal.style.display = 'none';
+            break;
+        default:
+            myModal.style.display = 'none';
+            myModalPAK.style.display = 'none';
+            break;
     }
 
 }
@@ -180,9 +183,17 @@ function closeMyModal() {
     button.classList.remove('active');
 
     // Вернуть selectButton к начальным значениям
-    document.getElementById('selectButtonRegion').textContent = 'Вся Россия';
-    document.getElementById('selectButtonClassPO').textContent = 'Выбрать';
-    document.getElementById('selectButtonExperience').textContent = 'Выбрать';
+    var selectButton = document.getElementById('selectButtonRegion');
+    // selectButton.textContent = 'Вся Россия';
+
+    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    selectButton.innerHTML = 'Вся Россия' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonClassPO');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonExperience');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosreg').checked = true;
@@ -202,9 +213,17 @@ document.getElementById('myButtonB').onclick = myFunctionB;
 
 function myFunctionB() {
 
-    document.getElementById('selectButtonRegion').textContent = 'Вся Россия';
-    document.getElementById('selectButtonClassPO').textContent = 'Выбрать';
-    document.getElementById('selectButtonExperience').textContent = 'Выбрать';
+    var selectButton = document.getElementById('selectButtonRegion');
+    // selectButton.textContent = 'Вся Россия';
+
+    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    selectButton.innerHTML = 'Вся Россия' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonClassPO');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonExperience');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosreg').checked = true;
@@ -274,9 +293,9 @@ function myFunctionS() {
 
     }, 3000);
 
-    var region = document.getElementById('selectButtonRegion').innerText;
-    var softwareclass = document.getElementById('selectButtonClassPO').innerText;
-    var field = document.getElementById('selectButtonExperience').innerText;
+    var region = document.getElementById('selectButtonRegion').innerText.trim();
+    var softwareclass = document.getElementById('selectButtonClassPO').innerText.trim();
+    var field = document.getElementById('selectButtonExperience').innerText.trim();
     const gosreg = document.getElementById('gosreg');
     const ai = document.getElementById('AI');
 
@@ -353,9 +372,17 @@ function closeMyModalPAK() {
     button.classList.remove('active');
 
     // Вернуть selectButton к начальным значениям
-    document.getElementById('selectButtonRegionPAK').textContent = 'Вся Россия';
-    document.getElementById('selectButtonClassPAK').textContent = 'Выбрать';
-    document.getElementById('selectButtonExperiencePAK').textContent = 'Выбрать';
+    var selectButton = document.getElementById('selectButtonRegionPAK');
+    // selectButton.textContent = 'Вся Россия';
+
+    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    selectButton.innerHTML = 'Вся Россия' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonClassPAK');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonExperiencePAK');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
@@ -376,9 +403,17 @@ function myFunctionBPAK() {
     //var vhInPx = window.innerHeight / 100;
 
     // Вернуть selectButton к начальным значениям
-    document.getElementById('selectButtonRegionPAK').textContent = 'Вся Россия';
-    document.getElementById('selectButtonClassPAK').textContent = 'Выбрать';
-    document.getElementById('selectButtonExperiencePAK').textContent = 'Выбрать';
+    var selectButton = document.getElementById('selectButtonRegionPAK');
+    // selectButton.textContent = 'Вся Россия';
+
+    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    selectButton.innerHTML = 'Вся Россия' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonClassPAK');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
+
+    var selectButton = document.getElementById('selectButtonExperiencePAK');
+    selectButton.innerHTML = 'Выбрать' + svgCode;
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
@@ -449,9 +484,9 @@ function myFunctionSPAK() {
 
     }, 3000);
 
-    var region = document.getElementById('selectButtonRegionPAK').innerText;
-    var hardwareclass = document.getElementById('selectButtonClassPAK').innerText;
-    var field = document.getElementById('selectButtonExperiencePAK').innerText;
+    var region = document.getElementById('selectButtonRegionPAK').innerText.trim();
+    var hardwareclass = document.getElementById('selectButtonClassPAK').innerText.trim();
+    var field = document.getElementById('selectButtonExperiencePAK').innerText.trim();
     const gosreg = document.getElementById('gosregPAK');
 
     let errp;
@@ -519,7 +554,14 @@ function myFunctionBack() {
     list.style.display = "none";
 
     var myModal = document.getElementById('myModal');
-    myModal.style.display = 'block';
+    var myModalPAK = document.getElementById('myModalPAK');
+
+    if (activeButtonId === "ButtonPAK"){
+        myModalPAK.style.display = 'block';
+    }
+    else {
+        myModal.style.display = 'block';
+    }
 
     var button = document.getElementById('myButton');
     button.classList.toggle('active');
@@ -550,6 +592,8 @@ function myFunctionBack() {
     // Возвращаем исходный масштаб элемента SVG
     svgElement.style.transition = "transform 3s";
     svgElement.style.transform = "scale(" + scale + ") translateX(0) translateY(0)";
+
+    window.idBlock = undefined;
 }
 
 window.idBlock;
@@ -558,7 +602,7 @@ function myFunctionInfo(id) {
     const myITinfo = document.getElementById('myITinfo');
     const myBlock = document.getElementById(id);
     let prevBlock;
-
+    
     if (window.idBlock !== undefined) {
         prevBlock = document.getElementById(window.idBlock);
         prevBlock.style.backgroundColor = '';
@@ -569,7 +613,8 @@ function myFunctionInfo(id) {
         info.removeChild(info.firstChild)
     }
 
-    if ((myITinfo.style.display === 'none' || myBlock.style.backgroundColor === '') && id !== window.idBlock) {
+
+    if ((myITinfo.style.display === 'none' && myBlock.style.backgroundColor === '') || id !== window.idBlock) {
         myITinfo.style.display = 'block';
         myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
 
@@ -661,7 +706,7 @@ function infoHTML(response) {
             </svg>
             <h2>Продукты компании</h2>
             <ul>    
-                ${product(item.product)}
+                ${listResult(item.product)}
             </ul>
          
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
@@ -670,7 +715,7 @@ function infoHTML(response) {
             </svg>
             <h2>Услуги компании</h2>
             <ul>
-                ${product(item.service)}
+                ${listResult(item.service)}
             </ul>
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
                 fill="none">
@@ -705,13 +750,8 @@ function infoHTML(response) {
     });
 }
 
-function product(product) {
-    var result = product.split(",");
-    return result.map(item => `<li>${item}</li>`).join('');
-}
-
-function service(service) {
-    var result = service.split(",");
+function listResult(items) {
+    var result = items.split(",");
     return result.map(item => `<li>${item}</li>`).join('');
 }
 
@@ -763,6 +803,10 @@ function updateICON(response) {
         html += `</div>`;
         listItem.innerHTML = html;
         listContainer.appendChild(listItem);
+        // listItem.insertAdjacentHTML('beforeend', `<div class="links">
+        //     <div class="link"><img class="link-icon" src="static/images/bookmark.png"></div>
+        //     <div class="link"><img class="link-icon" src="static/images/link.png"></div>
+        //     </div>`);
     });
 }
 
