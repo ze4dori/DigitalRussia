@@ -84,8 +84,11 @@ def third_filter(): #компании по фильтру ПАК
 
                 # Преобразуем результаты в список словарей
                 companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
+                # Второй запрос
+                cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
+                region_abb = cursor.fetchone()
 
-        return companies_list
+        return {'companies': companies_list, 'region_abb': region_abb}
 
 @app.route("/filterPO", methods=['POST', 'GET']) #СПИСОК КОМПАНИЙ ПО
 def fourth_filter(): #компании по фильтру ПО 
@@ -100,34 +103,42 @@ def fourth_filter(): #компании по фильтру ПО
         errp = data.get('errp')
         software_ai = data.get('software_ai')
 
-
         with sql.connect("company.db") as conn:
-                cursor = conn.cursor()
-                query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images FROM company"
+            cursor = conn.cursor()
+            
+            # Первый запрос
+            query1 = """
+            SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, 
+                SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images 
+            FROM company
+            """
+            
+            conditions = []
+            if region != 'Вся Россия':
+                conditions.append(f"region = '{region}'")
+            if softwareclass != 'Выбрать':
+                conditions.append(f"software_classname LIKE '%' || '{softwareclass}' || '%'")
+            if field != 'Выбрать':
+                conditions.append(f"field LIKE '%' || '{field}' || '%'")
+            if errp != '':
+                conditions.append(f"errp = {errp}")
+            if software_ai != '':
+                conditions.append(f"software_ai = {software_ai}")
 
-                conditions = []
-                if ecosystem is not None:
-                    conditions.append(f"ecosystem = '{ecosystem}'")
-                if region != 'Вся Россия':
-                    conditions.append(f"region = '{region}'")
-                if softwareclass != 'Выбрать':
-                    conditions.append(f"software_classname LIKE '%' || '{softwareclass}' || '%'")
-                if field != 'Выбрать':
-                    conditions.append(f"field LIKE '%' || '{field}' || '%'")
-                if errp != '':
-                    conditions.append(f"errp = {errp}")
-                if software_ai != '':
-                    conditions.append(f"software_ai = {software_ai}")
+            if conditions:
+                query1 += ' WHERE ' + ' AND '.join(conditions)
 
-                if conditions:
-                    query += ' WHERE ' + ' AND '.join(conditions)
+            cursor.execute(query1)
+            companies = cursor.fetchall()
 
-                cursor.execute(query)
-                companies = cursor.fetchall()
+            # Преобразуем результаты в список словарей
+            companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
 
-                # Преобразуем результаты в список словарей
-                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
-        return companies_list   
+            # Второй запрос
+            cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
+            region_abb = cursor.fetchone()
+
+        return {'companies': companies_list, 'region_abb': region_abb}   
 
 @app.route("/info", methods=['POST', 'GET']) #ИНФОРМАЦИЯ
 def about_company(): #информация по выбранной компании
@@ -166,5 +177,23 @@ def icon_contact():
             
     return icon
 
+@app.route("/map", methods=['POST', 'GET'])
+def region():
+    if request.method == "POST":
+        data = request.get_json()
+        name = data.get('region')
+
+        with sql.connect("company.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT abb FROM region
+                WHERE region = '{region}'""")
+            region = cursor.fetchone()
+
+        if region:
+            info = [{'id': region[0]}]
+        else:
+            info = [{'id': 'Не найдено'}]
+
+        return jsonify(info)
 if __name__ == '__main__':
     app.run(debug=True)

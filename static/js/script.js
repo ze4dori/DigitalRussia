@@ -13,40 +13,6 @@ function toggleState() {
     }
 }
 
-
-/*
-// Сохраняем id активной кнопки
-var activeButtonId = null;
-
-function myFunctionClick(id) {
-    var button = document.getElementById(id);
-
-    // Если эта кнопка уже активна, ничего не делаем
-    if (activeButtonId === id) {
-        return;
-    }
-
-    // Если есть другая активная кнопка, сбрасываем ее стили
-    if (activeButtonId) {
-        var activeButton = document.getElementById(activeButtonId);
-        activeButton.classList.remove('active');
-        /*activeButton.style.color = "rgb(31 43 106/ 50%)"; // Исходный цвет текста
-        activeButton.style.borderColor = "#F0F2FF"; // Исходный цвет обводки
-    }
-
-    // Делаем эту кнопку активной
-    button.classList.add('active');
-    /*button.style.color = "#1F2B6A";
-    button.style.borderColor = "rgb(31 43 106/ 50%)";
-    button.style.background = "#FFFFFF";
-
-    // Обновляем id активной кнопки
-    activeButtonId = id;
-}
-*/
-
-
-
 function myFunctionClick(id) {
 
     // Если на экране отображается модальные окна, функция не выполняется
@@ -77,6 +43,7 @@ function myFunctionClick(id) {
     myModalPAK.style.display = 'none';
 }
 
+// Число активных записей
 function sendActiveButtonId(active_button) {
     var request = new XMLHttpRequest();
     var params = 'active_button=' + active_button;
@@ -115,8 +82,25 @@ function myFunctionForMyButton() {
     var button = document.getElementById('myButton');
     button.classList.toggle('active');
 
+    var svgElement = document.getElementById("mySvg");
+
+   
+    if (document.getElementById('myButton').classList.contains("active")){
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+       
+
+    } else {
+        var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        
+    }
 }
-window.activeButtonId = 'ButtonPAK'; //Не видит начальное значение global переменной !!!
+window.activeButtonId = 'ButtonPAK';
 
 // Обработчик кнопки Фильтр
 document.getElementById('myButton').onclick = myFunction;
@@ -162,14 +146,27 @@ function hideFilterFunction(){
     var Filter = document.getElementById('myModal');
     var button = document.getElementById('hide');
 
-    if (myModal.style.right === '1.04vw'){
+    var svgElement = document.getElementById("mySvg");
+
+    if (myModal.style.right === '1.04vw') {
         Filter.style.right = "-30vw";
-        button.style.right = "0vw"; 
+        button.style.right = "0vw";
+
+        var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
     } else {
         Filter.style.right = "1.04vw";
-        button.style.right = "27vw"; 
+        button.style.right = "27vw";
+
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
     }
 }
+
 document.getElementById('close').onclick = closeMyModal;
 // Функция для закрытия окна и очистки полей ввода и чекбоксов
 function closeMyModal() {
@@ -181,6 +178,13 @@ function closeMyModal() {
     var button = document.getElementById('myButton');
     // кнопка уже активна, вернем исходные стили
     button.classList.remove('active');
+
+    //Карта на весь экран
+    var svgElement = document.getElementById("mySvg");
+    var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+    // Добавьте это, чтобы установить плавную анимацию
+    svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
 
     // Вернуть selectButton к начальным значениям
     var selectButton = document.getElementById('selectButtonRegion');
@@ -210,7 +214,6 @@ function closeMyModal() {
 
 // Обработчик кнопки Сбросить фильтр
 document.getElementById('myButtonB').onclick = myFunctionB;
-
 function myFunctionB() {
 
     var selectButton = document.getElementById('selectButtonRegion');
@@ -238,9 +241,8 @@ function myFunctionB() {
     container3.style.display = container3.style.display = 'none';
 }
 
-// Обработчик кнопки Применить (недописан)
+// Обработчик кнопки Применить
 document.getElementById('myButtonS').onclick = myFunctionS;
-
 function myFunctionS() {
     var myModal = document.getElementById('myModal');
     myModal.style.display = 'none';
@@ -257,41 +259,6 @@ function myFunctionS() {
         myList.style.display = 'none';
 
     }
-
-    var svgElement = document.getElementById("mySvg");
-    var partOfSvg = document.getElementById("Krsn");
-    var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
-
-    // Добавьте это, чтобы установить плавную анимацию
-    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-
-    svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
-    partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
-
-    //Для pop up
-    // Задержка в 3 секунды перед показом блока
-    setTimeout(function () {
-        var svgContainer = document.getElementById('mySvgContainer');
-        var krsnSvg = document.getElementById('Krsn');
-
-        // Получить координаты элемента SVG
-        //var svgRect = krsnSvg.getBoundingClientRect();
-
-        // Установить координаты блока равными координатам элемента SVG
-        //svgContainer.style.left = svgRect.left + 'px';
-        //svgContainer.style.top = (svgRect.top - 150) + 'px';
-
-        //В ручную для примера
-        svgContainer.style.left = "45vw";
-        svgContainer.style.top = "-45vh";
-        var InfoInPopUp = document.getElementById('InfoInPopUp');
-        //InfoInPopUp.style.left = "45vw";
-        //InfoInPopUp.style.top = "-80vh";
-
-        // Показать блок
-        svgContainer.style.display = 'block';
-
-    }, 3000);
 
     var region = document.getElementById('selectButtonRegion').innerText.trim();
     var softwareclass = document.getElementById('selectButtonClassPO').innerText.trim();
@@ -344,18 +311,31 @@ listItems.forEach(item => {
 
 //ДЛЯ ОКНА ФИЛЬТРА ПАК
 
+//Кнопка свернуть
 document.getElementById('hidePAK').onclick = hideFilterFunctionPAK();
-
 function hideFilterFunctionPAK(){
     var Filter = document.getElementById('myModalPAK');
     var button = document.getElementById('hidePAK');
+    var svgElement = document.getElementById("mySvg");
 
-    if (myModalPAK.style.right === '1.04vw'){
+
+    if (myModalPAK.style.right === '1.04vw') {
         Filter.style.right = "-30vw";
-        button.style.right = "0vw"; 
+        button.style.right = "0vw";
+
+        var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
     } else {
         Filter.style.right = "1.04vw";
-        button.style.right = "27vw"; 
+        button.style.right = "27vw";
+
+
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
     }
 }
 
@@ -370,6 +350,13 @@ function closeMyModalPAK() {
     var button = document.getElementById('myButton');
     // кнопка уже активна, вернем исходные стили
     button.classList.remove('active');
+
+    //Карта на весь экран
+    var svgElement = document.getElementById("mySvg");
+    var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+    // Добавьте это, чтобы установить плавную анимацию
+    svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
 
     // Вернуть selectButton к начальным значениям
     var selectButton = document.getElementById('selectButtonRegionPAK');
@@ -398,7 +385,6 @@ function closeMyModalPAK() {
 
 // Обработчик кнопки Сбросить фильтр
 document.getElementById('myButtonBPAK').onclick = myFunctionBPAK;
-
 function myFunctionBPAK() {
     //var vhInPx = window.innerHeight / 100;
 
@@ -429,7 +415,7 @@ function myFunctionBPAK() {
 }
 
 
-// Обработчик кнопки Применить (недописан)
+// Обработчик кнопки Применить
 document.getElementById('myButtonSPAK').onclick = myFunctionSPAK;
 
 function myFunctionSPAK() {
@@ -448,41 +434,6 @@ function myFunctionSPAK() {
         myList.style.display = 'none';
 
     }
-
-    var svgElement = document.getElementById("mySvg");
-    var partOfSvg = document.getElementById("Krsn");
-    var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
-
-    // Добавьте это, чтобы установить плавную анимацию
-    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-
-    svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
-    partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
-
-    //Для pop up
-    // Задержка в 3 секунды перед показом блока
-    setTimeout(function () {
-        var svgContainer = document.getElementById('mySvgContainer');
-        var krsnSvg = document.getElementById('Krsn');
-
-        // Получить координаты элемента SVG
-        //var svgRect = krsnSvg.getBoundingClientRect();
-
-        // Установить координаты блока равными координатам элемента SVG
-        //svgContainer.style.left = svgRect.left + 'px';
-        //svgContainer.style.top = (svgRect.top - 150) + 'px';
-
-        //В ручную для примера
-        svgContainer.style.left = "45vw";
-        svgContainer.style.top = "-45vh";
-        var InfoInPopUp = document.getElementById('InfoInPopUp');
-        //InfoInPopUp.style.left = "45vw";
-        //InfoInPopUp.style.top = "-80vh";
-
-        // Показать блок
-        svgContainer.style.display = 'block';
-
-    }, 3000);
 
     var region = document.getElementById('selectButtonRegionPAK').innerText.trim();
     var hardwareclass = document.getElementById('selectButtonClassPAK').innerText.trim();
@@ -519,11 +470,13 @@ function myFunctionSPAK() {
     };
 }
 
+window.id_region = null;
+// Получение списка компаний
 function updateHTML(response) {
     const listContainer = document.querySelector('.list-items');
-    let countCompany = response.length;
+    let countCompany = response.companies.length;
 
-    response.forEach(item => {
+    response.companies.forEach(item => {
         const listItem = document.createElement('div');
         listItem.classList.add('list-item');
 
@@ -546,10 +499,57 @@ function updateHTML(response) {
     });
 
     document.getElementById("countCompany").innerHTML = countCompany;
+    window.id_region = response.region_abb;
+
+    var svgElement = document.getElementById("mySvg");
+    var partOfSvg = document.getElementById(window.id_region);
+    // var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
+
+    // // Добавьте это, чтобы установить плавную анимацию
+    // svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+
+    // svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
+    partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
+
+    //Для pop up
+    // Задержка в 3 секунды перед показом блока
+    setTimeout(function () {
+        var svgContainer = document.getElementById('mySvgContainer');
+        var krsnSvg = document.getElementById('Krsn');
+
+        // Получить координаты элемента SVG
+        //var svgRect = krsnSvg.getBoundingClientRect();
+
+        // Установить координаты блока равными координатам элемента SVG
+        //svgContainer.style.left = svgRect.left + 'px';
+        //svgContainer.style.top = (svgRect.top - 150) + 'px';
+
+        //В ручную для примера
+        svgContainer.style.left = "45vw";
+        svgContainer.style.top = "-45vh";
+        var InfoInPopUp = document.getElementById('InfoInPopUp');
+        //InfoInPopUp.style.left = "45vw";
+        //InfoInPopUp.style.top = "-80vh";
+
+        // Показать блок
+        svgContainer.style.display = 'block';
+
+    }, 3000);
 }
 
 //Обработчик кнопки назад на списке
 function myFunctionBack() {
+    
+    //Для обратной анимации временно!
+    var svgElement = document.getElementById("mySvg");
+    var partOfSvg = document.getElementById(id_region);
+    var scale = 0.8; // возвращаем к исходному масштабу
+
+    setTimeout(() => {
+        // Возвращаем исходный цвет заливки
+        partOfSvg.style.fill = "rgba(125, 159, 232, 1)";
+    }, 3000);
+
     var list = document.getElementById("myList");
     list.style.display = "none";
 
@@ -571,16 +571,6 @@ function myFunctionBack() {
         listItems.removeChild(listItems.firstChild)
     }
 
-    //Для обратной анимации временно!
-    var svgElement = document.getElementById("mySvg");
-    var partOfSvg = document.getElementById("Krsn");
-    var scale = 1; // возвращаем к исходному масштабу
-
-    setTimeout(() => {
-        // Возвращаем исходный цвет заливки
-        partOfSvg.style.fill = "rgba(255,255,255,1)";
-    }, 3000);
-
     // Скрываем svgContainer
     var svgContainer = document.getElementById('mySvgContainer');
     svgContainer.style.display = 'none';
@@ -591,7 +581,7 @@ function myFunctionBack() {
 
     // Возвращаем исходный масштаб элемента SVG
     svgElement.style.transition = "transform 3s";
-    svgElement.style.transform = "scale(" + scale + ") translateX(0) translateY(0)";
+    svgElement.style.transform = "scale(" + scale + ") translateX(-20%) translateY(0)";
 
     window.idBlock = undefined;
 }
@@ -649,6 +639,7 @@ function myFunctionInfo(id) {
     }
 }
 
+//Вывод информации о компании
 function infoHTML(response) {
     const listContainer = document.querySelector('.info');
 
@@ -667,12 +658,11 @@ function infoHTML(response) {
         </svg>
         <div class="slideshow-container">
             <div class="mySlides fade" style="display: block;">
-                <video controls autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/lwBExgINCnQpzw"></video>
-            </div>
-            <div class="mySlides fade">
                 <img src="https://getfile.dokpub.com/yandex/get/${item.image}" width="100%">
             </div>
-
+            <div class="mySlides fade">
+                <video controls autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/lwBExgINCnQpzw"></video>
+            </div>
             <div class="mySlides fade">
                 <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/BRYoFHKTZFUGag" width="100%">
             </div>
@@ -737,8 +727,6 @@ function infoHTML(response) {
             </svg>
         </div>
         <div class="links">
-        <div class="link"><img class="link-icon" src="static/images/bookmark.png"></div>
-        <div class="link"><img class="link-icon" src="static/images/link.png"></div>
         </div>
         </div>
         `;
@@ -750,11 +738,13 @@ function infoHTML(response) {
     });
 }
 
+//Вывод списка через маркер
 function listResult(items) {
     var result = items.split(",");
     return result.map(item => `<li>${item}</li>`).join('');
 }
 
+//Отправка запроса об иконках на сервер
 function generateICON(id) {
     const request = new XMLHttpRequest();
     request.open('POST', '/icon');
@@ -777,6 +767,7 @@ function generateICON(id) {
     request.send(JSON.stringify({ idCompany }));
 }
 
+//Вывод иконок на страницу 
 function updateICON(response) {
     const listContainer = document.querySelector('.links');
 
@@ -786,28 +777,30 @@ function updateICON(response) {
         
         let html = ``;
         if (item.whatsapp) {
-            html += `<a href="${item.whatsapp}/"><img class="link-icon" src="static/images/whatsapp.png"></a>`;
+            html += `<a href="${item.whatsapp}/"><img class="link-icon" src="static/images/Ico WhatsApp.png"></a>`;
         }
         if (item.telegram) {
-            html += `<a href="${item.telegram}/"><img class="link-icon" src="static/images/telegram.png"></a>`;
+            html += `<a href="${item.telegram}/"><img class="link-icon" src="static/images/Ico Telegram.png"></a>`;
         }
         if (item.viber) {
-            html += `<a href="${item.viber}/"><img class="link-icon" src="static/images/viber.png"></a>`;
+            html += `<a href="${item.viber}/"><img class="link-icon" src="static/images/Ico Viber.png"></a>`;
         }
         if (item.vk) {
-            html += `<a href="${item.vk}/"><img class="link-icon" src="static/images/vk.png"></a>`;
+            html += `<a href="${item.vk}/"><img class="link-icon" src="static/images/Ico VK.png"></a>`;
         }
         if (item.site) {
-            html += `<a href="${item.site}/"><img class="link-icon" src="static/images/web.png"></a>`;
+            html += `<a href="${item.site}/"><img class="link-icon" src="static/images/Ico Browser.png"></a>`;
         }
         html += `</div>`;
         listItem.innerHTML = html;
         listContainer.appendChild(listItem);
-        // listItem.insertAdjacentHTML('beforeend', `<div class="links">
-        //     <div class="link"><img class="link-icon" src="static/images/bookmark.png"></div>
-        //     <div class="link"><img class="link-icon" src="static/images/link.png"></div>
-        //     </div>`);
     });
+
+    const staticLinksHtml = `
+        <div class="link"><img class="link-icon" src="static/images/Ico Save.png"></div>
+        <div class="link"><img class="link-icon" src="static/images/Ico Send.png"></div>
+    `;
+    listContainer.insertAdjacentHTML('beforeend', staticLinksHtml);
 }
 
 

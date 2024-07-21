@@ -941,13 +941,14 @@ input[type="checkbox"]:checked + label::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1.85vh;
-    margin-bottom: 3.7vh;
+    margin-top: 2.1875vw;
+    margin-bottom: 2.1875vw;
    
 }
 
 .link-icon{
     width: 2.08vw;
+    margin-right: 0.625vw;
 }
 
 /* Стилизация ползунка прокрутки */
