@@ -296,7 +296,7 @@ function myFunctionS() {
         if (request.status >= 200 && request.status < 300) {
             var response = JSON.parse(request.response);
             console.log(response);
-            updateHTML(response);
+            updateHTML(response, region);
         } else {
             alert('Ошибка при отправке запроса!');
         }
@@ -463,7 +463,7 @@ function myFunctionSPAK() {
         if (request.status >= 200 && request.status < 300) {
             var response = JSON.parse(request.response);
             console.log(response);
-            updateHTML(response);
+            updateHTML(response, region);
         } else {
             alert('Ошибка при отправке запроса!');
         }
@@ -472,9 +472,9 @@ function myFunctionSPAK() {
 
 window.id_region = null;
 // Получение списка компаний
-function updateHTML(response) {
+function updateHTML(response,  region) {
     const listContainer = document.querySelector('.list-items');
-    let countCompany = response.companies.length;
+    let countCompany = response.companies.length;;
 
     response.companies.forEach(item => {
         const listItem = document.createElement('div');
@@ -483,13 +483,12 @@ function updateHTML(response) {
         listItem.innerHTML = `
         <div class="list-item">
             <div class="container" id="${item.id}" onclick="myFunctionInfo(${item.id})">
-                <div class="icon_container">
-                    <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
-                </div>
-                <div class="info_container">
-                    <h2>${item.company_name}</h2>
+                    <div class = "info_container">
+                        <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
+                        <h2>${item.company_name}</h2>
+                    </div>
                     <p>${item.position_company}</p>
-                    <p class="location">${item.address}</p>
+                    <p>${item.address}</p>
                 </div>
             </div>
         </div>
@@ -498,43 +497,62 @@ function updateHTML(response) {
         listContainer.appendChild(listItem);
     });
 
-    document.getElementById("countCompany").innerHTML = countCompany;
     window.id_region = response.region_abb;
 
-    var svgElement = document.getElementById("mySvg");
-    var partOfSvg = document.getElementById(window.id_region);
-    // var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
+    if (region == 'Вся Россия') {
+        // Получаем родительский элемент по его id
+        const parentElement = document.getElementById('mySvg');
+    
+        // Проходим по всем id в массиве window.id_region
+        window.id_region.forEach(id => {
+            // Находим элемент SVG по его id
+            const childElement = parentElement.getElementById(id);
+    
+            // Если элемент найден, меняем его fill
+            if (childElement) {
+                childElement.style.fill = 'rgba(80, 79, 217, 1)';
+            }
+        });
+    } else {
+        // Обновление изображения внутри InfoInPopUp
+        document.getElementById("myImage").src = `static/images/emblems/${window.id_region}.png`;
+        
+        document.getElementById("countCompany").innerHTML = countCompany;
+        document.getElementById("dynamicRegion").innerHTML = region;
+        var partOfSvg = document.getElementById(window.id_region);
+        // var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
 
-    // // Добавьте это, чтобы установить плавную анимацию
-    // svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        // // Добавьте это, чтобы установить плавную анимацию
+        // svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
 
-    // svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
-    partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
+        // svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
+        partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
 
-    //Для pop up
-    // Задержка в 3 секунды перед показом блока
-    setTimeout(function () {
-        var svgContainer = document.getElementById('mySvgContainer');
-        var krsnSvg = document.getElementById('Krsn');
+        //Для pop up
+        // Задержка в 3 секунды перед показом блока
+        setTimeout(function () {
+            var svgContainer = document.getElementById('mySvgContainer');
+            var krsnSvg = document.getElementById('Krsn');
 
-        // Получить координаты элемента SVG
-        //var svgRect = krsnSvg.getBoundingClientRect();
+            // Получить координаты элемента SVG
+            //var svgRect = krsnSvg.getBoundingClientRect();
 
-        // Установить координаты блока равными координатам элемента SVG
-        //svgContainer.style.left = svgRect.left + 'px';
-        //svgContainer.style.top = (svgRect.top - 150) + 'px';
+            // Установить координаты блока равными координатам элемента SVG
+            //svgContainer.style.left = svgRect.left + 'px';
+            //svgContainer.style.top = (svgRect.top - 150) + 'px';
 
-        //В ручную для примера
-        svgContainer.style.left = "45vw";
-        svgContainer.style.top = "-45vh";
-        var InfoInPopUp = document.getElementById('InfoInPopUp');
-        //InfoInPopUp.style.left = "45vw";
-        //InfoInPopUp.style.top = "-80vh";
+            //В ручную для примера
+            svgContainer.style.left = "60vw";
+            svgContainer.style.top = "-1.5vw";
+            var InfoInPopUp = document.getElementById('InfoInPopUp');
+            //InfoInPopUp.style.left = "45vw";
+            //InfoInPopUp.style.top = "-80vh";
 
-        // Показать блок
-        svgContainer.style.display = 'block';
+            // Показать блок
+            svgContainer.style.display = 'block';
 
-    }, 3000);
+        }, 0);
+    }
 }
 
 //Обработчик кнопки назад на списке
@@ -542,13 +560,24 @@ function myFunctionBack() {
     
     //Для обратной анимации временно!
     var svgElement = document.getElementById("mySvg");
-    var partOfSvg = document.getElementById(id_region);
+    // var partOfSvg = document.getElementById(window.id_region);
     var scale = 0.8; // возвращаем к исходному масштабу
 
-    setTimeout(() => {
-        // Возвращаем исходный цвет заливки
-        partOfSvg.style.fill = "rgba(125, 159, 232, 1)";
-    }, 3000);
+    // setTimeout(() => {
+    //     // Возвращаем исходный цвет заливки
+    //     partOfSvg.style.fill = "rgba(125, 159, 232, 1)";
+    // }, 0);
+
+    // Получаем родительский элемент по его id
+    const parentElement = document.getElementById('mySvg');
+
+    // Получаем все дочерние элементы родителя
+    const childElements = parentElement.children;
+
+    // Проходим по всем дочерним элементам и меняем fill
+    for (let i = 0; i < childElements.length; i++) {
+        childElements[i].style.fill = 'rgba(125, 159, 232, 1)';
+    }
 
     var list = document.getElementById("myList");
     list.style.display = "none";
@@ -591,6 +620,7 @@ window.idBlock;
 function myFunctionInfo(id) {
     const myITinfo = document.getElementById('myITinfo');
     const myBlock = document.getElementById(id);
+    var svgElement = document.getElementById("mySvg");
     let prevBlock;
     
     if (window.idBlock !== undefined) {
@@ -608,6 +638,10 @@ function myFunctionInfo(id) {
         myITinfo.style.display = 'block';
         myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
 
+        var scale = 0.5; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
 
         const request = new XMLHttpRequest();
         request.open('POST', '/info');
@@ -636,6 +670,11 @@ function myFunctionInfo(id) {
         idBlock = id;
         myITinfo.style.display = 'none';
         myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет
+
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
     }
 }
 
@@ -658,11 +697,12 @@ function infoHTML(response) {
         </svg>
         <div class="slideshow-container">
             <div class="mySlides fade" style="display: block;">
-                <img src="https://getfile.dokpub.com/yandex/get/${item.image}" width="100%">
-            </div>
-            <div class="mySlides fade">
                 <video controls autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/lwBExgINCnQpzw"></video>
             </div>
+            <div class="mySlides fade">
+                <img src="https://getfile.dokpub.com/yandex/get/${item.image}" width="100%">
+            </div>
+
             <div class="mySlides fade">
                 <img src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/BRYoFHKTZFUGag" width="100%">
             </div>
@@ -777,24 +817,26 @@ function updateICON(response) {
         
         let html = ``;
         if (item.whatsapp) {
-            html += `<a href="${item.whatsapp}/"><img class="link-icon" src="static/images/Ico WhatsApp.png"></a>`;
+            html += `<a href="${item.whatsapp}/" target="_blank"><img class="link-icon" src="static/images/Ico WhatsApp.png"></a>`;
         }
         if (item.telegram) {
-            html += `<a href="${item.telegram}/"><img class="link-icon" src="static/images/Ico Telegram.png"></a>`;
+            html += `<a href="${item.telegram}/" target="_blank"><img class="link-icon" src="static/images/Ico Telegram.png"></a>`;
         }
         if (item.viber) {
-            html += `<a href="${item.viber}/"><img class="link-icon" src="static/images/Ico Viber.png"></a>`;
+            html += `<a href="${item.viber}/" target="_blank"><img class="link-icon" src="static/images/Ico Viber.png"></a>`;
         }
         if (item.vk) {
-            html += `<a href="${item.vk}/"><img class="link-icon" src="static/images/Ico VK.png"></a>`;
+            html += `<a href="${item.vk}/" target="_blank"><img class="link-icon" src="static/images/Ico VK.png"></a>`;
         }
         if (item.site) {
-            html += `<a href="${item.site}/"><img class="link-icon" src="static/images/Ico Browser.png"></a>`;
+            html += `<a href="${item.site}/" target="_blank"><img class="link-icon" src="static/images/Ico Browser.png"></a>`;
         }
+        
         html += `</div>`;
         listItem.innerHTML = html;
         listContainer.appendChild(listItem);
     });
+    
 
     const staticLinksHtml = `
         <div class="link"><img class="link-icon" src="static/images/Ico Save.png"></div>
@@ -822,6 +864,13 @@ function closeMyModalInfo() {
     while (info.firstChild) {
         info.removeChild(info.firstChild)
     }
+
+    var svgElement = document.getElementById("mySvg");
+
+    var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+    // Добавьте это, чтобы установить плавную анимацию 
+    svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
 }
 
 //Для фото-видео карусели
@@ -863,16 +912,92 @@ function searchListRegion() {
     const listItemsRegion = [
         "Вся Россия",
         "Республика Адыгея",
+        "Республика Алтай",
         "Республика Башкортостан",
         "Республика Бурятия",
-        "Республика Алтай",
         "Республика Дагестан",
         "Республика Ингушетия",
-        "Кабардино-Балкарская",
+        "Кабардино-Балкарская Республика",
         "Республика Калмыкия",
-        "Республика Карачаево-Черкесия",
+        "Карачаево-Черкесская Республика",
         "Республика Карелия",
-        "Краснодарский край"
+        "Республика Коми",
+        "Республика Крым",
+        "Республика Марий Эл",
+        "Республика Мордовия",
+        "Республика Саха (Якутия)",
+        "Республика Северная Осетия - Алания",
+        "Республика Татарстан",
+        "Республика Тыва",
+        "Удмуртская Республика",
+        "Республика Хакасия",
+        "Чеченская Республика",
+        "Чувашская Республика",
+        "Алтайский край",
+        "Краснодарский край",
+        "Красноярский край",
+        "Приморский край",
+        "Ставропольский край",
+        "Хабаровский край",
+        "Амурская область",
+        "Архангельская область",
+        "Астраханская область",
+        "Белгородская область",
+        "Брянская область",
+        "Владимирская область",
+        "Волгоградская область",
+        "Вологодская область",
+        "Воронежская область",
+        "Запорожская область",
+        "Ивановская область",
+        "Иркутская область",
+        "Калининградская область",
+        "Калужская область",
+        "Камчатский край",
+        "Кемеровская область",
+        "Кировская область",
+        "Костромская область",
+        "Курганская область",
+        "Курская область",
+        "Ленинградская область",
+        "Липецкая область",
+        "Магаданская область",
+        "Московская область",
+        "Мурманская область",
+        "Нижегородская область",
+        "Новгородская область",
+        "Новосибирская область",
+        "Омская область",
+        "Оренбургская область",
+        "Орловская область",
+        "Пензенская область",
+        "Пермский край",
+        "Псковская область",
+        "Ростовская область",
+        "Рязанская область",
+        "Самарская область",
+        "Саратовская область",
+        "Сахалинская область",
+        "Свердловская область",
+        "Смоленская область",
+        "Тамбовская область",
+        "Тверская область",
+        "Томская область",
+        "Тульская область",
+        "Тюменская область",
+        "Ульяновская область",
+        "Херсонская область",
+        "Челябинская область",
+        "Ярославская область",
+        "Москва",
+        "Санкт-Петербург",
+        "Еврейская автономная область",
+        "Ненецкий автономный округ",
+        "Ханты-Мансийский автономный округ - Югра",
+        "Чукотский автономный округ",
+        "Ямало-Ненецкий автономный округ",
+        "Донецкая народная республика",
+        "Луганская народная республика"
     ];
 
     const input = document.getElementById('searchInputRegion');
@@ -977,16 +1102,92 @@ function searchListRegionPAK() {
     const listItemsRegion = [
         "Вся Россия",
         "Республика Адыгея",
+        "Республика Алтай",
         "Республика Башкортостан",
         "Республика Бурятия",
-        "Республика Алтай",
         "Республика Дагестан",
         "Республика Ингушетия",
-        "Кабардино-Балкарская",
+        "Кабардино-Балкарская Республика",
         "Республика Калмыкия",
-        "Республика Карачаево-Черкесия",
+        "Карачаево-Черкесская Республика",
         "Республика Карелия",
-        "Краснодарский край"
+        "Республика Коми",
+        "Республика Крым",
+        "Республика Марий Эл",
+        "Республика Мордовия",
+        "Республика Саха (Якутия)",
+        "Республика Северная Осетия - Алания",
+        "Республика Татарстан",
+        "Республика Тыва",
+        "Удмуртская Республика",
+        "Республика Хакасия",
+        "Чеченская Республика",
+        "Чувашская Республика",
+        "Алтайский край",
+        "Краснодарский край",
+        "Красноярский край",
+        "Приморский край",
+        "Ставропольский край",
+        "Хабаровский край",
+        "Амурская область",
+        "Архангельская область",
+        "Астраханская область",
+        "Белгородская область",
+        "Брянская область",
+        "Владимирская область",
+        "Волгоградская область",
+        "Вологодская область",
+        "Воронежская область",
+        "Запорожская область",
+        "Ивановская область",
+        "Иркутская область",
+        "Калининградская область",
+        "Калужская область",
+        "Камчатский край",
+        "Кемеровская область",
+        "Кировская область",
+        "Костромская область",
+        "Курганская область",
+        "Курская область",
+        "Ленинградская область",
+        "Липецкая область",
+        "Магаданская область",
+        "Московская область",
+        "Мурманская область",
+        "Нижегородская область",
+        "Новгородская область",
+        "Новосибирская область",
+        "Омская область",
+        "Оренбургская область",
+        "Орловская область",
+        "Пензенская область",
+        "Пермский край",
+        "Псковская область",
+        "Ростовская область",
+        "Рязанская область",
+        "Самарская область",
+        "Саратовская область",
+        "Сахалинская область",
+        "Свердловская область",
+        "Смоленская область",
+        "Тамбовская область",
+        "Тверская область",
+        "Томская область",
+        "Тульская область",
+        "Тюменская область",
+        "Ульяновская область",
+        "Херсонская область",
+        "Челябинская область",
+        "Ярославская область",
+        "Москва",
+        "Санкт-Петербург",
+        "Еврейская автономная область",
+        "Ненецкий автономный округ",
+        "Ханты-Мансийский автономный округ - Югра",
+        "Чукотский автономный округ",
+        "Ямало-Ненецкий автономный округ",
+        "Донецкая народная республика",
+        "Луганская народная республика"
     ];
 
     const input = document.getElementById('searchInputRegionPAK');

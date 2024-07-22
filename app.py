@@ -84,11 +84,20 @@ def third_filter(): #компании по фильтру ПАК
 
                 # Преобразуем результаты в список словарей
                 companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
-                # Второй запрос
-                cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
-                region_abb = cursor.fetchone()
+                abbs = []
+                if region == 'Вся Россия':
+                    regions = list(set(company['region'] for company in companies_list))
 
-        return {'companies': companies_list, 'region_abb': region_abb}
+                    for region in regions:
+                        cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
+                        region_abb = cursor.fetchone()
+                        abbs.append(region_abb)
+                else:
+                    cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
+                    region_abb = cursor.fetchone()
+                    abbs.append(region_abb)
+
+        return {'companies': companies_list, 'region_abb': abbs} 
 
 @app.route("/filterPO", methods=['POST', 'GET']) #СПИСОК КОМПАНИЙ ПО
 def fourth_filter(): #компании по фильтру ПО 
@@ -133,12 +142,20 @@ def fourth_filter(): #компании по фильтру ПО
 
             # Преобразуем результаты в список словарей
             companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
+            abbs = []
+            if region == 'Вся Россия':
+                regions = list(set(company['region'] for company in companies_list))
 
-            # Второй запрос
-            cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
-            region_abb = cursor.fetchone()
+                for region in regions:
+                    cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
+                    region_abb = cursor.fetchone()
+                    abbs.append(region_abb)
+            else:
+                cursor.execute(f"""SELECT abb FROM region WHERE region = '{region}'""")
+                region_abb = cursor.fetchone()
+                abbs.append(region_abb)
 
-        return {'companies': companies_list, 'region_abb': region_abb}   
+        return {'companies': companies_list, 'region_abb': abbs}   
 
 @app.route("/info", methods=['POST', 'GET']) #ИНФОРМАЦИЯ
 def about_company(): #информация по выбранной компании

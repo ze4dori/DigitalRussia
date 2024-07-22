@@ -373,7 +373,7 @@
 
         <!--Блок pop-up-->
         <div id="mySvgContainer" style="display: none; position: relative;">
-            <!--<svg xmlns="http://www.w3.org/2000/svg" width="9.43vw" height="6.5vh" viewBox="0 0 189 79" fill="none">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="9.43vw" height="6.5vh" viewBox="0 0 189 79" fill="none">
                 <g filter="url(#filter0_d_561_64)">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M14 4C8.47715 4 4 8.47715 4 14V54C4 59.5228 8.47715 64 14 64H82.5922L93.1429 73.7464C93.9092 74.4542 95.0908 74.4542 95.8571 73.7464L106.408 64H175C180.523 64 185 59.5228 185 54V14C185 8.47715 180.523 4 175 4H14Z" fill="white"/>
                 </g>
@@ -391,10 +391,10 @@
                 </defs>
             </svg>-->
             <div class="popupInfo" id="InfoInPopUp">
-                <img class="gerb" id="myImage" src="static/images/Krsn_gerb.png" alt="Герб" width="40vw" height="40vw"
+                <img class="gerb" id="myImage" alt="Герб" width="40vw" height="40vw"
                     style="float: left;">
                 <div class="text">
-                    <p>Краснодарский край</p>
+                    <p id="dynamicRegion">{{ dynamicRegion }}</p>
                     <span id="countCompany">{{ countCompany }}</span>
                     <h1>Компаний</h1>
                 </div>

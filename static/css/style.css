@@ -236,7 +236,7 @@ body {
     border-radius: 0.46vh;
 
     width: 9.43vw;
-    height: 6.5vh;
+    height: 3.125vw;
 }
 
 .gerb {
@@ -244,20 +244,27 @@ body {
 }
 
 .popupInfo h1{
-    font-size: 1.3vh;
+    font-size: 0.73vw;
     color: rgba(56, 56, 116, 1);
     margin: 0vh;
+
+    font-weight: 400;
+
 }
 
 .popupInfo p{
-    font-size: 0.93vh;
+    font-size: 0.57vw;
     color:rgba(153, 153, 153, 1);
     margin-bottom: 0.37vh;
     margin-top: 0vh;
+
+    font-weight: 400;
+    
 }
 
 .popupInfo span{
-    font-size: 1.3vh;
+    font-size: 1.04vw;
+    font-weight: 400;
     color:rgba(56, 56, 116, 1);
     margin: 0vh;
 }
@@ -624,14 +631,14 @@ input[type="checkbox"]:checked + label::before {
     width: 3.65vw;
     height: 3.65vw;
 
-    border-radius: 0.52vw;
+    border-radius: 0.26vw;
 
     box-shadow: 0px 0px 0.156vw 0px rgba(0, 0, 0, 0.23);
 }
 
 .container {
     width: 23.7vw;
-    height: 6.8vw;
+    height: fit-content;
     border-radius: 0.52vw;
 
     box-shadow: 0px 0px 0.26vw 0px rgba(0, 0, 0, 0.19);
@@ -642,32 +649,33 @@ input[type="checkbox"]:checked + label::before {
     margin-bottom:1.04vw;
 
     display: flex;
+
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.info_container{
+    display: flex;
+    align-items: center;
 }
 
 .list-items img{
-    width: 4.5vw;
-    height: 4.5vw;
+    width: 1.04vw;
+    height: 1.04vw;
 }
+
 .list-items h2 {
     font-size: 0.94vw;
     margin:0;
     color: rgba(56, 56, 116, 1);
-    margin-left: 1.04vw;
+    margin-left: 0.52vw;
    
 }
 
 .list-items p {
     margin: 0;
     color: rgba(153, 153, 153, 1);
-    margin-left: 1.04vw;
-    margin-top:0.36vw;
-    
-    
-}
-
-.container{
-    display: flex;
-    align-items: center;
+    margin-top:0.36vw;    
 }
 
 .location {
