@@ -222,11 +222,12 @@ body {
 }
 
 /*Поп ап*/
-.popupInfo{
+.popupInfo {
     font-weight: 400;
     font-family: Inter; /*Доступная замена*/
     
-    display: flex;
+    display: none; /* Изначально скрыто */
+    position: absolute; /* Для точного позиционирования */
     align-items: center;
     justify-content: center;
 
@@ -237,6 +238,7 @@ body {
 
     width: 9.43vw;
     height: 3.125vw;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Тень для плашки */
 }
 
 .gerb {

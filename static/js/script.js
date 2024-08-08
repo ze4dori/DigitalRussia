@@ -84,20 +84,20 @@ function myFunctionForMyButton() {
 
     var svgElement = document.getElementById("mySvg");
 
-   
-    if (document.getElementById('myButton').classList.contains("active")){
+
+    if (document.getElementById('myButton').classList.contains("active")) {
         var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию 
         svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
         svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-       
+
 
     } else {
         var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию
         svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
         svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-        
+
     }
 }
 window.activeButtonId = 'ButtonPAK';
@@ -142,7 +142,7 @@ function myFunction() {
 //Кнопка свернуть
 document.getElementById('hide').onclick = hideFilterFunction();
 
-function hideFilterFunction(){
+function hideFilterFunction() {
     var Filter = document.getElementById('myModal');
     var button = document.getElementById('hide');
 
@@ -209,7 +209,7 @@ function closeMyModal() {
     const container2 = document.getElementById('searchContainerClassPO');
     container2.style.display = container2.style.display = 'none';
     const container3 = document.getElementById('searchContainerExperience');
-    container3.style.display = container3.style.display = 'none'; 
+    container3.style.display = container3.style.display = 'none';
 }
 
 // Обработчик кнопки Сбросить фильтр
@@ -241,67 +241,50 @@ function myFunctionB() {
     container3.style.display = container3.style.display = 'none';
 }
 
-// Обработчик кнопки Применить
+// Обработчик кнопки Применить (оптимизирован)
 document.getElementById('myButtonS').onclick = myFunctionS;
 function myFunctionS() {
-    var myModal = document.getElementById('myModal');
-    myModal.style.display = 'none';
+    // Скрыть модальное окно и сбросить стили кнопки
+    document.getElementById('myModal').style.display = 'none';
+    document.getElementById('myButton').classList.remove('active');
 
-    var button = document.getElementById('myButton');
-    // кнопка уже активна, вернем исходные стили
-    button.classList.remove('active');
+    // Переключить отображение списка
+    const myList = document.getElementById('myList');
+    myList.style.display = (myList.style.display === 'none' || !myList.style.display) ? 'block' : 'none';
 
-    var myList = document.getElementById('myList');
-    if (myList.style.display === 'none' || myList.style.display === '') {
-        myList.style.display = 'block';
+    // Сбор данных для фильтрации
+    const region = document.getElementById('selectButtonRegion').innerText.trim();
+    const softwareclass = document.getElementById('selectButtonClassPO').innerText.trim();
+    const field = document.getElementById('selectButtonExperience').innerText.trim();
+    const errp = document.getElementById('gosreg').checked ? 1 : 0;
+    const software_ai = document.getElementById('AI').checked ? 1 : 0;
 
-    } else {
-        myList.style.display = 'none';
-
-    }
-
-    var region = document.getElementById('selectButtonRegion').innerText.trim();
-    var softwareclass = document.getElementById('selectButtonClassPO').innerText.trim();
-    var field = document.getElementById('selectButtonExperience').innerText.trim();
-    const gosreg = document.getElementById('gosreg');
-    const ai = document.getElementById('AI');
-
-    let errp;
-    let software_ai;
-
-    if (gosreg.checked) {
-        errp = 1
-    } else {
-        errp = 0
-    }
-
-    if (ai.checked) {
-        software_ai = 1
-    } else {
-        software_ai = 0
-    }
-
+    // Отправка POST-запроса
     const request = new XMLHttpRequest();
     request.open('POST', '/filterPO');
     request.setRequestHeader('Content-Type', 'application/json');
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText);
-        }
-    };
-
-    request.send(JSON.stringify({ region, softwareclass, field, errp, software_ai }));
 
     request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
-            var response = JSON.parse(request.response);
-            console.log(response);
-            updateHTML(response, region);
+            try {
+                const response = JSON.parse(request.responseText);
+                console.log(response);
+                updateHTML(response, region);
+            } catch (e) {
+                console.error('Ошибка при разборе ответа:', e);
+            }
         } else {
             alert('Ошибка при отправке запроса!');
         }
     };
+
+    request.onerror = function () {
+        alert('Ошибка соединения с сервером!');
+    };
+
+    request.send(JSON.stringify({ region, softwareclass, field, errp, software_ai }));
 }
+
 
 // Привязываем обработчик события к списку
 const listItems = document.querySelectorAll('.list-item');
@@ -313,7 +296,7 @@ listItems.forEach(item => {
 
 //Кнопка свернуть
 document.getElementById('hidePAK').onclick = hideFilterFunctionPAK();
-function hideFilterFunctionPAK(){
+function hideFilterFunctionPAK() {
     var Filter = document.getElementById('myModalPAK');
     var button = document.getElementById('hidePAK');
     var svgElement = document.getElementById("mySvg");
@@ -403,7 +386,7 @@ function myFunctionBPAK() {
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
-    
+
     //Закрытие контейнеров
     const container1 = document.getElementById('searchContainerRegionPAK');
     container1.style.display = container1.style.display = 'none';
@@ -419,79 +402,69 @@ function myFunctionBPAK() {
 document.getElementById('myButtonSPAK').onclick = myFunctionSPAK;
 
 function myFunctionSPAK() {
-    var myModalPAK = document.getElementById('myModalPAK');
-    myModalPAK.style.display = 'none';
+    // Скрыть модальное окно и сбросить стили кнопки
+    document.getElementById('myModalPAK').style.display = 'none';
+    document.getElementById('myButton').classList.remove('active');
 
-    var button = document.getElementById('myButton');
-    // кнопка уже активна, вернем исходные стили
-    button.classList.remove('active');
+    // Переключить отображение списка
+    const myList = document.getElementById('myList');
+    myList.style.display = (myList.style.display === 'none' || !myList.style.display) ? 'block' : 'none';
 
-    var myList = document.getElementById('myList');
-    if (myList.style.display === 'none' || myList.style.display === '') {
-        myList.style.display = 'block';
+    // Сбор данных для фильтрации
+    const region = document.getElementById('selectButtonRegionPAK').innerText.trim();
+    const hardwareclass = document.getElementById('selectButtonClassPAK').innerText.trim();
+    const field = document.getElementById('selectButtonExperiencePAK').innerText.trim();
+    const errp = document.getElementById('gosregPAK').checked ? 1 : 0;
 
-    } else {
-        myList.style.display = 'none';
-
-    }
-
-    var region = document.getElementById('selectButtonRegionPAK').innerText.trim();
-    var hardwareclass = document.getElementById('selectButtonClassPAK').innerText.trim();
-    var field = document.getElementById('selectButtonExperiencePAK').innerText.trim();
-    const gosreg = document.getElementById('gosregPAK');
-
-    let errp;
-
-    if (gosreg.checked) {
-        errp = 1
-    } else {
-        errp = 0
-    }
-
+    // Отправка POST-запроса
     const request = new XMLHttpRequest();
     request.open('POST', '/filterPAK');
     request.setRequestHeader('Content-Type', 'application/json');
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText);
-        }
-    };
-
-    request.send(JSON.stringify({ region, hardwareclass, field, errp }));
 
     request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
-            var response = JSON.parse(request.response);
-            console.log(response);
-            updateHTML(response, region);
+            try {
+                const response = JSON.parse(request.responseText);
+                console.log(response);
+                updateHTML(response, region);
+            } catch (e) {
+                console.error('Ошибка при разборе ответа:', e);
+            }
         } else {
             alert('Ошибка при отправке запроса!');
         }
     };
+
+    request.onerror = function () {
+        alert('Ошибка соединения с сервером!');
+    };
+
+    request.send(JSON.stringify({ region, hardwareclass, field, errp }));
 }
 
+
 window.id_region = null;
-// Получение списка компаний
-function updateHTML(response,  region) {
+
+function updateHTML(response, region) {
     const listContainer = document.querySelector('.list-items');
-    let countCompany = response.companies.length;;
+    const countCompany = response.companies.length;
+    const svgElement = document.getElementById('mySvg');
+
+    listContainer.innerHTML = '';
 
     response.companies.forEach(item => {
         const listItem = document.createElement('div');
         listItem.classList.add('list-item');
 
         listItem.innerHTML = `
-        <div class="list-item">
             <div class="container" id="${item.id}" onclick="myFunctionInfo(${item.id})">
-                    <div class = "info_container">
-                        <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
-                        <h2>${item.company_name}</h2>
-                    </div>
-                    <p>${item.position_company}</p>
-                    <p>${item.address}</p>
+                <div class="info_container">
+                    <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
+                    <h2>${item.company_name}</h2>
                 </div>
+                <p>${item.position_company}</p>
+                <p>${item.address}</p>
             </div>
-        </div>
         `;
 
         listContainer.appendChild(listItem);
@@ -499,182 +472,192 @@ function updateHTML(response,  region) {
 
     window.id_region = response.region_abb;
 
-    if (region == 'Вся Россия') {
-        // Получаем родительский элемент по его id
-        const parentElement = document.getElementById('mySvg');
-    
-        // Проходим по всем id в массиве window.id_region
+    const applyRegionStyles = (regionIds, fillColor) => {
+        regionIds.forEach(id => {
+            const regionElement = svgElement.getElementById(id);
+            if (regionElement) {
+                regionElement.style.fill = fillColor;
+            }
+        });
+    };
+
+    const addRegionEventListeners = (element, id, fetchData) => {
+        element.addEventListener('mouseover', event => {
+            if (fetchData) {
+                fetch(`/region/${id}?button=${activeButtonId}`)
+                    .then(response => response.ok ? response.json() : Promise.reject('Сетевая ошибка'))
+                    .then(region => updatePopup(region.name, region.count, id))
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                        document.getElementById("dynamicRegion").innerHTML = "Ошибка получения данных";
+                    });
+            } else {
+                updatePopup(region, countCompany, id);
+            }
+            showPopup(event);
+        });
+
+        element.addEventListener('mouseout', hidePopup);
+        element.addEventListener('mousemove', updatePopupPosition);
+    };
+
+    const updatePopup = (regionName, count, id) => {
+        document.getElementById("dynamicRegion").innerHTML = regionName;
+        document.getElementById("myImage").src = `static/images/emblems/${id}.png`;
+        document.getElementById("countCompany").innerHTML = count;
+    };
+
+    const showPopup = event => {
+        updatePopupPosition(event);
+        document.getElementById('InfoInPopUp').style.display = 'block';
+    };
+
+    const hidePopup = () => {
+        document.getElementById('InfoInPopUp').style.display = 'none';
+    };
+
+    const updatePopupPosition = event => {
+        const infoPopup = document.getElementById('InfoInPopUp');
+        infoPopup.style.top = `${event.clientY + 10}px`;
+        infoPopup.style.left = `${event.clientX + 10}px`;
+    };
+
+    const setPartOfSvgStyle = (id, fillColor) => {
+        const partOfSvg = svgElement.getElementById(id);
+        if (partOfSvg) {
+            partOfSvg.style.fill = fillColor;
+        }
+    };
+
+    if (region === 'Вся Россия') {
+        applyRegionStyles(window.id_region, 'rgba(80, 79, 217, 1)');
         window.id_region.forEach(id => {
-            // Находим элемент SVG по его id
-            const childElement = parentElement.getElementById(id);
-    
-            // Если элемент найден, меняем его fill
-            if (childElement) {
-                childElement.style.fill = 'rgba(80, 79, 217, 1)';
+            const regionElement = svgElement.getElementById(id);
+            if (regionElement) {
+                addRegionEventListeners(regionElement, id, true);
             }
         });
     } else {
-        // Обновление изображения внутри InfoInPopUp
-        document.getElementById("myImage").src = `static/images/emblems/${window.id_region}.png`;
-        
-        document.getElementById("countCompany").innerHTML = countCompany;
-        document.getElementById("dynamicRegion").innerHTML = region;
-        var partOfSvg = document.getElementById(window.id_region);
-        // var scale = 4; // измените это значение, чтобы установить коэффициент масштабирования
+        window.id_region.forEach(id => {
+            const regionElement = svgElement.getElementById(id);
+            if (regionElement) {
+                addRegionEventListeners(regionElement, id, false);
+            }
+        });
 
-        // // Добавьте это, чтобы установить плавную анимацию
-        // svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        setPartOfSvgStyle(window.id_region, "rgba(80, 79, 217, 1)");
+        showPopupWithDelay(0);
+    }
 
-        // svgElement.style.transform = "scale(" + scale + ") translateX(39%) translateY(-10%)";
-        partOfSvg.style.fill = "rgba(80, 79, 217, 1)"; // чтобы установить новый цвет заливки
-
-        //Для pop up
-        // Задержка в 3 секунды перед показом блока
-        setTimeout(function () {
-            var svgContainer = document.getElementById('mySvgContainer');
-            var krsnSvg = document.getElementById('Krsn');
-
-            // Получить координаты элемента SVG
-            //var svgRect = krsnSvg.getBoundingClientRect();
-
-            // Установить координаты блока равными координатам элемента SVG
-            //svgContainer.style.left = svgRect.left + 'px';
-            //svgContainer.style.top = (svgRect.top - 150) + 'px';
-
-            //В ручную для примера
+    const showPopupWithDelay = delay => {
+        setTimeout(() => {
+            const svgContainer = document.getElementById('mySvgContainer');
             svgContainer.style.left = "60vw";
             svgContainer.style.top = "-1.5vw";
-            var InfoInPopUp = document.getElementById('InfoInPopUp');
-            //InfoInPopUp.style.left = "45vw";
-            //InfoInPopUp.style.top = "-80vh";
-
-            // Показать блок
             svgContainer.style.display = 'block';
-
-        }, 0);
-    }
+        }, delay);
+    };
 }
 
-//Обработчик кнопки назад на списке
+//Обработчик кнопки назад на списке (оптимизирован)
 function myFunctionBack() {
-    
-    //Для обратной анимации временно!
-    var svgElement = document.getElementById("mySvg");
-    // var partOfSvg = document.getElementById(window.id_region);
-    var scale = 0.8; // возвращаем к исходному масштабу
+    // Сбрасываем глобальную переменную
+    window.idBlock = undefined;
+    // Для обратной анимации
+    const svgElement = document.getElementById("mySvg");
+    const scale = 0.8; // Возвращаем к исходному масштабу
 
-    // setTimeout(() => {
-    //     // Возвращаем исходный цвет заливки
-    //     partOfSvg.style.fill = "rgba(125, 159, 232, 1)";
-    // }, 0);
-
-    // Получаем родительский элемент по его id
-    const parentElement = document.getElementById('mySvg');
-
-    // Получаем все дочерние элементы родителя
+    // Получаем родительский элемент и всех его дочерних элементов
+    const parentElement = svgElement;
     const childElements = parentElement.children;
 
-    // Проходим по всем дочерним элементам и меняем fill
+    // Возвращаем исходный цвет заливки для всех дочерних элементов и удаляем обработчики событий
     for (let i = 0; i < childElements.length; i++) {
-        childElements[i].style.fill = 'rgba(125, 159, 232, 1)';
+        const child = childElements[i];
+        child.style.fill = 'rgba(125, 159, 232, 1)';
+
+        // Удаляем привязанные обработчики событий
+        const newElement = child.cloneNode(true);
+        child.parentNode.replaceChild(newElement, child);
     }
 
-    var list = document.getElementById("myList");
-    list.style.display = "none";
+    // Скрываем список
+    document.getElementById("myList").style.display = "none";
 
-    var myModal = document.getElementById('myModal');
-    var myModalPAK = document.getElementById('myModalPAK');
-
-    if (activeButtonId === "ButtonPAK"){
+    // Показываем нужный модальный элемент в зависимости от активной кнопки
+    const myModal = document.getElementById('myModal');
+    const myModalPAK = document.getElementById('myModalPAK');
+    if (activeButtonId === "ButtonPAK") {
         myModalPAK.style.display = 'block';
-    }
-    else {
+    } else {
         myModal.style.display = 'block';
     }
 
-    var button = document.getElementById('myButton');
-    button.classList.toggle('active');
+    // Переключаем класс "active" на кнопку
+    document.getElementById('myButton').classList.toggle('active');
 
-    var listItems = document.getElementById("list-items")
+    // Очищаем список элементов
+    const listItems = document.getElementById("list-items");
     while (listItems.firstChild) {
-        listItems.removeChild(listItems.firstChild)
+        listItems.removeChild(listItems.firstChild);
     }
 
-    // Скрываем svgContainer
-    var svgContainer = document.getElementById('mySvgContainer');
+    // Скрываем svgContainer и возвращаем исходные координаты
+    const svgContainer = document.getElementById('mySvgContainer');
     svgContainer.style.display = 'none';
-
-    // Возвращаем исходные координаты блока (если они были изменены)
-    svgContainer.style.left = ""; // убираем стили
+    svgContainer.style.left = "";
     svgContainer.style.top = "";
 
     // Возвращаем исходный масштаб элемента SVG
     svgElement.style.transition = "transform 3s";
-    svgElement.style.transform = "scale(" + scale + ") translateX(-20%) translateY(0)";
-
-    window.idBlock = undefined;
+    svgElement.style.transform = `scale(${scale}) translateX(-20%) translateY(0)`;    
 }
 
-window.idBlock;
-//Появление блока инфо
+//Появление блока инфо (оптимизирован)
 function myFunctionInfo(id) {
     const myITinfo = document.getElementById('myITinfo');
     const myBlock = document.getElementById(id);
-    var svgElement = document.getElementById("mySvg");
-    let prevBlock;
-    
-    if (window.idBlock !== undefined) {
-        prevBlock = document.getElementById(window.idBlock);
-        prevBlock.style.backgroundColor = '';
+    const svgElement = document.getElementById("mySvg");
+
+    if (window.idBlock) {
+        document.getElementById(window.idBlock).style.backgroundColor = '';
     }
 
-    var info = document.getElementById("myITinfo")
-    while (info.firstChild) {
-        info.removeChild(info.firstChild)
+    while (myITinfo.firstChild) {
+        myITinfo.removeChild(myITinfo.firstChild);
     }
 
+    const isNewBlock = id !== window.idBlock;
+    const displayBlockInfo = isNewBlock || myITinfo.style.display === 'none';
 
-    if ((myITinfo.style.display === 'none' && myBlock.style.backgroundColor === '') || id !== window.idBlock) {
+    if (displayBlockInfo) {
         myITinfo.style.display = 'block';
         myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
+        svgElement.style.transform = "scale(0.5) translateX(0%)";
+    } else {
+        myITinfo.style.display = 'none';
+        myBlock.style.backgroundColor = '';
+        svgElement.style.transform = "scale(0.8) translateX(-20%)";
+    }
 
-        var scale = 0.5; // измените это значение, чтобы установить коэффициент масштабирования
-        // Добавьте это, чтобы установить плавную анимацию
-        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+    svgElement.style.transition = "transform 3s";
 
+    if (isNewBlock) {
         const request = new XMLHttpRequest();
-        request.open('POST', '/info');
+        request.open('POST', '/info', true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                console.log(request.responseText);
-            }
-        };
-        let idCompany = id;
-    
-        request.send(JSON.stringify({ idCompany }));
-    
-        request.onload = function () {
-            if (request.status >= 200 && request.status < 300) {
-                var response = JSON.parse(request.response);
+            if (request.readyState === 4 && request.status === 200) {
+                const response = JSON.parse(request.responseText);
                 console.log(response);
                 infoHTML(response);
-            } else {
+            } else if (request.readyState === 4) {
                 alert('Ошибка при отправке запроса!');
             }
         };
 
-        idBlock = id;
-    } else {
-        idBlock = id;
-        myITinfo.style.display = 'none';
-        myBlock.style.backgroundColor = ''; // Возвращаем начальный цвет
-
-        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
-        // Добавьте это, чтобы установить плавную анимацию 
-        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        request.send(JSON.stringify({ idCompany: id }));
+        window.idBlock = id;
     }
 }
 
@@ -778,65 +761,69 @@ function infoHTML(response) {
     });
 }
 
-//Вывод списка через маркер
+//Вывод списка через маркер (оптимизирован)
 function listResult(items) {
-    var result = items.split(",");
-    return result.map(item => `<li>${item}</li>`).join('');
+    // Регулярное выражение для разделения строки на элементы списка
+    const regex = /(?:[^,(]+(?:\([^)]*\))?)+/g;
+    const matches = items.match(regex) || [];
+
+    return matches.map(item => `<li>${item.trim()}</li>`).join('');
 }
 
-//Отправка запроса об иконках на сервер
+//Отправка запроса об иконках на сервер (оптимизирован)
 function generateICON(id) {
     const request = new XMLHttpRequest();
-    request.open('POST', '/icon');
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
+    request.open('GET', `/icon/${id}`);
+
+    request.onload = function () {
+        if (request.status === 200) {
             try {
-                var response = JSON.parse(request.responseText);
+                const response = JSON.parse(request.responseText);
                 console.log(response);
                 updateICON(response);
             } catch (e) {
                 console.error('Ошибка при разборе ответа:', e);
             }
-        } else if (request.readyState == 4) {
-            alert('Ошибка при отправке запроса!!');
+        } else if (request.status === 404) {
+            alert('Компания не найдена!');
+        } else {
+            alert('Ошибка при отправке запроса!');
         }
     };
-    let idCompany = id;
 
-    request.send(JSON.stringify({ idCompany }));
+    request.onerror = function () {
+        alert('Ошибка соединения с сервером!');
+    };
+
+    request.send();
 }
 
-//Вывод иконок на страницу 
+
+//Вывод иконок на страницу (оптимизирован)
 function updateICON(response) {
     const listContainer = document.querySelector('.links');
+    listContainer.innerHTML = '';
 
-    response.forEach(item => {
-        const listItem = document.createElement('div');
-        listItem.classList.add('link');
-        
-        let html = ``;
-        if (item.whatsapp) {
-            html += `<a href="${item.whatsapp}/" target="_blank"><img class="link-icon" src="static/images/Ico WhatsApp.png"></a>`;
+    const iconData = [
+        { key: 'whatsapp', src: 'Ico WhatsApp.png' },
+        { key: 'telegram', src: 'Ico Telegram.png' },
+        { key: 'viber', src: 'Ico Viber.png' },
+        { key: 'vk', src: 'Ico VK.png' },
+        { key: 'site', src: 'Ico Browser.png' }
+    ];
+
+    iconData.forEach(({ key, src }) => {
+        if (response[key]) {
+            const listItem = document.createElement('div');
+            listItem.classList.add('link');
+            listItem.innerHTML = `
+                <a href="${response[key]}/" target="_blank">
+                    <img class="link-icon" src="static/images/${src}">
+                </a>
+            `;
+            listContainer.appendChild(listItem);
         }
-        if (item.telegram) {
-            html += `<a href="${item.telegram}/" target="_blank"><img class="link-icon" src="static/images/Ico Telegram.png"></a>`;
-        }
-        if (item.viber) {
-            html += `<a href="${item.viber}/" target="_blank"><img class="link-icon" src="static/images/Ico Viber.png"></a>`;
-        }
-        if (item.vk) {
-            html += `<a href="${item.vk}/" target="_blank"><img class="link-icon" src="static/images/Ico VK.png"></a>`;
-        }
-        if (item.site) {
-            html += `<a href="${item.site}/" target="_blank"><img class="link-icon" src="static/images/Ico Browser.png"></a>`;
-        }
-        
-        html += `</div>`;
-        listItem.innerHTML = html;
-        listContainer.appendChild(listItem);
     });
-    
 
     const staticLinksHtml = `
         <div class="link"><img class="link-icon" src="static/images/Ico Save.png"></div>
@@ -845,15 +832,14 @@ function updateICON(response) {
     listContainer.insertAdjacentHTML('beforeend', staticLinksHtml);
 }
 
-
 document.getElementById('close').onclick = closeMyModalInfo;
 // Функция для закрытия окна инфо
 function closeMyModalInfo() {
     // Закрываем окно
     const listItems = document.querySelectorAll('.container');
     listItems.forEach((element) => {
-    element.style.backgroundColor = ''; // Возвращаем начальный цвет  
-    console.log(element.textContent);
+        element.style.backgroundColor = ''; // Возвращаем начальный цвет  
+        console.log(element.textContent);
     });
 
     var myModal = document.getElementById('myITinfo');
@@ -908,7 +894,7 @@ function showSlides(n) {
 document.getElementById('selectButtonRegion').onclick = searchListRegion;
 
 //Работа поиска Регионы
-function searchListRegion() {
+function searchListRegionGeneral(inputId, listContainerId, selectButtonId, toggleSearchContainerFunction) {
     const listItemsRegion = [
         "Вся Россия",
         "Республика Адыгея",
@@ -934,8 +920,11 @@ function searchListRegion() {
         "Чеченская Республика",
         "Чувашская Республика",
         "Алтайский край",
+        "Забайкальский край",
+        "Камчатский край",
         "Краснодарский край",
         "Красноярский край",
+        "Пермский край",
         "Приморский край",
         "Ставропольский край",
         "Хабаровский край",
@@ -953,7 +942,6 @@ function searchListRegion() {
         "Иркутская область",
         "Калининградская область",
         "Калужская область",
-        "Камчатский край",
         "Кемеровская область",
         "Кировская область",
         "Костромская область",
@@ -971,7 +959,6 @@ function searchListRegion() {
         "Оренбургская область",
         "Орловская область",
         "Пензенская область",
-        "Пермский край",
         "Псковская область",
         "Ростовская область",
         "Рязанская область",
@@ -1000,9 +987,9 @@ function searchListRegion() {
         "Луганская народная республика"
     ];
 
-    const input = document.getElementById('searchInputRegion');
+    const input = document.getElementById(inputId);
     const filter = input.value.toUpperCase();
-    const ul = document.getElementById('listContainerRegion');
+    const ul = document.getElementById(listContainerId);
     ul.innerHTML = '';
 
     const sortedItems = listItemsRegion
@@ -1027,11 +1014,15 @@ function searchListRegion() {
         const li = document.createElement('li');
         li.innerHTML = item.itemHtml;
         li.addEventListener('click', () => {
-            document.getElementById('selectButtonRegion').innerText = item.item;
-            toggleSearchContainerRegion();
+            document.getElementById(selectButtonId).innerText = item.item;
+            toggleSearchContainerFunction();
         });
         ul.appendChild(li);
     });
+}
+
+function searchListRegion() {
+    searchListRegionGeneral('searchInputRegion', 'listContainerRegion', 'selectButtonRegion', toggleSearchContainerRegion);
 }
 
 function toggleSearchContainerRegion() {
@@ -1099,129 +1090,7 @@ document.getElementById('selectButtonRegionPAK').onclick = searchListRegionPAK;
 
 //Работа поиска Регионы
 function searchListRegionPAK() {
-    const listItemsRegion = [
-        "Вся Россия",
-        "Республика Адыгея",
-        "Республика Алтай",
-        "Республика Башкортостан",
-        "Республика Бурятия",
-        "Республика Дагестан",
-        "Республика Ингушетия",
-        "Кабардино-Балкарская Республика",
-        "Республика Калмыкия",
-        "Карачаево-Черкесская Республика",
-        "Республика Карелия",
-        "Республика Коми",
-        "Республика Крым",
-        "Республика Марий Эл",
-        "Республика Мордовия",
-        "Республика Саха (Якутия)",
-        "Республика Северная Осетия - Алания",
-        "Республика Татарстан",
-        "Республика Тыва",
-        "Удмуртская Республика",
-        "Республика Хакасия",
-        "Чеченская Республика",
-        "Чувашская Республика",
-        "Алтайский край",
-        "Краснодарский край",
-        "Красноярский край",
-        "Приморский край",
-        "Ставропольский край",
-        "Хабаровский край",
-        "Амурская область",
-        "Архангельская область",
-        "Астраханская область",
-        "Белгородская область",
-        "Брянская область",
-        "Владимирская область",
-        "Волгоградская область",
-        "Вологодская область",
-        "Воронежская область",
-        "Запорожская область",
-        "Ивановская область",
-        "Иркутская область",
-        "Калининградская область",
-        "Калужская область",
-        "Камчатский край",
-        "Кемеровская область",
-        "Кировская область",
-        "Костромская область",
-        "Курганская область",
-        "Курская область",
-        "Ленинградская область",
-        "Липецкая область",
-        "Магаданская область",
-        "Московская область",
-        "Мурманская область",
-        "Нижегородская область",
-        "Новгородская область",
-        "Новосибирская область",
-        "Омская область",
-        "Оренбургская область",
-        "Орловская область",
-        "Пензенская область",
-        "Пермский край",
-        "Псковская область",
-        "Ростовская область",
-        "Рязанская область",
-        "Самарская область",
-        "Саратовская область",
-        "Сахалинская область",
-        "Свердловская область",
-        "Смоленская область",
-        "Тамбовская область",
-        "Тверская область",
-        "Томская область",
-        "Тульская область",
-        "Тюменская область",
-        "Ульяновская область",
-        "Херсонская область",
-        "Челябинская область",
-        "Ярославская область",
-        "Москва",
-        "Санкт-Петербург",
-        "Еврейская автономная область",
-        "Ненецкий автономный округ",
-        "Ханты-Мансийский автономный округ - Югра",
-        "Чукотский автономный округ",
-        "Ямало-Ненецкий автономный округ",
-        "Донецкая народная республика",
-        "Луганская народная республика"
-    ];
-
-    const input = document.getElementById('searchInputRegionPAK');
-    const filter = input.value.toUpperCase();
-    const ul = document.getElementById('listContainerRegionPAK');
-    ul.innerHTML = '';
-
-    const sortedItems = listItemsRegion
-        .map(item => {
-            const matchIndex = item.toUpperCase().indexOf(filter);
-            if (matchIndex !== -1) {
-                const beforeMatch = item.substring(0, matchIndex);
-                const matchText = item.substring(matchIndex, matchIndex + filter.length);
-                const afterMatch = item.substring(matchIndex + filter.length);
-                return {
-                    item,
-                    itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
-                    matchIndex
-                };
-            }
-            return { item, matchIndex: -1 };
-        })
-        .filter(item => item.matchIndex !== -1)
-        .sort((a, b) => a.matchIndex - b.matchIndex);
-
-    sortedItems.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = item.itemHtml;
-        li.addEventListener('click', () => {
-            document.getElementById('selectButtonRegionPAK').innerText = item.item;
-            toggleSearchContainerRegionPAK();
-        });
-        ul.appendChild(li);
-    });
+    searchListRegionGeneral('searchInputRegionPAK', 'listContainerRegionPAK', 'selectButtonRegionPAK', toggleSearchContainerRegionPAK);
 }
 
 function toggleSearchContainerRegionPAK() {

@@ -172,45 +172,51 @@ def about_company(): #информация по выбранной компан�
         info = [{'id': id, 'company_name': name, 'position_company': position, 'product': product, 'service': service, 'address': address, 'description': description,  'contact': contact, 'image': image} for id, name, position, product, service, address, description, contact, image in company]
     return info
 
-@app.route("/icon", methods=['POST', 'GET']) #ИКОНКИ
-def icon_contact():
-    if request.method == "POST":
-        data = request.get_json()
-        id = data.get('idCompany')
+@app.route("/icon/<int:id>", methods=['GET'])  # ИКОНКИ
+def icon_contact(id):
+    with sql.connect("company.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT whatsapp, telegram, viber, vk, site 
+            FROM company 
+            WHERE id = ?
+        """, (id,))
+        company = cursor.fetchone()
 
-        with sql.connect("company.db") as conn:
-            cursor = conn.cursor()
-            cursor.execute(f"""SELECT whatsapp, telegram, viber, vk, site FROM company
-                WHERE id = {id}""")
-            company = cursor.fetchall()
+    if not company:
+        return jsonify({"error": "Компания не найдена"}), 404
 
-        icon = []
-        for whatsapp, telegram, viber, vk, site in company:
-            icon.append({'whatsapp': whatsapp})
-            icon.append({'telegram': telegram})
-            icon.append({'viber': viber})
-            icon.append({'vk': vk})
-            icon.append({'site': site})
-            
-    return icon
+    icon = {
+        'whatsapp': company[0],
+        'telegram': company[1],
+        'viber': company[2],
+        'vk': company[3],
+        'site': company[4]
+    }
 
-@app.route("/map", methods=['POST', 'GET'])
-def region():
-    if request.method == "POST":
-        data = request.get_json()
-        name = data.get('region')
+    return jsonify(icon)
 
-        with sql.connect("company.db") as conn:
-            cursor = conn.cursor()
-            cursor.execute(f"""SELECT abb FROM region
-                WHERE region = '{region}'""")
-            region = cursor.fetchone()
+    
+@app.route('/region/<id>', methods=['GET']) #НАЗВАНИЕ РЕГИОНА
+def region(id):
+    activeButtonId = request.args.get('button')
 
-        if region:
-            info = [{'id': region[0]}]
-        else:
-            info = [{'id': 'Не найдено'}]
+    if activeButtonId == 'ButtonPAK':
+        ecosystem = 'ПАК'
+    else:
+        ecosystem = 'ПО'
 
-        return jsonify(info)
+    with sql.connect("company.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT region FROM region WHERE abb = ?", (id,))
+        region = cursor.fetchone()
+
+        cursor.execute("SELECT COUNT(id) FROM company WHERE SUBSTR(address, 1, INSTR(address, ',') - 1) = ? AND ecosystem = ?", (region[0], ecosystem, ))
+        countCompany = cursor.fetchone()
+
+    info = {'name': region[0], 'count': countCompany[0]}
+    
+    return jsonify(info)
+
 if __name__ == '__main__':
     app.run(debug=True)
