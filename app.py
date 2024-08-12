@@ -11,7 +11,7 @@ CORS(app)
 
 #     # filter = request.form['filter']
 
-#     with sql.connect("company.db") as conn:
+#     with sql.connect("database.db") as conn:
 #         cursor = conn.cursor()
 #         cursor.execute(f"""SELECT COUNT(id) FROM company
 #             WHERE country = '{filter}'""")
@@ -32,7 +32,7 @@ def second_filter():
         else:
             filter = "ПАК"
         
-        with sql.connect("company.db") as conn:
+        with sql.connect("database.db") as conn:
             cursor = conn.cursor()
             cursor.execute(f"""SELECT COUNT(id) FROM company WHERE ecosystem = '{filter}'""")
             active_records_count = cursor.fetchone()[0]
@@ -40,7 +40,7 @@ def second_filter():
         conn.close()
         return jsonify({'active_records_count': active_records_count})
     else:
-        with sql.connect("company.db") as conn:
+        with sql.connect("database.db") as conn:
             cursor = conn.cursor()
             cursor.execute(f"""SELECT COUNT(id) FROM company WHERE ecosystem = '{filter}'""")
             active_records_count = cursor.fetchone()[0]
@@ -60,7 +60,7 @@ def third_filter(): #компании по фильтру ПАК
         field = data.get('field')
         errp = data.get('errp')
 
-        with sql.connect("company.db") as conn:
+        with sql.connect("database.db") as conn:
                 cursor = conn.cursor()
                 query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images FROM company"
 
@@ -112,7 +112,7 @@ def fourth_filter(): #компании по фильтру ПО
         errp = data.get('errp')
         software_ai = data.get('software_ai')
 
-        with sql.connect("company.db") as conn:
+        with sql.connect("database.db") as conn:
             cursor = conn.cursor()
             
             # Первый запрос
@@ -163,7 +163,7 @@ def about_company(): #информация по выбранной компан�
         data = request.get_json()
         id = data.get('idCompany')
 
-        with sql.connect("company.db") as conn:
+        with sql.connect("database.db") as conn:
             cursor = conn.cursor()
             cursor.execute(f"""SELECT id, name, position, product, service, SUBSTR(address, INSTR(address, ',') + 1) as address, description, contact, images FROM company
                 WHERE id = {id}""")
@@ -174,7 +174,7 @@ def about_company(): #информация по выбранной компан�
 
 @app.route("/icon/<int:id>", methods=['GET'])  # ИКОНКИ
 def icon_contact(id):
-    with sql.connect("company.db") as conn:
+    with sql.connect("database.db") as conn:
         cursor = conn.cursor()
         cursor.execute("""
             SELECT whatsapp, telegram, viber, vk, site 
@@ -206,7 +206,7 @@ def region(id):
     else:
         ecosystem = 'ПО'
 
-    with sql.connect("company.db") as conn:
+    with sql.connect("database.db") as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT region FROM region WHERE abb = ?", (id,))
         region = cursor.fetchone()

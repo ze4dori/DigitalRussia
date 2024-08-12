@@ -237,8 +237,7 @@ body {
     border-radius: 0.46vh;
 
     width: 9.43vw;
-    height: 3.125vw;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Тень для плашки */
+    height: 6.5vh;
 }
 
 .gerb {
