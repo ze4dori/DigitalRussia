@@ -241,7 +241,9 @@ body {
 }
 
 .gerb {
-    margin-right: 0.47vw; /* Расстояние между .gerb и .text */
+    margin-right: 0.26vw;
+    margin-left: 0.26vw;
+    margin-top: 0.26vw
 }
 
 .popupInfo h1{
@@ -256,8 +258,8 @@ body {
 .popupInfo p{
     font-size: 0.57vw;
     color:rgba(153, 153, 153, 1);
-    margin-bottom: 0.37vh;
-    margin-top: 0vh;
+    margin-bottom: 0.21vw;
+    margin-top: 0.26vw;
 
     font-weight: 400;
     

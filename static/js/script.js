@@ -443,7 +443,7 @@ function myFunctionSPAK() {
 }
 
 
-window.id_region = null;
+window.sideValue;
 
 function updateHTML(response, region) {
     const listContainer = document.querySelector('.list-items');
@@ -470,7 +470,25 @@ function updateHTML(response, region) {
         listContainer.appendChild(listItem);
     });
 
-    window.id_region = response.region_abb;
+    const id_region = response.region.map(region => region.abb);
+    // Получаем значения 'side' из response.region
+    const side = response.region.map(region => region.side);
+
+    // Определяем уникальное значение 'side' из массива или используем одиночное значение
+    window.sideValue = Array.isArray(side) && new Set(side).size === 1 ? side[0] : side;
+
+    if (window.sideValue === 'left') {
+        var scale = 1.2; // Коэффициент масштабирования
+        svgElement.style.transition = "transform 3s"; // Длительность анимации
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%) translateY(-7%)";
+    } else if (window.sideValue === 'right') {
+        var scale = 1.05; // Коэффициент масштабирования
+        svgElement.style.transition = "transform 3s"; // Длительность анимации
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%) translateY(2%)";
+    } else {
+        // Обработка случая, когда `sideValue` не равен 'left' или 'right'
+        console.warn('Unknown side value:', window.sideValue);
+    }
 
     const applyRegionStyles = (regionIds, fillColor) => {
         regionIds.forEach(id => {
@@ -529,34 +547,36 @@ function updateHTML(response, region) {
         }
     };
 
+    const showPopupWithDelay = delay => {
+        setTimeout(() => {
+            const svgContainer = document.getElementById('mySvgContainer');
+            // svgContainer.style.left = id.getBoundingClientRect().y + "px";
+            // svgContainer.style.top = "-" + el.getBoundingClientRect().x + "px";
+            svgContainer.style.left = "60vw";
+            svgContainer.style.top = "-1.5vw";
+            svgContainer.style.display = 'block';
+        }, delay);
+    };
+
     if (region === 'Вся Россия') {
-        applyRegionStyles(window.id_region, 'rgba(80, 79, 217, 1)');
-        window.id_region.forEach(id => {
+        applyRegionStyles(id_region, 'rgba(80, 79, 217, 1)');
+        id_region.forEach(id => {
             const regionElement = svgElement.getElementById(id);
             if (regionElement) {
                 addRegionEventListeners(regionElement, id, true);
             }
         });
     } else {
-        window.id_region.forEach(id => {
+        id_region.forEach(id => {
             const regionElement = svgElement.getElementById(id);
             if (regionElement) {
                 addRegionEventListeners(regionElement, id, false);
             }
         });
 
-        setPartOfSvgStyle(window.id_region, "rgba(80, 79, 217, 1)");
+        setPartOfSvgStyle(id_region, "rgba(80, 79, 217, 1)");
         showPopupWithDelay(0);
     }
-
-    const showPopupWithDelay = delay => {
-        setTimeout(() => {
-            const svgContainer = document.getElementById('mySvgContainer');
-            svgContainer.style.left = "60vw";
-            svgContainer.style.top = "-1.5vw";
-            svgContainer.style.display = 'block';
-        }, delay);
-    };
 }
 
 //Обработчик кнопки назад на списке (оптимизирован)
@@ -633,14 +653,29 @@ function myFunctionInfo(id) {
     if (displayBlockInfo) {
         myITinfo.style.display = 'block';
         myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
-        svgElement.style.transform = "scale(0.5) translateX(0%)";
+        // svgElement.style.transform = "scale(0.5) translateX(0%)";
     } else {
         myITinfo.style.display = 'none';
         myBlock.style.backgroundColor = '';
-        svgElement.style.transform = "scale(0.8) translateX(-20%)";
+        // svgElement.style.transform = "scale(0.8) translateX(-20%)";
     }
 
-    svgElement.style.transition = "transform 3s";
+    // svgElement.style.transition = "transform 3s";
+    
+    if (window.sideValue === 'left') {
+        //Анимация приближения левой части после открытия левого окна инфомации
+       var scale = 1.2; // измените это значение, чтобы установить коэффициент масштабирования
+       // // Добавьте это, чтобы установить плавную анимацию
+       svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+       svgElement.style.transform = "scale(" + scale + ") translateX(21%) translateY(-7%)";
+   } else if (window.sideValue === 'right') {
+    //    var scale = 1.05; // Коэффициент масштабирования
+    //    svgElement.style.transition = "transform 3s"; // Длительность анимации
+    //    svgElement.style.transform = "scale(" + scale + ") translateX(-20%) translateY(2%)";
+   } else {
+       // Обработка случая, когда `sideValue` не равен 'left' или 'right'
+       console.warn('Unknown side value:', window.sideValue);
+   }
 
     if (isNewBlock) {
         const request = new XMLHttpRequest();

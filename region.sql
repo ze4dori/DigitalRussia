@@ -31,7 +31,7 @@ INSERT INTO region (id, region, abb, side) VALUES
 (23, 'Алтайский край', 'AK', 'left'),
 (24, 'Забайкальский край', 'ZK', 'right'),
 (25, 'Камчатский край', 'KKR', 'right'),
-(26, 'Краснодарский край', 'KDA', 'right'),
+(26, 'Краснодарский край', 'KDA', 'left'),
 (27, 'Красноярский край', 'KYA', 'left'),
 (28, 'Пермский край', 'PER', 'left'),
 (29, 'Приморский край', 'PRI', 'right'),
@@ -95,3 +95,6 @@ INSERT INTO region (id, region, abb, side) VALUES
 (87, 'Луганская народная республика', 'LNR', 'left'),
 (88, 'Запорожская область', 'ZO', 'left'),
 (89, 'Херсонская область', 'KHE', 'left');
+
+-- SELECT * FROM region
+-- WHERE side = 'right'
