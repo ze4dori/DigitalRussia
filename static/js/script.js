@@ -14,6 +14,14 @@ function toggleState() {
 }
 
 function myFunctionClick(id) {
+    var Filter = document.getElementById('myModal');
+    var button = document.getElementById('hide');
+    Filter.style.right = "1.04vw";
+    button.style.right = "27vw";
+    var FilterPAK = document.getElementById('myModalPAK');
+    var buttonPAK = document.getElementById('hidePAK');
+    FilterPAK.style.right = "1.04vw";
+    buttonPAK.style.right = "27vw";
 
     // Если на экране отображается модальные окна, функция не выполняется
     var myITinfo = document.getElementById('myITinfo');
@@ -33,11 +41,44 @@ function myFunctionClick(id) {
     var button = document.getElementById(id);
     button.classList.add('active');
 
+    var svgElement = document.getElementById("mySvg");
+    var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+    // Добавьте это, чтобы установить плавную анимацию
+    svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+    svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+
     // Обновляем id активной кнопки
     activeButtonId = id;
     sendActiveButtonId(activeButtonId)
+    
     var myModal = document.getElementById('myModal');
+    
     var myModalPAK = document.getElementById('myModalPAK');
+
+    // Сбросить выбранные теги
+    // Регион
+    var selectedTagsContainer = document.getElementById('selected-tags');
+    selectedTagsContainer.innerHTML = ''
+    // Класс
+    var selectedTagsContainer = document.getElementById('selected-tags-1');
+    selectedTagsContainer.innerHTML = ''
+    // Отрасль
+    var selectedTagsContainer = document.getElementById('selected-tags-2');
+    selectedTagsContainer.innerHTML = ''
+    // Регион
+    var selectedTagsContainer = document.getElementById('selected-tags-3');
+    selectedTagsContainer.innerHTML = ''
+    // Класс
+    var selectedTagsContainer = document.getElementById('selected-tags-4');
+    selectedTagsContainer.innerHTML = ''
+    // Отрасль
+    var selectedTagsContainer = document.getElementById('selected-tags-5');
+    selectedTagsContainer.innerHTML = ''
+
+    // Сбросить состояние чекбоксов
+    document.getElementById('gosreg').checked = true;
+    document.getElementById('AI').checked = false;
+    document.getElementById('gosregPAK').checked = true;
 
     myModal.style.display = 'none';
     myModalPAK.style.display = 'none';
@@ -89,21 +130,21 @@ function myFunctionForMyButton() {
         var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию 
         svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
 
 
     } else {
         var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию
         svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
 
     }
 }
 window.activeButtonId = 'ButtonPAK';
 
 // Обработчик кнопки Фильтр
-document.getElementById('myButton').onclick = myFunction;
+document.getElementById('myButton').onclick = myFunction();
 
 function myFunction() {
     // alert(activeButtonId); //Для проверки значения
@@ -146,6 +187,7 @@ function hideFilterFunction() {
     var Filter = document.getElementById('myModal');
     var button = document.getElementById('hide');
 
+    var myITinfo = document.getElementById('myITinfo');
     var svgElement = document.getElementById("mySvg");
 
     if (myModal.style.right === '1.04vw') {
@@ -155,22 +197,64 @@ function hideFilterFunction() {
         var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию
         svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
     } else {
         Filter.style.right = "1.04vw";
         button.style.right = "27vw";
 
         var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
-        // Добавьте это, чтобы установить плавную анимацию 
+        // Добавьте это, чтобы установить плавную анима цию 
         svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
     }
+
+    // if (myITinfo.style.display === 'block') {
+    //     if (myModal.style.right === '1.04vw') {
+    //         Filter.style.right = "-30vw";
+    //         button.style.right = "0vw";
+    
+    //         var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+    //         // Добавьте это, чтобы установить плавную анимацию
+    //         svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+    //         svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    //     } else {
+    //         Filter.style.right = "1.04vw";
+    //         button.style.right = "27vw";
+    
+    //         var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+    //         // Добавьте это, чтобы установить плавную анима цию 
+    //         svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+    //         svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    //     }
+    // } else {
+    //     var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+    //     // Добавьте это, чтобы установить плавную анимацию 
+    //     svgElement.style.transform = "scale(" + scale + ") translateX(20%)";
+    //     svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    // }
 }
 
 document.getElementById('close').onclick = closeMyModal;
 // Функция для закрытия окна и очистки полей ввода и чекбоксов
 function closeMyModal() {
     // Закрываем окно
+
+    var myITinfo = document.getElementById('myITinfo');
+    var svgElement = document.getElementById("mySvg");
+
+    if (myITinfo.style.display === 'block') {
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(20%)";
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    }
+    else {
+        //Карта на весь экран
+        var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    }
 
     var myModal = document.getElementById('myModal');
     myModal.style.display = 'none';
@@ -179,70 +263,50 @@ function closeMyModal() {
     // кнопка уже активна, вернем исходные стили
     button.classList.remove('active');
 
-    //Карта на весь экран
-    var svgElement = document.getElementById("mySvg");
-    var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
-    // Добавьте это, чтобы установить плавную анимацию
-    svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
-    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-
-    // Вернуть selectButton к начальным значениям
-    var selectButton = document.getElementById('selectButtonRegion');
-    // selectButton.textContent = 'Вся Россия';
-
-    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    selectButton.innerHTML = 'Вся Россия' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonClassPO');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonExperience');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
+    // Сбросить выбранные теги
+    // Регион
+    var selectedTagsContainer = document.getElementById('selected-tags');
+    selectedTagsContainer.innerHTML = ''
+    // Класс
+    var selectedTagsContainer = document.getElementById('selected-tags-1');
+    selectedTagsContainer.innerHTML = ''
+    // Отрасль
+    var selectedTagsContainer = document.getElementById('selected-tags-2');
+    selectedTagsContainer.innerHTML = ''
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosreg').checked = true;
     document.getElementById('AI').checked = false;
-
-    // Скрыть блок с классом "searchContainer"
-    const container1 = document.getElementById('searchContainerRegion');
-    container1.style.display = container1.style.display = 'none';
-    const container2 = document.getElementById('searchContainerClassPO');
-    container2.style.display = container2.style.display = 'none';
-    const container3 = document.getElementById('searchContainerExperience');
-    container3.style.display = container3.style.display = 'none';
 }
 
 // Обработчик кнопки Сбросить фильтр
 document.getElementById('myButtonB').onclick = myFunctionB;
 function myFunctionB() {
 
-    var selectButton = document.getElementById('selectButtonRegion');
-    // selectButton.textContent = 'Вся Россия';
-
-    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    selectButton.innerHTML = 'Вся Россия' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonClassPO');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonExperience');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
+    // Сбросить выбранные теги
+    // Регион
+    var selectedTagsContainer = document.getElementById('selected-tags');
+    selectedTagsContainer.innerHTML = ''
+    // Класс
+    var selectedTagsContainer = document.getElementById('selected-tags-1');
+    selectedTagsContainer.innerHTML = ''
+    // Отрасль
+    var selectedTagsContainer = document.getElementById('selected-tags-2');
+    selectedTagsContainer.innerHTML = ''
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosreg').checked = true;
     document.getElementById('AI').checked = false;
-
-    // Скрыть блок с классом "searchContainer"
-    const container1 = document.getElementById('searchContainerRegion');
-    container1.style.display = container1.style.display = 'none';
-    const container2 = document.getElementById('searchContainerClassPO');
-    container2.style.display = container2.style.display = 'none';
-    const container3 = document.getElementById('searchContainerExperience');
-    container3.style.display = container3.style.display = 'none';
 }
 
+window.fields;
+window.softwareclasses;
+window.hardwareclasses;
+window.software_ai;
+window.errp;
+
 // Обработчик кнопки Применить (оптимизирован)
-document.getElementById('myButtonS').onclick = myFunctionS;
+document.getElementById('myButtonS').onclick = myFunctionS();
 function myFunctionS() {
     // Скрыть модальное окно и сбросить стили кнопки
     document.getElementById('myModal').style.display = 'none';
@@ -253,11 +317,24 @@ function myFunctionS() {
     myList.style.display = (myList.style.display === 'none' || !myList.style.display) ? 'block' : 'none';
 
     // Сбор данных для фильтрации
-    const region = document.getElementById('selectButtonRegion').innerText.trim();
-    const softwareclass = document.getElementById('selectButtonClassPO').innerText.trim();
-    const field = document.getElementById('selectButtonExperience').innerText.trim();
-    const errp = document.getElementById('gosreg').checked ? 1 : 0;
-    const software_ai = document.getElementById('AI').checked ? 1 : 0;
+    const tags_region = document.querySelectorAll('#selected-tags .tag');
+    const regions = Array.from(tags_region).map(tag => tag.innerText.trim());
+
+    if (regions.includes('Вся Россия')) {
+        const index = regions.indexOf('Вся Россия');
+        if (index > -1) {
+            regions.splice(index, 1); // Удаляет 'Вся Россия' из массива
+        }
+    }
+
+    const tags_softwareclass = document.querySelectorAll('#selected-tags-1 .tag');
+    softwareclasses = Array.from(tags_softwareclass).map(tag => tag.innerText.trim());
+
+    const tags_field = document.querySelectorAll('#selected-tags-2 .tag');
+    fields = Array.from(tags_field).map(tag => tag.innerText.trim());
+
+    errp = document.getElementById('gosreg').checked ? 'TRUE' : 'FALSE';
+    software_ai = document.getElementById('AI').checked ? 'TRUE' : 'FALSE';
 
     // Отправка POST-запроса
     const request = new XMLHttpRequest();
@@ -268,8 +345,9 @@ function myFunctionS() {
         if (request.status >= 200 && request.status < 300) {
             try {
                 const response = JSON.parse(request.responseText);
-                console.log(response);
-                updateHTML(response, region);
+                console.log(response)
+                console.log(response.region)
+                updateHTML(response, response.region);
             } catch (e) {
                 console.error('Ошибка при разборе ответа:', e);
             }
@@ -282,7 +360,8 @@ function myFunctionS() {
         alert('Ошибка соединения с сервером!');
     };
 
-    request.send(JSON.stringify({ region, softwareclass, field, errp, software_ai }));
+    // Отправляем массив регионов в запросе
+    request.send(JSON.stringify({ regions, softwareclasses, fields, errp, software_ai }));
 }
 
 
@@ -309,7 +388,7 @@ function hideFilterFunctionPAK() {
         var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию
         svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
     } else {
         Filter.style.right = "1.04vw";
         button.style.right = "27vw";
@@ -318,7 +397,7 @@ function hideFilterFunctionPAK() {
         var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
         // Добавьте это, чтобы установить плавную анимацию 
         svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
-        svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
     }
 }
 
@@ -330,77 +409,65 @@ function closeMyModalPAK() {
     var myModal = document.getElementById('myModalPAK');
     myModal.style.display = 'none';
 
+    var myITinfo = document.getElementById('myITinfo');
+    var svgElement = document.getElementById("mySvg");
+
+    if (myITinfo.style.display === 'block') {
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(20%)";
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    }
+    else {
+        //Карта на весь экран
+        var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию
+        svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    }
+
     var button = document.getElementById('myButton');
     // кнопка уже активна, вернем исходные стили
     button.classList.remove('active');
 
-    //Карта на весь экран
-    var svgElement = document.getElementById("mySvg");
-    var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
-    // Добавьте это, чтобы установить плавную анимацию
-    svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
-    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-
-    // Вернуть selectButton к начальным значениям
-    var selectButton = document.getElementById('selectButtonRegionPAK');
-    // selectButton.textContent = 'Вся Россия';
-
-    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    selectButton.innerHTML = 'Вся Россия' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonClassPAK');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonExperiencePAK');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
+    // Сбросить выбранные теги
+    // Регион
+    var selectedTagsContainer = document.getElementById('selected-tags-3');
+    selectedTagsContainer.innerHTML = ''
+    // Класс
+    var selectedTagsContainer = document.getElementById('selected-tags-4');
+    selectedTagsContainer.innerHTML = ''
+    // Отрасль
+    var selectedTagsContainer = document.getElementById('selected-tags-5');
+    selectedTagsContainer.innerHTML = ''
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
-
-    //Закрытие контейнеров
-    const container1 = document.getElementById('searchContainerRegionPAK');
-    container1.style.display = container1.style.display = 'none';
-    const container2 = document.getElementById('searchContainerClassPAK');
-    container2.style.display = container2.style.display = 'none';
-    const container3 = document.getElementById('searchContainerExperiencePAK');
-    container3.style.display = container3.style.display = 'none';
 }
 
 // Обработчик кнопки Сбросить фильтр
 document.getElementById('myButtonBPAK').onclick = myFunctionBPAK;
 function myFunctionBPAK() {
-    //var vhInPx = window.innerHeight / 100;
 
-    // Вернуть selectButton к начальным значениям
-    var selectButton = document.getElementById('selectButtonRegionPAK');
-    // selectButton.textContent = 'Вся Россия';
-
-    var svgCode = '<svg class="strelka" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M13 7L7 1L1 7" stroke="#1F2B6A" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    selectButton.innerHTML = 'Вся Россия' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonClassPAK');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
-
-    var selectButton = document.getElementById('selectButtonExperiencePAK');
-    selectButton.innerHTML = 'Выбрать' + svgCode;
+    // Сбросить выбранные теги
+    // Регион
+    var selectedTagsContainer = document.getElementById('selected-tags-3');
+    selectedTagsContainer.innerHTML = ''
+    // Класс
+    var selectedTagsContainer = document.getElementById('selected-tags-4');
+    selectedTagsContainer.innerHTML = ''
+    // Отрасль
+    var selectedTagsContainer = document.getElementById('selected-tags-5');
+    selectedTagsContainer.innerHTML = ''
 
     // Сбросить состояние чекбоксов
     document.getElementById('gosregPAK').checked = true;
-
-    //Закрытие контейнеров
-    const container1 = document.getElementById('searchContainerRegionPAK');
-    container1.style.display = container1.style.display = 'none';
-    const container2 = document.getElementById('searchContainerClassPAK');
-    container2.style.display = container2.style.display = 'none';
-    const container3 = document.getElementById('searchContainerExperiencePAK');
-    container3.style.display = container3.style.display = 'none';
 
 }
 
 
 // Обработчик кнопки Применить
 document.getElementById('myButtonSPAK').onclick = myFunctionSPAK;
-
 function myFunctionSPAK() {
     // Скрыть модальное окно и сбросить стили кнопки
     document.getElementById('myModalPAK').style.display = 'none';
@@ -411,10 +478,23 @@ function myFunctionSPAK() {
     myList.style.display = (myList.style.display === 'none' || !myList.style.display) ? 'block' : 'none';
 
     // Сбор данных для фильтрации
-    const region = document.getElementById('selectButtonRegionPAK').innerText.trim();
-    const hardwareclass = document.getElementById('selectButtonClassPAK').innerText.trim();
-    const field = document.getElementById('selectButtonExperiencePAK').innerText.trim();
-    const errp = document.getElementById('gosregPAK').checked ? 1 : 0;
+    const tags_region = document.querySelectorAll('#selected-tags-3 .tag');
+    const regions = Array.from(tags_region).map(tag => tag.innerText.trim());
+
+    if (regions.includes('Вся Россия')) {
+        const index = regions.indexOf('Вся Россия');
+        if (index > -1) {
+            regions.splice(index, 1); // Удаляет 'Вся Россия' из массива
+        }
+    }
+
+    const tags_hardwareclass = document.querySelectorAll('#selected-tags-4 .tag');
+    hardwareclasses = Array.from(tags_hardwareclass).map(tag => tag.innerText.trim());
+
+    const tags_field = document.querySelectorAll('#selected-tags-5 .tag');
+    fields = Array.from(tags_field).map(tag => tag.innerText.trim());
+
+    errp = document.getElementById('gosregPAK').checked ? 'TRUE' : 'FALSE';
 
     // Отправка POST-запроса
     const request = new XMLHttpRequest();
@@ -425,8 +505,9 @@ function myFunctionSPAK() {
         if (request.status >= 200 && request.status < 300) {
             try {
                 const response = JSON.parse(request.responseText);
-                console.log(response);
-                updateHTML(response, region);
+                console.log(response)
+                console.log(response.region)
+                updateHTML(response, response.region);
             } catch (e) {
                 console.error('Ошибка при разборе ответа:', e);
             }
@@ -439,54 +520,166 @@ function myFunctionSPAK() {
         alert('Ошибка соединения с сервером!');
     };
 
-    request.send(JSON.stringify({ region, hardwareclass, field, errp }));
+    // Отправляем массив регионов в запросе
+    request.send(JSON.stringify({ regions, hardwareclasses, fields, errp }));
 }
 
 
 window.sideValue;
 
-function updateHTML(response, region) {
+// Функция для отправки запроса на сервер по ID региона
+function fetchCompaniesInRegion(id) {
+    const svgElement = document.getElementById("mySvg");
+    const parentElement = svgElement;
+    const childElements = parentElement.children;
+
+    if (activeButtonId == 'ButtonPAK') {
+        fetch(`/region/${id}?button=${activeButtonId}`)
+        .then(response => response.ok ? response.json() : Promise.reject('Сетевая ошибка'))
+        .then(region => {
+
+            const request = new XMLHttpRequest();
+            request.open('POST', '/filterPAK');
+            request.setRequestHeader('Content-Type', 'application/json');
+
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 300) {
+                    try {
+                        const response = JSON.parse(request.responseText);
+                        console.log(response);
+                        for (let i = 0; i < childElements.length; i++) {
+                            const child = childElements[i];
+                            if (child.id !== id) {
+                                child.style.fill = 'rgba(125, 159, 232, 1)';
+                                const newElement = child.cloneNode(true);
+                                child.parentNode.replaceChild(newElement, child);
+                            }
+                        }
+                        updateHTML(response, Array(region));
+                    } catch (e) {
+                        console.error('Ошибка при разборе ответа:', e);
+                    }
+                } else {
+                    console.error('Ошибка статуса:', request.status); // Log the status code
+                    alert('Ошибка при отправке запроса!');
+                }
+            };
+
+            request.onerror = function () {
+                alert('Ошибка соединения с сервером!');
+            };
+
+            // Отправляем данные на сервер
+            request.send(JSON.stringify({
+                regions: Array(region.name), // Используйте нужное значение для региона
+                hardwareclasses: hardwareclasses,
+                fields: fields,
+                errp: errp
+            }));
+
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            document.getElementById("dynamicRegion").innerHTML = "Ошибка получения данных";
+        });
+    } else {
+        fetch(`/region/${id}?button=${activeButtonId}`)
+        .then(response => response.ok ? response.json() : Promise.reject('Сетевая ошибка'))
+        .then(region => {
+
+            const request = new XMLHttpRequest();
+            request.open('POST', '/filterPO');
+            request.setRequestHeader('Content-Type', 'application/json');
+
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 300) {
+                    try {
+                        const response = JSON.parse(request.responseText);
+                        console.log(response);
+                        for (let i = 0; i < childElements.length; i++) {
+                            const child = childElements[i];
+                            if (child.id !== id) {
+                                child.style.fill = 'rgba(125, 159, 232, 1)';
+                                const newElement = child.cloneNode(true);
+                                child.parentNode.replaceChild(newElement, child);
+                            }
+                        }
+                        updateHTML(response, Array(region));
+                    } catch (e) {
+                        console.error('Ошибка при разборе ответа:', e);
+                    }
+                } else {
+                    console.error('Ошибка статуса:', request.status); // Log the status code
+                    alert('Ошибка при отправке запроса!');
+                }
+            };
+
+            request.onerror = function () {
+                alert('Ошибка соединения с сервером!');
+            };
+
+            // Отправляем данные на сервер
+            request.send(JSON.stringify({
+                regions: Array(region.name),
+                softwareclasses: softwareclasses,
+                fields: fields,
+                errp: errp,
+                software_ai: software_ai
+            }));
+
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            document.getElementById("dynamicRegion").innerHTML = "Ошибка получения данных";
+        });
+    }
+}
+
+// Функция для нового фильтра Регион
+function updateHTML(response, regions) {
     const listContainer = document.querySelector('.list-items');
     const countCompany = response.companies.length;
     const svgElement = document.getElementById('mySvg');
+    const infoPopup = document.getElementById('InfoInPopUp');
 
     listContainer.innerHTML = '';
 
-    response.companies.forEach(item => {
-        const listItem = document.createElement('div');
-        listItem.classList.add('list-item');
-
-        listItem.innerHTML = `
-            <div class="container" id="${item.id}" onclick="myFunctionInfo(${item.id})">
-                <div class="info_container">
-                    <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
-                    <h2>${item.company_name}</h2>
-                </div>
-                <p>${item.position_company}</p>
-                <p>${item.address}</p>
-            </div>
-        `;
-
-        listContainer.appendChild(listItem);
-    });
-
-    const id_region = response.region.map(region => region.abb);
-    // Получаем значения 'side' из response.region
-    const side = response.region.map(region => region.side);
-
-    // Определяем уникальное значение 'side' из массива или используем одиночное значение
-    window.sideValue = Array.isArray(side) && new Set(side).size === 1 ? side[0] : side;
-
-    if (window.sideValue === 'left') {
-        var scale = 1.2; // Коэффициент масштабирования
-        svgElement.style.transition = "transform 3s"; // Длительность анимации
-        svgElement.style.transform = "scale(" + scale + ") translateX(0%) translateY(-7%)";
-    } else if (window.sideValue === 'right') {
-        var scale = 1.05; // Коэффициент масштабирования
-        svgElement.style.transition = "transform 3s"; // Длительность анимации
-        svgElement.style.transform = "scale(" + scale + ") translateX(-20%) translateY(2%)";
+    if (response.companies.length === 0) {
+        listContainer.innerHTML = '<p style="margin-left: 1.04vw;">По вашему запросу ничего не найдено.</p>';
     } else {
-        // Обработка случая, когда `sideValue` не равен 'left' или 'right'
+        response.companies.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.classList.add('list-item');
+    
+            listItem.innerHTML = `
+                <div class="container" id="${item.id}" onclick="myFunctionInfo(${item.id})">
+                    <div class="info_container">
+                        <img src="https://getfile.dokpub.com/yandex/get/${item.logo_company}" alt="Иконка">
+                        <h2>${item.company_name}</h2>
+                    </div>
+                    <p>${item.position_company}</p>
+                    <p>${item.address}</p>
+                </div>
+            `;
+    
+            listContainer.appendChild(listItem);
+        });
+    }
+
+    const idRegions = response.region.map(region => region.abb);
+    const sides = response.region.map(region => region.side);
+    
+    // Определяем общее значение стороны
+    window.sideValue = Array.isArray(sides) && new Set(sides).size === 1 ? sides[0] : sides;
+
+    // Настройка масштабирования в зависимости от стороны
+    if (window.sideValue === 'left') {
+        svgElement.style.transition = "transform 3s"; 
+        svgElement.style.transform = "scale(1.2) translateX(0%) translateY(-7%)";
+    } else if (window.sideValue === 'right') {
+        svgElement.style.transition = "transform 3s"; 
+        svgElement.style.transform = "scale(1.05) translateX(-20%) translateY(2%)";
+    } else {
         console.warn('Unknown side value:', window.sideValue);
     }
 
@@ -502,21 +695,61 @@ function updateHTML(response, region) {
     const addRegionEventListeners = (element, id, fetchData) => {
         element.addEventListener('mouseover', event => {
             if (fetchData) {
-                fetch(`/region/${id}?button=${activeButtonId}`)
+                const params = new URLSearchParams({
+                    button: activeButtonId,
+                    errp: errp,
+                });
+
+                fields.forEach(field => {
+                    params.append('fields[]', field);
+                });                
+                if (window.softwareclasses) {
+                    window.softwareclasses.forEach(softwareClass => {
+                        params.append('softwareclasses[]', softwareClass);
+                    });
+                }                
+                if (window.software_ai) {
+                    params.append('software_ai', window.software_ai);
+                }
+                if (window.hardwareclasses) {
+                    window.hardwareclasses.forEach(hardwareClass => {
+                        params.append('hardwareclasses[]', hardwareClass);
+                    });
+                }
+            
+                fetch(`/region/${id}?${params}`)
                     .then(response => response.ok ? response.json() : Promise.reject('Сетевая ошибка'))
-                    .then(region => updatePopup(region.name, region.count, id))
+                    .then(region => {
+                        updatePopup(region.name, region.count, id);
+                        showPopup(event);
+                    })
                     .catch(error => {
                         console.error('Ошибка:', error);
                         document.getElementById("dynamicRegion").innerHTML = "Ошибка получения данных";
                     });
             } else {
-                updatePopup(region, countCompany, id);
+                updatePopup(id, countCompany, id);
+                showPopup(event);
             }
-            showPopup(event);
+        });
+        let timeout;
+
+        element.addEventListener('mouseout', () => {
+            if (!infoPopup.matches(':hover')) {
+                    hidePopup();
+            }
         });
 
-        element.addEventListener('mouseout', hidePopup);
         element.addEventListener('mousemove', updatePopupPosition);
+        
+        element.addEventListener('click', () => {
+            const infoElement = document.getElementById('myITinfo');
+            if (infoElement.style.display === 'none' || !infoElement.style.display) {
+                if (regions.length === 0 || regions.length > 1) {
+                    fetchCompaniesInRegion(id);
+                }
+            }
+        });
     };
 
     const updatePopup = (regionName, count, id) => {
@@ -526,66 +759,72 @@ function updateHTML(response, region) {
     };
 
     const showPopup = event => {
-        updatePopupPosition(event);
-        document.getElementById('InfoInPopUp').style.display = 'block';
+        if (infoPopup.style.display !== 'block') {
+            updatePopupPosition(event);
+            infoPopup.style.display = 'block';
+        }
     };
 
     const hidePopup = () => {
-        document.getElementById('InfoInPopUp').style.display = 'none';
+        infoPopup.style.display = 'none';
     };
 
     const updatePopupPosition = event => {
-        const infoPopup = document.getElementById('InfoInPopUp');
         infoPopup.style.top = `${event.clientY + 10}px`;
         infoPopup.style.left = `${event.clientX + 10}px`;
     };
 
-    const setPartOfSvgStyle = (id, fillColor) => {
-        const partOfSvg = svgElement.getElementById(id);
-        if (partOfSvg) {
-            partOfSvg.style.fill = fillColor;
-        }
-    };
+    // const setPartOfSvgStyle = (id, fillColor) => {
+    //     const partOfSvg = svgElement.getElementById(id);
+    //     if (partOfSvg) {
+    //         partOfSvg.style.fill = fillColor;
+    //     }
+    // };
 
-    const showPopupWithDelay = delay => {
-        setTimeout(() => {
-            const svgContainer = document.getElementById('mySvgContainer');
-            // svgContainer.style.left = id.getBoundingClientRect().y + "px";
-            // svgContainer.style.top = "-" + el.getBoundingClientRect().x + "px";
-            svgContainer.style.left = "60vw";
-            svgContainer.style.top = "-1.5vw";
-            svgContainer.style.display = 'block';
-        }, delay);
-    };
+    // const showPopupWithDelay = delay => {
+    //     setTimeout(() => {
+    //         const svgContainer = document.getElementById('mySvgContainer');
+    //         svgContainer.style.left = "60vw";
+    //         svgContainer.style.top = "-1.5vw";
+    //         svgContainer.style.display = 'block';
+    //     }, delay);
+    // };
 
-    if (region === 'Вся Россия') {
-        applyRegionStyles(id_region, 'rgba(80, 79, 217, 1)');
-        id_region.forEach(id => {
+    if (regions.includes('Вся Россия')) {
+        applyRegionStyles(idRegions, 'rgba(80, 79, 217, 1)');
+        idRegions.forEach(id => {
             const regionElement = svgElement.getElementById(id);
             if (regionElement) {
                 addRegionEventListeners(regionElement, id, true);
             }
         });
     } else {
-        id_region.forEach(id => {
+        idRegions.forEach(id => {
             const regionElement = svgElement.getElementById(id);
             if (regionElement) {
-                addRegionEventListeners(regionElement, id, false);
+                addRegionEventListeners(regionElement, id, true);
             }
         });
 
-        setPartOfSvgStyle(id_region, "rgba(80, 79, 217, 1)");
-        showPopupWithDelay(0);
+        applyRegionStyles(idRegions, "rgba(80, 79, 217, 1)");
     }
 }
+
+
 
 //Обработчик кнопки назад на списке (оптимизирован)
 function myFunctionBack() {
     // Сбрасываем глобальную переменную
     window.idBlock = undefined;
-    // Для обратной анимации
     const svgElement = document.getElementById("mySvg");
-    const scale = 0.8; // Возвращаем к исходному масштабу
+    // var myITinfo = document.getElementById('myITinfo');
+    document.getElementById("myITinfo").style.display = "none";
+
+    // Возвращаем исходный масштаб элемента SVG
+    var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+    // Добавьте это, чтобы установить плавную анимацию 
+    svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+    svgElement.style.transition = "transform 1.5s";  
 
     // Получаем родительский элемент и всех его дочерних элементов
     const parentElement = svgElement;
@@ -623,14 +862,10 @@ function myFunctionBack() {
     }
 
     // Скрываем svgContainer и возвращаем исходные координаты
-    const svgContainer = document.getElementById('mySvgContainer');
-    svgContainer.style.display = 'none';
-    svgContainer.style.left = "";
-    svgContainer.style.top = "";
-
-    // Возвращаем исходный масштаб элемента SVG
-    svgElement.style.transition = "transform 3s";
-    svgElement.style.transform = `scale(${scale}) translateX(-20%) translateY(0)`;    
+    // const svgContainer = document.getElementById('mySvgContainer');
+    // svgContainer.style.display = 'none';
+    // svgContainer.style.left = "";
+    // svgContainer.style.top = "";
 }
 
 //Появление блока инфо (оптимизирован)
@@ -648,34 +883,46 @@ function myFunctionInfo(id) {
     }
 
     const isNewBlock = id !== window.idBlock;
+
+    if (id === window.idBlock) {
+        window.idBlock = undefined;
+    }
     const displayBlockInfo = isNewBlock || myITinfo.style.display === 'none';
 
     if (displayBlockInfo) {
         myITinfo.style.display = 'block';
         myBlock.style.backgroundColor = 'rgba(240, 242, 255, 1)';
         // svgElement.style.transform = "scale(0.5) translateX(0%)";
+       if (window.sideValue === 'left') {
+        //Анимация приближения левой части после открытия левого окна инфомации
+       var scale = 1.2; // измените это значение, чтобы установить коэффициент масштабирования
+       // // Добавьте это, чтобы установить плавную анимацию
+       svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+       svgElement.style.transform = "scale(" + scale + ") translateX(21%) translateY(-7%)";
+        } else if (window.sideValue === 'right') {
+        } else {
+            svgElement.style.transform = "scale(0.6) translateX(0%)";
+        }
     } else {
+        if (window.sideValue === 'left') {
+            //Анимация приближения левой части после открытия левого окна инфомации
+           var scale = 1.2; // измените это значение, чтобы установить коэффициент масштабирования
+           // // Добавьте это, чтобы установить плавную анимацию
+           svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+           svgElement.style.transform = "scale(" + scale + ") translateX(0%) translateY(-7%)";
+       } else if (window.sideValue === 'right') {
+       } else {
+            var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+            // Добавьте это, чтобы установить плавную анимацию 
+            svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+            svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+       }
         myITinfo.style.display = 'none';
         myBlock.style.backgroundColor = '';
         // svgElement.style.transform = "scale(0.8) translateX(-20%)";
     }
 
-    // svgElement.style.transition = "transform 3s";
-    
-    if (window.sideValue === 'left') {
-        //Анимация приближения левой части после открытия левого окна инфомации
-       var scale = 1.2; // измените это значение, чтобы установить коэффициент масштабирования
-       // // Добавьте это, чтобы установить плавную анимацию
-       svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
-       svgElement.style.transform = "scale(" + scale + ") translateX(21%) translateY(-7%)";
-   } else if (window.sideValue === 'right') {
-    //    var scale = 1.05; // Коэффициент масштабирования
-    //    svgElement.style.transition = "transform 3s"; // Длительность анимации
-    //    svgElement.style.transform = "scale(" + scale + ") translateX(-20%) translateY(2%)";
-   } else {
-       // Обработка случая, когда `sideValue` не равен 'left' или 'right'
-       console.warn('Unknown side value:', window.sideValue);
-   }
+    // svgElement.style.transition = "transform 1.5s";
 
     if (isNewBlock) {
         const request = new XMLHttpRequest();
@@ -715,10 +962,10 @@ function infoHTML(response) {
         </svg>
         <div class="slideshow-container">
             <div class="mySlides fade" style="display: block;">
-                <video controls autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/lwBExgINCnQpzw"></video>
+                <video autoplay muted loop id="myVideo" src="https://getfile.dokpub.com/yandex/get/${item.video}"></video>
             </div>
             <div class="mySlides fade">
-                <img src="https://getfile.dokpub.com/yandex/get/${item.image}" width="100%">
+                <img src="https://getfile.dokpub.com/yandex/get/${item.first_image}" width="100%">
             </div>
 
             <div class="mySlides fade">
@@ -747,24 +994,27 @@ function infoHTML(response) {
                 <line y1="0.5" x2="460" y2="0.5" stroke="#383874" stroke-opacity="0.5" />
             </svg>
             <h2>О компании</h2>
-            <p>${item.description}</p>
+            <p id="about-${item.id}" class="сollapsed">${item.description}</p>
+            <button id="toggleButton-${item.id}" class = "Buttonpokazat hidden">Показать ещё</button>
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
                 fill="none">
                 <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
             </svg>
             <h2>Продукты компании</h2>
-            <ul>    
+            <ul id="product-list-${item.id}" class="collapsed-list">
                 ${listResult(item.product)}
             </ul>
+            <button id="toggleProductButton-${item.id}" class="Buttonpokazat">Показать ещё</button>
          
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
                 fill="none">
                 <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
             </svg>
             <h2>Услуги компании</h2>
-            <ul>
+            <ul id="service-list-${item.id}" class="collapsed-list">
                 ${listResult(item.service)}
             </ul>
+            <button id="toggleServiceButton-${item.id}" class = "Buttonpokazat">Показать ещё</button>
             <svg class="line" xmlns="http://www.w3.org/2000/svg" width="23.96vw" height="1" viewBox="0 0 460 1"
                 fill="none">
                 <line x1="-4.37114e-08" y1="0.5" x2="460" y2="0.49996" stroke="#383874" stroke-opacity="0.2" />
@@ -793,16 +1043,121 @@ function infoHTML(response) {
 
         // Вызов функции generateICON после добавления элемента в DOM
         generateICON(item.id);
+
+        // Обновление видимости
+        updateVisibility(item.id);
+        updateListVisibility(`product-list-${item.id}`, `toggleProductButton-${item.id}`);
+        updateListVisibility(`service-list-${item.id}`, `toggleServiceButton-${item.id}`);
+
+        // Обработчики событий для кнопок
+        setupToggleButton(`toggleButton-${item.id}`, `about-${item.id}`);
+        setupToggleButton(`toggleProductButton-${item.id}`, `product-list-${item.id}`);
+        setupToggleButton(`toggleServiceButton-${item.id}`, `service-list-${item.id}`);
     });
+
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', () => {
+        response.forEach(item => {
+            updateVisibility(item.id);
+            updateListVisibility(`product-list-${item.id}`, `toggleProductButton-${item.id}`);
+            updateListVisibility(`service-list-${item.id}`, `toggleServiceButton-${item.id}`);
+        });
+    });
+}
+
+// Видиомсть кнопки "Показать ещё"
+function updateVisibility(id) {
+    const textElement = document.getElementById(`about-${id}`);
+    const toggleButton = document.getElementById(`toggleButton-${id}`);
+    if (!textElement || !toggleButton) return;
+
+    const text = textElement.innerText || textElement.textContent;
+    const lines = text.split('. ');
+    const numberOfLines = lines.length;
+
+    const maxHeight = 2; // Количество видимых строк по умолчанию
+
+    if (numberOfLines <= maxHeight) {
+        textElement.classList.remove('collapsed');
+        textElement.classList.add('expanded');
+        toggleButton.classList.add('hidden'); // Скрыть кнопку
+    } else {
+        textElement.classList.add('collapsed');
+        textElement.classList.remove('expanded');
+        toggleButton.classList.remove('hidden'); // Показать кнопку
+    }
+}
+
+// Видимость текста для кнопки "Показать ещё"
+function updateListVisibility(listId, buttonId) {
+    const list = document.getElementById(listId);
+    const toggleButton = document.getElementById(buttonId);
+    if (!list || !toggleButton) return;
+
+    const items = list.querySelectorAll('li');
+    const visibleItems = 2; // Количество видимых элементов по умолчанию
+
+    // Скрыть все элементы, кроме первых двух
+    items.forEach((item, index) => {
+        item.style.display = index < visibleItems ? 'list-item' : 'none';
+    });
+
+    // Показать или скрыть кнопку в зависимости от количества элементов
+    if (items.length > visibleItems) {
+        list.classList.add('collapsed-list');
+        toggleButton.classList.remove('hidden');
+        toggleButton.textContent = 'Показать ещё';
+    } else {
+        list.classList.remove('collapsed-list');
+        toggleButton.classList.add('hidden');
+    }
+}
+
+// Обработчик кнопки "Показать ещё"
+function setupToggleButton(buttonId, targetId) {
+    const button = document.getElementById(buttonId);
+    if (!button) return;
+
+    button.onclick = () => {
+        const targetElement = document.getElementById(targetId);
+        const isCollapsed = targetElement.classList.contains('collapsed') || targetElement.classList.contains('collapsed-list');
+        const visibleItems = 2; // Количество видимых элементов по умолчанию
+
+        if (targetElement.tagName === 'P') { // Текстовое описание
+            if (isCollapsed) {
+                targetElement.classList.remove('collapsed');
+                targetElement.classList.add('expanded');
+                button.textContent = 'Свернуть';
+            } else {
+                targetElement.classList.remove('expanded');
+                targetElement.classList.add('collapsed');
+                button.textContent = 'Показать ещё';
+            }
+        } else { // Списки продуктов и услуг
+            const items = targetElement.querySelectorAll('li');
+            items.forEach((item, index) => {
+                item.style.display = isCollapsed || index < visibleItems ? 'list-item' : 'none';
+            });
+
+            if (isCollapsed) {
+                targetElement.classList.remove('collapsed-list');
+                targetElement.classList.add('expanded-list');
+                button.textContent = 'Свернуть';
+            } else {
+                targetElement.classList.add('collapsed-list');
+                targetElement.classList.remove('expanded-list');
+                button.textContent = 'Показать ещё';
+            }
+        }
+    };
 }
 
 //Вывод списка через маркер (оптимизирован)
 function listResult(items) {
-    // Регулярное выражение для разделения строки на элементы списка
-    const regex = /(?:[^,(]+(?:\([^)]*\))?)+/g;
-    const matches = items.match(regex) || [];
+    // Разделяем строку на элементы списка по символу ';'
+    const matches = items.split(';').map(item => item.trim()).filter(Boolean);
 
-    return matches.map(item => `<li>${item.trim()}</li>`).join('');
+    return matches.map(item => `<li>${item}</li>`).join('');
 }
 
 //Отправка запроса об иконках на сервер (оптимизирован)
@@ -820,7 +1175,7 @@ function generateICON(id) {
                 console.error('Ошибка при разборе ответа:', e);
             }
         } else if (request.status === 404) {
-            alert('Компания не найдена!');
+            console.log('Компания не найдена!');
         } else {
             alert('Ошибка при отправке запроса!');
         }
@@ -888,10 +1243,41 @@ function closeMyModalInfo() {
 
     var svgElement = document.getElementById("mySvg");
 
-    var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
-    // Добавьте это, чтобы установить плавную анимацию 
-    svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
-    svgElement.style.transition = "transform 3s"; // измените это значение, чтобы установить продолжительность анимации
+    if (window.sideValue === 'left') {
+        //Анимация приближения левой части после открытия левого окна инфомации
+       var scale = 1.2; // измените это значение, чтобы установить коэффициент масштабирования
+       // // Добавьте это, чтобы установить плавную анимацию
+       svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+       svgElement.style.transform = "scale(" + scale + ") translateX(0%) translateY(-7%)";
+   } else if (window.sideValue === 'right') {
+
+   } else {
+        var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+        // Добавьте это, чтобы установить плавную анимацию 
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+        svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+   } 
+   
+    var myModalPAK = document.getElementById('myModalPAK');
+    var myModal = document.getElementById('myModal');
+
+//     if (myModal.style.display === 'none' && myModalPAK.style.display === 'none') {
+//         var scale = 1; // измените это значение, чтобы установить коэффициент масштабирования
+//         // Добавьте это, чтобы установить плавную анимацию 
+//         svgElement.style.transform = "scale(" + scale + ") translateX(0%)";
+//         svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+//    }
+
+    // if (window.sideValue !== 'left' && window.sideValue !== 'right') {
+    //     var scale = 0.8; // измените это значение, чтобы установить коэффициент масштабирования
+    //     // Добавьте это, чтобы установить плавную анимацию 
+    //     svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+    //     svgElement.style.transition = "transform 1.5s"; // измените это значение, чтобы установить продолжительность анимации
+    // } else {
+    //     var scale = 1.2; // Коэффициент масштабирования
+    //     svgElement.style.transition = "transform 1.5s"; // Длительность анимации
+    //     svgElement.style.transform = "scale(" + scale + ") translateX(0%) translateY(-7%)";
+    // }
 }
 
 //Для фото-видео карусели
@@ -1071,7 +1457,7 @@ document.getElementById('selectButtonClassPO').onclick = searchListClassPO;
 //Работа поиска Класс ПО
 function searchListClassPO() {
     const listItemsNameClassPO = [
-        "Выбрать",
+        "Все",
         "Инструменты обработки, анализа и распознавания изображений",
         "Программное обеспечение интернета вещей, робототехники и сенсорики",
         "Встроенные прикладные программы",
@@ -1197,7 +1583,7 @@ document.getElementById('selectButtonClassPAK').onclick = searchListClassPAK;
 //Работа поиска Класс ПАК
 function searchListClassPAK() {
     const listItemsNameClassPAK = [
-        "Выбрать",
+        "Все",
         "Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
         "Программно-аппаратные комплексы организации обучения и контроля навыков",
         "Программно-аппаратные комплексы системы хранения данных",
@@ -1253,7 +1639,7 @@ document.getElementById('selectButtonExperiencePAK').onclick = searchListExperie
 function searchListExperiencePAK() {
 
     const listItemsTypeExperience = [
-        "Выбрать",
+        "Все",
         "Приборостроение",
         "Медицина",
         "Наука",
@@ -1305,3 +1691,957 @@ function toggleSearchContainerExperiencePAK() {
     const container = document.getElementById('searchContainerExperiencePAK');
     container.style.display = container.style.display === 'none' ? 'block' : 'none';
 }
+
+
+//новый поиск
+
+window.listItemsNameClassPO = [
+    "Выбрать",
+    "Инструменты обработки, анализа и распознавания изображений",
+    "Программное обеспечение интернета вещей, робототехники и сенсорики",
+    "Встроенные прикладные программы",
+    "Программное обеспечение для решения отраслевых задач в области информации и связи",
+];
+
+
+window.listItemsNameClassPAK = [
+    "Выбрать",
+    "Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
+    "Программно-аппаратные комплексы организации обучения и контроля навыков",
+    "Программно-аппаратные комплексы системы хранения данных",
+    "Программно-аппаратные комплексы автоматизированного управления технологическим процессом",
+    "Программно-аппаратные комплексы мониторинга и управления",
+];
+
+window.listItemsTypeExperience = [
+    "Выбрать",
+    "Приборостроение",
+    "Медицина",
+    "Наука",
+    "Геофизическое моделирование и обработка исследований",
+    "Образование",
+    "Умный дом",
+    "Банки и финансы",
+    "Универсальное решение",
+    "Колл-центры",
+    "Телекоммуникации"
+];
+
+
+//новый поиск
+
+//Обработчик кнопки ПО Регионы
+
+document.getElementById('clickPOR').onclick = clickPOR;
+
+function clickPOR() {
+    const searchInput = document.getElementById('search-input');
+    const dropdownList = document.getElementById('dropdown-list');
+    const selectedTagsContainer = document.getElementById('selected-tags');
+    const dropdown = document.getElementById('dropdown');
+    const noResults = document.getElementById('no-results');
+
+    const regions = [
+        "Вся Россия",
+        "Республика Адыгея",
+        "Республика Алтай",
+        "Республика Башкортостан",
+        "Республика Бурятия",
+        "Республика Дагестан",
+        "Республика Ингушетия",
+        "Кабардино-Балкарская Республика",
+        "Республика Калмыкия",
+        "Карачаево-Черкесская Республика",
+        "Республика Карелия",
+        "Республика Коми",
+        "Республика Крым",
+        "Республика Марий Эл",
+        "Республика Мордовия",
+        "Республика Саха (Якутия)",
+        "Республика Северная Осетия - Алания",
+        "Республика Татарстан",
+        "Республика Тыва",
+        "Удмуртская Республика",
+        "Республика Хакасия",
+        "Чеченская Республика",
+        "Чувашская Республика",
+        "Алтайский край",
+        "Забайкальский край",
+        "Камчатский край",
+        "Краснодарский край",
+        "Красноярский край",
+        "Пермский край",
+        "Приморский край",
+        "Ставропольский край",
+        "Хабаровский край",
+        "Амурская область",
+        "Архангельская область",
+        "Астраханская область",
+        "Белгородская область",
+        "Брянская область",
+        "Владимирская область",
+        "Волгоградская область",
+        "Вологодская область",
+        "Воронежская область",
+        "Запорожская область",
+        "Ивановская область",
+        "Иркутская область",
+        "Калининградская область",
+        "Калужская область",
+        "Кемеровская область",
+        "Кировская область",
+        "Костромская область",
+        "Курганская область",
+        "Курская область",
+        "Ленинградская область",
+        "Липецкая область",
+        "Магаданская область",
+        "Московская область",
+        "Мурманская область",
+        "Нижегородская область",
+        "Новгородская область",
+        "Новосибирская область",
+        "Омская область",
+        "Оренбургская область",
+        "Орловская область",
+        "Пензенская область",
+        "Псковская область",
+        "Ростовская область",
+        "Рязанская область",
+        "Самарская область",
+        "Саратовская область",
+        "Сахалинская область",
+        "Свердловская область",
+        "Смоленская область",
+        "Тамбовская область",
+        "Тверская область",
+        "Томская область",
+        "Тульская область",
+        "Тюменская область",
+        "Ульяновская область",
+        "Херсонская область",
+        "Челябинская область",
+        "Ярославская область",
+        "Москва",
+        "Санкт-Петербург",
+        "Еврейская автономная область",
+        "Ненецкий автономный округ",
+        "Ханты-Мансийский автономный округ - Югра",
+        "Чукотский автономный округ",
+        "Ямало-Ненецкий автономный округ",
+        "Донецкая народная республика",
+        "Луганская народная республика"
+
+    ];
+
+    function populateDropdown() {
+        const filter = searchInput.value.toUpperCase();
+        dropdownList.innerHTML = '';
+        const sortedItems = regions
+            .map(region => {
+                const matchIndex = region.toUpperCase().indexOf(filter);
+                if (matchIndex !== -1) {
+                    const beforeMatch = region.substring(0, matchIndex);
+                    const matchText = region.substring(matchIndex, matchIndex + filter.length);
+                    const afterMatch = region.substring(matchIndex + filter.length);
+                    return {
+                        region,
+                        itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                        matchIndex
+                    };
+                }
+                return { region, matchIndex: -1 };
+            })
+            .filter(item => item.matchIndex !== -1)
+            .sort((a, b) => a.matchIndex - b.matchIndex);
+
+        sortedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item.itemHtml;
+            li.setAttribute('data-value', item.region);
+            li.addEventListener('click', () => {
+                addTag(item.region);
+                dropdown.style.display = 'none';
+                searchInput.value = '';
+            });
+            dropdownList.appendChild(li);
+        });
+
+        noResults.style.display = sortedItems.length ? 'none' : 'block';
+    }
+
+    function addTag(value) {
+        if (value && !isTagSelected(value)) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = value;
+            tag.addEventListener('click', () => {
+                tag.remove();
+                updateDropdown();
+                updateSearchInput();
+            });
+            selectedTagsContainer.appendChild(tag);
+            updateDropdown();
+            updateSearchInput();
+        }
+    }
+
+    function isTagSelected(value) {
+        return Array.from(selectedTagsContainer.getElementsByClassName('tag'))
+            .some(tag => tag.textContent === value);
+    }
+
+    function updateSearchInput() {
+        const tags = Array.from(selectedTagsContainer.getElementsByClassName('tag'));
+        searchInput.value = tags.map(tag => tag.textContent).join(' ');
+    }
+
+    searchInput.addEventListener('focus', () => {
+        populateDropdown();
+        dropdown.style.display = 'block';
+    });
+
+    searchInput.addEventListener('input', () => {
+        populateDropdown();
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                selectFirstMatchingRegion(inputValue);
+                searchInput.value = '';
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    populateDropdown();
+    dropdown.style.display = 'block';
+}
+
+//Обработчик ПО название класса
+document.getElementById('clickPONAME').onclick = clickPONAME;
+
+
+function clickPONAME() {
+    const searchInput = document.getElementById('search-input-1');
+    const dropdownList = document.getElementById('dropdown-list-1');
+    const selectedTagsContainer = document.getElementById('selected-tags-1');
+    const dropdown = document.getElementById('dropdown-1');
+    const noResults = document.getElementById('no-results-1');
+
+    const listItemsNameClassPO = [
+        "Инструменты обработки, анализа и распознавания изображений",
+        "Программное обеспечение интернета вещей, робототехники и сенсорики",
+        "Встроенные прикладные программы",
+        "Программное обеспечение для решения отраслевых задач в области информации и связи",
+    ];
+
+    function populateDropdown() {
+        const filter = searchInput.value.toUpperCase();
+        dropdownList.innerHTML = '';
+        const sortedItems = listItemsNameClassPO
+            .map(region => {
+                const matchIndex = region.toUpperCase().indexOf(filter);
+                if (matchIndex !== -1) {
+                    const beforeMatch = region.substring(0, matchIndex);
+                    const matchText = region.substring(matchIndex, matchIndex + filter.length);
+                    const afterMatch = region.substring(matchIndex + filter.length);
+                    return {
+                        region,
+                        itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                        matchIndex
+                    };
+                }
+                return { region, matchIndex: -1 };
+            })
+            .filter(item => item.matchIndex !== -1)
+            .sort((a, b) => a.matchIndex - b.matchIndex);
+
+        sortedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item.itemHtml;
+            li.setAttribute('data-value', item.region);
+            li.addEventListener('click', () => {
+                addTag(item.region);
+                dropdown.style.display = 'none';
+                searchInput.value = '';
+            });
+            dropdownList.appendChild(li);
+        });
+
+        noResults.style.display = sortedItems.length ? 'none' : 'block';
+    }
+
+    function addTag(value) {
+        if (value && !isTagSelected(value)) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = value;
+            tag.addEventListener('click', () => {
+                tag.remove();
+                updateDropdown();
+                updateSearchInput();
+            });
+            selectedTagsContainer.appendChild(tag);
+            updateDropdown();
+            updateSearchInput();
+        }
+    }
+
+    function isTagSelected(value) {
+        return Array.from(selectedTagsContainer.getElementsByClassName('tag'))
+            .some(tag => tag.textContent === value);
+    }
+
+    function updateSearchInput() {
+        const tags = Array.from(selectedTagsContainer.getElementsByClassName('tag'));
+        searchInput.value = tags.map(tag => tag.textContent).join(' ');
+    }
+
+    searchInput.addEventListener('focus', () => {
+        populateDropdown();
+        dropdown.style.display = 'block';
+    });
+
+    searchInput.addEventListener('input', () => {
+        populateDropdown();
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                selectFirstMatchingRegion(inputValue);
+                searchInput.value = '';
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    populateDropdown();
+    dropdown.style.display = 'block';
+}
+
+//Обработчик ПО отрасль
+document.getElementById('clickPOOTRASL').onclick = clickPOOTRASL;
+
+
+function clickPOOTRASL() {
+    const searchInput = document.getElementById('search-input-2');
+    const dropdownList = document.getElementById('dropdown-list-2');
+    const selectedTagsContainer = document.getElementById('selected-tags-2');
+    const dropdown = document.getElementById('dropdown-2');
+    const noResults = document.getElementById('no-results-2');
+
+    const listItemsTypeExperience = [
+        "Аренда",
+        "Архитектура",
+        "Банки и финансы",
+        "Бюджетные учреждения",
+        "Ветеринарная медицина",
+        "Геодезия и картография",
+        "Геофизическое моделирование и обработка исследований",
+        "Госуслуги",
+        "Добывающая промышленность",
+        "IT",
+        "Инструмент для разработчика",
+        "Колл-центры",
+        "Машиностроение",
+        "Медицина",
+        "Музеи",
+        "Наука",
+        "Образование",
+        "Общественное питание",
+        "Органы власти",
+        "Пищевая промышленность",
+        "Приборостроение",
+        "Проектирование/Конструирование",
+        "Производство",
+        "Реклама",
+        "Сельское хозяйство",
+        "Склады, логистика",
+        "Страхование",
+        "Строительство",
+        "Телевидение, радиовещание",
+        "Телекоммуникации",
+        "Торговля",
+        "Транспорт",
+        "Турбизнес",
+        "Умный город",
+        "Умный дом",
+        "Универсальное решение",
+        "Управление ЖКХ",
+        "Управление медицинской организацией",
+        "Управление финансами",
+        "Фармакология и фармацевтика",
+        "Энергетика"
+    ];
+    
+
+    function populateDropdown() {
+        const filter = searchInput.value.toUpperCase();
+        dropdownList.innerHTML = '';
+        const sortedItems = listItemsTypeExperience 
+            .map(region => {
+                const matchIndex = region.toUpperCase().indexOf(filter);
+                if (matchIndex !== -1) {
+                    const beforeMatch = region.substring(0, matchIndex);
+                    const matchText = region.substring(matchIndex, matchIndex + filter.length);
+                    const afterMatch = region.substring(matchIndex + filter.length);
+                    return {
+                        region,
+                        itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                        matchIndex
+                    };
+                }
+                return { region, matchIndex: -1 };
+            })
+            .filter(item => item.matchIndex !== -1)
+            .sort((a, b) => a.matchIndex - b.matchIndex);
+
+        sortedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item.itemHtml;
+            li.setAttribute('data-value', item.region);
+            li.addEventListener('click', () => {
+                addTag(item.region);
+                dropdown.style.display = 'none';
+                searchInput.value = '';
+            });
+            dropdownList.appendChild(li);
+        });
+
+        noResults.style.display = sortedItems.length ? 'none' : 'block';
+    }
+
+    function addTag(value) {
+        if (value && !isTagSelected(value)) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = value;
+            tag.addEventListener('click', () => {
+                tag.remove();
+                updateDropdown();
+                updateSearchInput();
+            });
+            selectedTagsContainer.appendChild(tag);
+            updateDropdown();
+            updateSearchInput();
+        }
+    }
+
+    function isTagSelected(value) {
+        return Array.from(selectedTagsContainer.getElementsByClassName('tag'))
+            .some(tag => tag.textContent === value);
+    }
+
+    function updateSearchInput() {
+        const tags = Array.from(selectedTagsContainer.getElementsByClassName('tag'));
+        searchInput.value = tags.map(tag => tag.textContent).join(' ');
+    }
+
+    searchInput.addEventListener('focus', () => {
+        populateDropdown();
+        dropdown.style.display = 'block';
+    });
+
+    searchInput.addEventListener('input', () => {
+        populateDropdown();
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                selectFirstMatchingRegion(inputValue);
+                searchInput.value = '';
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    populateDropdown();
+    dropdown.style.display = 'block';
+}
+
+//Обработчик кнопки ПАК Регионы
+
+document.getElementById('clickPAKR').onclick = clickPAKR;
+
+function clickPAKR() {
+    const searchInput = document.getElementById('search-input-3');
+    const dropdownList = document.getElementById('dropdown-list-3');
+    const selectedTagsContainer = document.getElementById('selected-tags-3');
+    const dropdown = document.getElementById('dropdown-3');
+    const noResults = document.getElementById('no-results-3');
+
+    const regions = [
+        "Вся Россия",
+        "Республика Адыгея",
+        "Республика Алтай",
+        "Республика Башкортостан",
+        "Республика Бурятия",
+        "Республика Дагестан",
+        "Республика Ингушетия",
+        "Кабардино-Балкарская Республика",
+        "Республика Калмыкия",
+        "Карачаево-Черкесская Республика",
+        "Республика Карелия",
+        "Республика Коми",
+        "Республика Крым",
+        "Республика Марий Эл",
+        "Республика Мордовия",
+        "Республика Саха (Якутия)",
+        "Республика Северная Осетия - Алания",
+        "Республика Татарстан",
+        "Республика Тыва",
+        "Удмуртская Республика",
+        "Республика Хакасия",
+        "Чеченская Республика",
+        "Чувашская Республика",
+        "Алтайский край",
+        "Забайкальский край",
+        "Камчатский край",
+        "Краснодарский край",
+        "Красноярский край",
+        "Пермский край",
+        "Приморский край",
+        "Ставропольский край",
+        "Хабаровский край",
+        "Амурская область",
+        "Архангельская область",
+        "Астраханская область",
+        "Белгородская область",
+        "Брянская область",
+        "Владимирская область",
+        "Волгоградская область",
+        "Вологодская область",
+        "Воронежская область",
+        "Запорожская область",
+        "Ивановская область",
+        "Иркутская область",
+        "Калининградская область",
+        "Калужская область",
+        "Кемеровская область",
+        "Кировская область",
+        "Костромская область",
+        "Курганская область",
+        "Курская область",
+        "Ленинградская область",
+        "Липецкая область",
+        "Магаданская область",
+        "Московская область",
+        "Мурманская область",
+        "Нижегородская область",
+        "Новгородская область",
+        "Новосибирская область",
+        "Омская область",
+        "Оренбургская область",
+        "Орловская область",
+        "Пензенская область",
+        "Псковская область",
+        "Ростовская область",
+        "Рязанская область",
+        "Самарская область",
+        "Саратовская область",
+        "Сахалинская область",
+        "Свердловская область",
+        "Смоленская область",
+        "Тамбовская область",
+        "Тверская область",
+        "Томская область",
+        "Тульская область",
+        "Тюменская область",
+        "Ульяновская область",
+        "Херсонская область",
+        "Челябинская область",
+        "Ярославская область",
+        "Москва",
+        "Санкт-Петербург",
+        "Еврейская автономная область",
+        "Ненецкий автономный округ",
+        "Ханты-Мансийский автономный округ - Югра",
+        "Чукотский автономный округ",
+        "Ямало-Ненецкий автономный округ",
+        "Донецкая народная республика",
+        "Луганская народная республика"
+
+    ];
+
+    function populateDropdown() {
+        const filter = searchInput.value.toUpperCase();
+        dropdownList.innerHTML = '';
+        const sortedItems = regions
+            .map(region => {
+                const matchIndex = region.toUpperCase().indexOf(filter);
+                if (matchIndex !== -1) {
+                    const beforeMatch = region.substring(0, matchIndex);
+                    const matchText = region.substring(matchIndex, matchIndex + filter.length);
+                    const afterMatch = region.substring(matchIndex + filter.length);
+                    return {
+                        region,
+                        itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                        matchIndex
+                    };
+                }
+                return { region, matchIndex: -1 };
+            })
+            .filter(item => item.matchIndex !== -1)
+            .sort((a, b) => a.matchIndex - b.matchIndex);
+
+        sortedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item.itemHtml;
+            li.setAttribute('data-value', item.region);
+            li.addEventListener('click', () => {
+                addTag(item.region);
+                dropdown.style.display = 'none';
+                searchInput.value = '';
+            });
+            dropdownList.appendChild(li);
+        });
+
+        noResults.style.display = sortedItems.length ? 'none' : 'block';
+    }
+
+    function addTag(value) {
+        if (value && !isTagSelected(value)) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = value;
+            tag.addEventListener('click', () => {
+                tag.remove();
+                updateDropdown();
+                updateSearchInput();
+            });
+            selectedTagsContainer.appendChild(tag);
+            updateDropdown();
+            updateSearchInput();
+        }
+    }
+
+    function isTagSelected(value) {
+        return Array.from(selectedTagsContainer.getElementsByClassName('tag'))
+            .some(tag => tag.textContent === value);
+    }
+
+    function updateSearchInput() {
+        const tags = Array.from(selectedTagsContainer.getElementsByClassName('tag'));
+        searchInput.value = tags.map(tag => tag.textContent).join(' ');
+    }
+
+    searchInput.addEventListener('focus', () => {
+        populateDropdown();
+        dropdown.style.display = 'block';
+    });
+
+    searchInput.addEventListener('input', () => {
+        populateDropdown();
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                selectFirstMatchingRegion(inputValue);
+                searchInput.value = '';
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    populateDropdown();
+    dropdown.style.display = 'block';
+}
+
+//Обработчик ПАК название класса
+document.getElementById('clickPAKNAME').onclick = clickPAKNAME;
+
+
+function clickPAKNAME() {
+    const searchInput = document.getElementById('search-input-4');
+    const dropdownList = document.getElementById('dropdown-list-4');
+    const selectedTagsContainer = document.getElementById('selected-tags-4');
+    const dropdown = document.getElementById('dropdown-4');
+    const noResults = document.getElementById('no-results-4');
+
+    const listItemsNameClassPAK = [
+        "Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
+        "Программно-аппаратные комплексы организации обучения и контроля навыков",
+        "Программно-аппаратные комплексы системы хранения данных",
+        "Программно-аппаратные комплексы автоматизированного управления технологическим процессом",
+        "Программно-аппаратные комплексы мониторинга и управления",
+    ];
+
+    function populateDropdown() {
+        const filter = searchInput.value.toUpperCase();
+        dropdownList.innerHTML = '';
+        const sortedItems = listItemsNameClassPAK
+            .map(region => {
+                const matchIndex = region.toUpperCase().indexOf(filter);
+                if (matchIndex !== -1) {
+                    const beforeMatch = region.substring(0, matchIndex);
+                    const matchText = region.substring(matchIndex, matchIndex + filter.length);
+                    const afterMatch = region.substring(matchIndex + filter.length);
+                    return {
+                        region,
+                        itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                        matchIndex
+                    };
+                }
+                return { region, matchIndex: -1 };
+            })
+            .filter(item => item.matchIndex !== -1)
+            .sort((a, b) => a.matchIndex - b.matchIndex);
+
+        sortedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item.itemHtml;
+            li.setAttribute('data-value', item.region);
+            li.addEventListener('click', () => {
+                addTag(item.region);
+                dropdown.style.display = 'none';
+                searchInput.value = '';
+            });
+            dropdownList.appendChild(li);
+        });
+
+        noResults.style.display = sortedItems.length ? 'none' : 'block';
+    }
+
+    function addTag(value) {
+        if (value && !isTagSelected(value)) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = value;
+            tag.addEventListener('click', () => {
+                tag.remove();
+                updateDropdown();
+                updateSearchInput();
+            });
+            selectedTagsContainer.appendChild(tag);
+            updateDropdown();
+            updateSearchInput();
+        }
+    }
+
+    function isTagSelected(value) {
+        return Array.from(selectedTagsContainer.getElementsByClassName('tag'))
+            .some(tag => tag.textContent === value);
+    }
+
+    function updateSearchInput() {
+        const tags = Array.from(selectedTagsContainer.getElementsByClassName('tag'));
+        searchInput.value = tags.map(tag => tag.textContent).join(' ');
+    }
+
+    searchInput.addEventListener('focus', () => {
+        populateDropdown();
+        dropdown.style.display = 'block';
+    });
+
+    searchInput.addEventListener('input', () => {
+        populateDropdown();
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                selectFirstMatchingRegion(inputValue);
+                searchInput.value = '';
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    populateDropdown();
+    dropdown.style.display = 'block';
+}
+
+//Обработчик ПAK отрасль
+document.getElementById('clickPAKOTRASL').onclick = clickPAKOTRASL;
+
+
+function clickPAKOTRASL() {
+    const searchInput = document.getElementById('search-input-5');
+    const dropdownList = document.getElementById('dropdown-list-5');
+    const selectedTagsContainer = document.getElementById('selected-tags-5');
+    const dropdown = document.getElementById('dropdown-5');
+    const noResults = document.getElementById('no-results-5');
+
+    const listItemsTypeExperience = [
+        "Аренда",
+        "Архитектура",
+        "Банки и финансы",
+        "Бюджетные учреждения",
+        "Ветеринарная медицина",
+        "Геодезия и картография",
+        "Геофизическое моделирование и обработка исследований",
+        "Госуслуги",
+        "Добывающая промышленность",
+        "IT",
+        "Инструмент для разработчика",
+        "Колл-центры",
+        "Машиностроение",
+        "Медицина",
+        "Музеи",
+        "Наука",
+        "Образование",
+        "Общественное питание",
+        "Органы власти",
+        "Пищевая промышленность",
+        "Приборостроение",
+        "Проектирование/Конструирование",
+        "Производство",
+        "Реклама",
+        "Сельское хозяйство",
+        "Склады, логистика",
+        "Страхование",
+        "Строительство",
+        "Телевидение, радиовещание",
+        "Телекоммуникации",
+        "Торговля",
+        "Транспорт",
+        "Турбизнес",
+        "Умный город",
+        "Умный дом",
+        "Универсальное решение",
+        "Управление ЖКХ",
+        "Управление медицинской организацией",
+        "Управление финансами",
+        "Фармакология и фармацевтика",
+        "Энергетика"
+    ];
+    
+
+    function populateDropdown() {
+        const filter = searchInput.value.toUpperCase();
+        dropdownList.innerHTML = '';
+        const sortedItems = listItemsTypeExperience 
+            .map(region => {
+                const matchIndex = region.toUpperCase().indexOf(filter);
+                if (matchIndex !== -1) {
+                    const beforeMatch = region.substring(0, matchIndex);
+                    const matchText = region.substring(matchIndex, matchIndex + filter.length);
+                    const afterMatch = region.substring(matchIndex + filter.length);
+                    return {
+                        region,
+                        itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
+                        matchIndex
+                    };
+                }
+                return { region, matchIndex: -1 };
+            })
+            .filter(item => item.matchIndex !== -1)
+            .sort((a, b) => a.matchIndex - b.matchIndex);
+
+        sortedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item.itemHtml;
+            li.setAttribute('data-value', item.region);
+            li.addEventListener('click', () => {
+                addTag(item.region);
+                dropdown.style.display = 'none';
+                searchInput.value = '';
+            });
+            dropdownList.appendChild(li);
+        });
+
+        noResults.style.display = sortedItems.length ? 'none' : 'block';
+    }
+
+    function addTag(value) {
+        if (value && !isTagSelected(value)) {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = value;
+            tag.addEventListener('click', () => {
+                tag.remove();
+                updateDropdown();
+                updateSearchInput();
+            });
+            selectedTagsContainer.appendChild(tag);
+            updateDropdown();
+            updateSearchInput();
+        }
+    }
+
+    function isTagSelected(value) {
+        return Array.from(selectedTagsContainer.getElementsByClassName('tag'))
+            .some(tag => tag.textContent === value);
+    }
+
+    function updateSearchInput() {
+        const tags = Array.from(selectedTagsContainer.getElementsByClassName('tag'));
+        searchInput.value = tags.map(tag => tag.textContent).join(' ');
+    }
+
+    searchInput.addEventListener('focus', () => {
+        populateDropdown();
+        dropdown.style.display = 'block';
+    });
+
+    searchInput.addEventListener('input', () => {
+        populateDropdown();
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                selectFirstMatchingRegion(inputValue);
+                searchInput.value = '';
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    populateDropdown();
+    dropdown.style.display = 'block';
+}
+
+
+
+
+
+
+

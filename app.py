@@ -55,61 +55,79 @@ def third_filter(): #компании по фильтру ПАК
 
     if request.method == "POST":
         data = request.get_json()
-        region = data.get('region')
-        hardwareclass = data.get('hardwareclass')
-        field = data.get('field')
+        regions = data.get('regions') or []
+        hardwareclasses = data.get('hardwareclass') or []
+        fields = data.get('fields') or []
+
         errp = data.get('errp')
 
         with sql.connect("database.db") as conn:
-                cursor = conn.cursor()
-                query = "SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images FROM company"
+            cursor = conn.cursor()
+            
+            # Первый запрос
+            query1 = """
+            SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, 
+                SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, first_image 
+            FROM company
+            """
+            
+            conditions = []
+            if ecosystem is not None:
+                conditions.append(f"ecosystem = '{ecosystem}'")
+            if regions and regions != ['Вся Россия']:  # Проверяем, если массив регионов не пустой
+                regions_placeholder = ', '.join(f"'{region}'" for region in regions)  # Формируем строку для IN
+                conditions.append(f"region IN ({regions_placeholder})")
+            if hardwareclasses and hardwareclasses != ['Все']:  # Проверка на массив softwareclasses
+                hardwareclass_conditions = ' OR '.join(f"hardware_classname LIKE '%{hardwareclass}%'" for hardwareclass in hardwareclasses)
+                conditions.append(f"({hardwareclass_conditions})")
+            if fields and fields != ['Все']:  # Проверка на массив fields
+                field_conditions = ' OR '.join(f"field LIKE '%{field}%'" for field in fields)
+                conditions.append(f"({field_conditions})")
+            if errp != '':
+                conditions.append(f"errp = {errp}")
 
-                conditions = []
-                if ecosystem is not None:
-                    conditions.append(f"ecosystem = '{ecosystem}'")
-                if region != 'Вся Россия':
-                    conditions.append(f"region = '{region}'")
-                if hardwareclass != 'Выбрать':
-                    conditions.append(f"hardware_classname LIKE '%' || '{hardwareclass}' || '%'")
-                if field != 'Выбрать':
-                    conditions.append(f"field LIKE '%' || '{field}' || '%'")
-                if errp != '':
-                    conditions.append(f"errp = {errp}")
+            if conditions:
+                query1 += ' WHERE ' + ' AND '.join(conditions)
 
-                if conditions:
-                    query += ' WHERE ' + ' AND '.join(conditions)
+            cursor.execute(query1)
+            companies = cursor.fetchall()
 
-                cursor.execute(query)
-                companies = cursor.fetchall()
+            # Преобразуем результаты в список словарей
+            companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': first_image} for id, name, position, address, region, first_image in companies]
 
-                # Преобразуем результаты в список словарей
-                companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
-                info = []
-                if region == 'Вся Россия':
-                    regions = list(set(company['region'] for company in companies_list))
-
-                    for region in regions:
-                        cursor.execute(f"""SELECT abb, side FROM region WHERE region = '{region}'""")
-                        abbs_sides = cursor.fetchone()
-                        if abbs_sides:  # Проверка на случай, если результат запроса пустой
-                            info.append({'abb': abbs_sides[0], 'side': abbs_sides[1]})
-                else:
+            info = []
+            if regions:
+                for region in regions:  # Итерируемся по всем запрашиваемым регионам
                     cursor.execute(f"""SELECT abb, side FROM region WHERE region = '{region}'""")
-                    regions = cursor.fetchone()
-                    info = [{'abb': regions[0], 'side': regions[1]}]
+                    region_data = cursor.fetchone()
+                    if region_data:
+                        info.append({'abb': region_data[0], 'side': region_data[1]})
+                    else:
+                        # Добавляем информацию о регионе, если данных нет
+                        info.append({'abb': None, 'side': None})
+            else:
+                for region in set(company['region'] for company in companies_list):
+                    cursor.execute(f"""SELECT abb, side FROM region WHERE region = '{region}'""")
+                    region_data = cursor.fetchone()
+                    if region_data:
+                        info.append({'abb': region_data[0], 'side': region_data[1]})
+                    else:
+                        # Добавляем информацию о регионе, если данных нет
+                        info.append({'abb': None, 'side': None})  # Или другие значения по умолчанию
 
         return {'companies': companies_list, 'region': info}
 
-@app.route("/filterPO", methods=['POST', 'GET']) #СПИСОК КОМПАНИЙ ПО
-def fourth_filter(): #компании по фильтру ПО 
 
+@app.route("/filterPO", methods=['POST', 'GET']) #СПИСОК КОМПАНИЙ ПО
+def fourth_filter():  # компании по фильтру ПО
     ecosystem = 'ПО'
 
     if request.method == "POST":
         data = request.get_json()
-        region = data.get('region')
-        softwareclass = data.get('softwareclass')
-        field = data.get('field')
+        regions = data.get('regions') or []  # Изменили на regions (массив)
+        softwareclasses = data.get('softwareclasses') or []  # Теперь массив
+        fields = data.get('fields') or []  # Теперь массив
+
         errp = data.get('errp')
         software_ai = data.get('software_ai')
 
@@ -119,17 +137,22 @@ def fourth_filter(): #компании по фильтру ПО
             # Первый запрос
             query1 = """
             SELECT id, name, position, SUBSTR(address, INSTR(address, ',') + 1) as address, 
-                SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, images 
+                SUBSTR(address, 1, INSTR(address, ',') - 1) AS region, first_image 
             FROM company
             """
             
             conditions = []
-            if region != 'Вся Россия':
-                conditions.append(f"region = '{region}'")
-            if softwareclass != 'Выбрать':
-                conditions.append(f"software_classname LIKE '%' || '{softwareclass}' || '%'")
-            if field != 'Выбрать':
-                conditions.append(f"field LIKE '%' || '{field}' || '%'")
+            if ecosystem is not None:
+                conditions.append(f"ecosystem = '{ecosystem}'")
+            if regions and regions != ['Вся Россия']:  # Проверяем, если массив регионов не пустой
+                regions_placeholder = ', '.join(f"'{region}'" for region in regions)  # Формируем строку для IN
+                conditions.append(f"region IN ({regions_placeholder})")
+            if softwareclasses and softwareclasses != ['Все']:  # Проверка на массив softwareclasses
+                softwareclass_conditions = ' OR '.join(f"software_classname LIKE '%{softwareclass}%'" for softwareclass in softwareclasses)
+                conditions.append(f"({softwareclass_conditions})")
+            if fields and fields != ['Все']:  # Проверка на массив fields
+                field_conditions = ' OR '.join(f"field LIKE '%{field}%'" for field in fields)
+                conditions.append(f"({field_conditions})")
             if errp != '':
                 conditions.append(f"errp = {errp}")
             if software_ai != '':
@@ -142,23 +165,30 @@ def fourth_filter(): #компании по фильтру ПО
             companies = cursor.fetchall()
 
             # Преобразуем результаты в список словарей
-            companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': image} for id, name, position, address, region, image in companies]
+            companies_list = [{'id': id, 'company_name': name, 'position_company': position, 'address': address, 'region': region, 'logo_company': first_image} for id, name, position, address, region, first_image in companies]
+
             info = []
-            if region == 'Вся Россия':
-                regions = list(set(company['region'] for company in companies_list))
-
-                for region in regions:
+            if regions:
+                for region in regions:  # Итерируемся по всем запрашиваемым регионам
                     cursor.execute(f"""SELECT abb, side FROM region WHERE region = '{region}'""")
-                    abbs_sides = cursor.fetchone()
-                    if abbs_sides:  # Проверка на случай, если результат запроса пустой
-                        info.append({'abb': abbs_sides[0], 'side': abbs_sides[1]})
+                    region_data = cursor.fetchone()
+                    if region_data:
+                        info.append({'abb': region_data[0], 'side': region_data[1]})
+                    else:
+                        # Добавляем информацию о регионе, если данных нет
+                        info.append({'abb': None, 'side': None})
             else:
-                cursor.execute(f"""SELECT abb, side FROM region WHERE region = '{region}'""")
-                regions = cursor.fetchone()
-                info = [{'abb': regions[0], 'side': regions[1]}]
+                for region in set(company['region'] for company in companies_list):
+                    cursor.execute(f"""SELECT abb, side FROM region WHERE region = '{region}'""")
+                    region_data = cursor.fetchone()
+                    if region_data:
+                        info.append({'abb': region_data[0], 'side': region_data[1]})
+                    else:
+                        # Добавляем информацию о регионе, если данных нет
+                        info.append({'abb': None, 'side': None})  # Или другие значения по умолчанию
 
-        return {'companies': companies_list, 'region': info}   
-
+        return {'companies': companies_list, 'region': info}
+     
 @app.route("/info", methods=['POST', 'GET']) #ИНФОРМАЦИЯ
 def about_company(): #информация по выбранной компании
     if request.method == "POST":
@@ -167,11 +197,11 @@ def about_company(): #информация по выбранной компан�
 
         with sql.connect("database.db") as conn:
             cursor = conn.cursor()
-            cursor.execute(f"""SELECT id, name, position, product, service, SUBSTR(address, INSTR(address, ',') + 1) as address, description, contact, images FROM company
+            cursor.execute(f"""SELECT id, name, position, product, service, SUBSTR(address, INSTR(address, ',') + 1) as address, description, contact, video, first_image, second_image, third_image, fourth_image FROM company
                 WHERE id = {id}""")
             company = cursor.fetchall()
 
-        info = [{'id': id, 'company_name': name, 'position_company': position, 'product': product, 'service': service, 'address': address, 'description': description,  'contact': contact, 'image': image} for id, name, position, product, service, address, description, contact, image in company]
+        info = [{'id': id, 'company_name': name, 'position_company': position, 'product': product, 'service': service, 'address': address, 'description': description,  'contact': contact, 'video': video, 'first_image': first_image, 'second_image': second_image, 'third_image': third_image, 'fourth_image': fourth_image} for id, name, position, product, service, address, description, contact, video, first_image, second_image, third_image, fourth_image in company]
     return info
 
 @app.route("/icon/<int:id>", methods=['GET'])  # ИКОНКИ
