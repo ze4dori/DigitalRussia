@@ -7,8 +7,20 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/")
+def main_str():
+    return render_template("main.html")
 
-@app.route("/", methods=['POST', 'GET']) #КОЛИЧЕСТВО АКТИВНЫХ ЗАПИСЕЙ
+@app.route("/application")
+def application():
+    return render_template("applications.html")
+
+@app.route("/application/new")
+def add_application():
+    return render_template("addapplications.html")
+
+
+@app.route("/map", methods=['POST', 'GET']) #КОЛИЧЕСТВО АКТИВНЫХ ЗАПИСЕЙ
 def second_filter():
     filter = "ПАК"
 

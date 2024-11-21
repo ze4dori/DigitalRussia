@@ -1,3 +1,5 @@
-UPDATE Companies
-SET region = 'Санкт-Петербург'
-WHERE name = 'АО "НЭКСАЙН"';
+SELECT * FROM SoftwareClasses;
+
+-- UPDATE SoftwareClasses
+-- SET name = 'Встроенное программное обеспечение'
+-- WHERE id = 12 

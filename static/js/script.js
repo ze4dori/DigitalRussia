@@ -89,7 +89,7 @@ function sendActiveButtonId(active_button) {
     var request = new XMLHttpRequest();
     var params = 'active_button=' + active_button;
 
-    request.open('POST', '/', true);
+    request.open('POST', '/map', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     request.onreadystatechange = function () {
@@ -680,7 +680,9 @@ function updateHTML(response, regions) {
         svgElement.style.transition = "transform 3s"; 
         svgElement.style.transform = "scale(1.05) translateX(-20%) translateY(2%)";
     } else {
-        console.warn('Unknown side value:', window.sideValue);
+        var scale = 0.8;
+        svgElement.style.transform = "scale(" + scale + ") translateX(-20%)";
+        svgElement.style.transition = "transform 1.5s";
     }
 
     const applyRegionStyles = (regionIds, fillColor) => {
@@ -732,7 +734,6 @@ function updateHTML(response, regions) {
                 showPopup(event);
             }
         });
-        let timeout;
 
         element.addEventListener('mouseout', () => {
             if (!infoPopup.matches(':hover')) {
@@ -744,12 +745,31 @@ function updateHTML(response, regions) {
         
         element.addEventListener('click', () => {
             const infoElement = document.getElementById('myITinfo');
+        
+            // Проверяем, отображается ли элемент
             if (infoElement.style.display === 'none' || !infoElement.style.display) {
-                if (regions.length === 0 || regions.length > 1) {
+                // Проверяем длину массива regions
+                if (regions.length === 0) {
+                    // Если массив пуст, выполняем действие
+                    clearListItems();
                     fetchCompaniesInRegion(id);
+                } else if (regions.length > 1) {
+                    // Если длина больше 1, также выполняем действие
+                    clearListItems();
+                    fetchCompaniesInRegion(id);
+                } else {
+                    // Если длина равна 1, действие предотвращается
+                    console.log("Regions length is 1, action prevented.");
                 }
             }
         });
+        
+        function clearListItems() {
+            const listItems = document.getElementById("list-items");
+            while (listItems.firstChild) {
+                listItems.removeChild(listItems.firstChild);
+            }
+        }
     };
 
     const updatePopup = (regionName, count, id) => {
@@ -874,8 +894,9 @@ function myFunctionInfo(id) {
     const myBlock = document.getElementById(id);
     const svgElement = document.getElementById("mySvg");
 
-    if (window.idBlock) {
-        document.getElementById(window.idBlock).style.backgroundColor = '';
+    const element = document.getElementById(window.idBlock);
+    if (element) {
+        element.style.backgroundColor = '';
     }
 
     while (myITinfo.firstChild) {
@@ -1577,159 +1598,7 @@ function toggleSearchContainerExperience() {
 
 
 
-// Обработчик кнопки Выбрать
-document.getElementById('selectButtonClassPAK').onclick = searchListClassPAK;
-
-//Работа поиска Класс ПАК
-function searchListClassPAK() {
-    const listItemsNameClassPAK = [
-        "Все",
-        "Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
-        "Программно-аппаратные комплексы организации обучения и контроля навыков",
-        "Программно-аппаратные комплексы системы хранения данных",
-        "Программно-аппаратные комплексы автоматизированного управления технологическим процессом",
-        "Программно-аппаратные комплексы мониторинга и управления",
-    ];
-
-    const input = document.getElementById('searchInputClassPAK');
-    const filter = input.value.toUpperCase();
-    const ul = document.getElementById('listContainerClassPAK');
-    ul.innerHTML = '';
-
-    const sortedItems = listItemsNameClassPAK
-        .map(item => {
-            const matchIndex = item.toUpperCase().indexOf(filter);
-            if (matchIndex !== -1) {
-                const beforeMatch = item.substring(0, matchIndex);
-                const matchText = item.substring(matchIndex, matchIndex + filter.length);
-                const afterMatch = item.substring(matchIndex + filter.length);
-                return {
-                    item,
-                    itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
-                    matchIndex
-                };
-            }
-            return { item, matchIndex: -1 };
-        })
-        .filter(item => item.matchIndex !== -1)
-        .sort((a, b) => a.matchIndex - b.matchIndex);
-
-
-    sortedItems.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = item.itemHtml;
-        li.addEventListener('click', () => {
-            document.getElementById('selectButtonClassPAK').innerText = item.item;
-            toggleSearchContainerClassPAK();
-        });
-        ul.appendChild(li);
-    });
-}
-
-function toggleSearchContainerClassPAK() {
-    const container = document.getElementById('searchContainerClassPAK');
-    container.style.display = container.style.display === 'none' ? 'block' : 'none';
-}
-
-
-// Обработчик кнопки Выбрать
-document.getElementById('selectButtonExperiencePAK').onclick = searchListExperiencePAK;
-
-//Работа поиска Отрасль
-function searchListExperiencePAK() {
-
-    const listItemsTypeExperience = [
-        "Все",
-        "Приборостроение",
-        "Медицина",
-        "Наука",
-        "Геофизическое моделирование и обработка исследований",
-        "Образование",
-        "Умный дом",
-        "Банки и финансы",
-        "Универсальное решение",
-        "Колл-центры",
-        "Телекоммуникации"
-    ];
-
-
-    const input = document.getElementById('searchInputExperiencePAK');
-    const filter = input.value.toUpperCase();
-    const ul = document.getElementById('listContainerExperiencePAK');
-    ul.innerHTML = '';
-
-    const sortedItems = listItemsTypeExperience
-        .map(item => {
-            const matchIndex = item.toUpperCase().indexOf(filter);
-            if (matchIndex !== -1) {
-                const beforeMatch = item.substring(0, matchIndex);
-                const matchText = item.substring(matchIndex, matchIndex + filter.length);
-                const afterMatch = item.substring(matchIndex + filter.length);
-                return {
-                    item,
-                    itemHtml: beforeMatch + '<span class="highlight">' + matchText + '</span>' + afterMatch,
-                    matchIndex
-                };
-            }
-            return { item, matchIndex: -1 };
-        })
-        .filter(item => item.matchIndex !== -1)
-        .sort((a, b) => a.matchIndex - b.matchIndex);
-
-    sortedItems.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = item.itemHtml;
-        li.addEventListener('click', () => {
-            document.getElementById('selectButtonExperiencePAK').innerText = item.item;
-            toggleSearchContainerExperiencePAK();
-        });
-        ul.appendChild(li);
-    });
-}
-
-function toggleSearchContainerExperiencePAK() {
-    const container = document.getElementById('searchContainerExperiencePAK');
-    container.style.display = container.style.display === 'none' ? 'block' : 'none';
-}
-
-
 //новый поиск
-
-window.listItemsNameClassPO = [
-    "Выбрать",
-    "Инструменты обработки, анализа и распознавания изображений",
-    "Программное обеспечение интернета вещей, робототехники и сенсорики",
-    "Встроенные прикладные программы",
-    "Программное обеспечение для решения отраслевых задач в области информации и связи",
-];
-
-
-window.listItemsNameClassPAK = [
-    "Выбрать",
-    "Программно-аппаратные комплексы сбора, анализа и визуализации информации различных сред и процессов",
-    "Программно-аппаратные комплексы организации обучения и контроля навыков",
-    "Программно-аппаратные комплексы системы хранения данных",
-    "Программно-аппаратные комплексы автоматизированного управления технологическим процессом",
-    "Программно-аппаратные комплексы мониторинга и управления",
-];
-
-window.listItemsTypeExperience = [
-    "Выбрать",
-    "Приборостроение",
-    "Медицина",
-    "Наука",
-    "Геофизическое моделирование и обработка исследований",
-    "Образование",
-    "Умный дом",
-    "Банки и финансы",
-    "Универсальное решение",
-    "Колл-центры",
-    "Телекоммуникации"
-];
-
-
-//новый поиск
-
 //Обработчик кнопки ПО Регионы
 
 document.getElementById('clickPOR').onclick = clickPOR;
@@ -1943,6 +1812,21 @@ function clickPONAME() {
         "Встроенные прикладные программы",
         "Программное обеспечение для решения отраслевых задач в области информации и связи",
     ];
+
+    // const listItemsNameClassPO = [
+    //     'Лингвистическое программное обеспечение',
+    //     'Отраслевое прикладное программное обеспечение',
+    //     'Офисное программное обеспечение',
+    //     'Прикладное программное обеспечение',
+    //     'Промышленное программное обеспечение',
+    //     'Системное программное обеспечение',
+    //     'Средства анализа данных',
+    //     'Средства обеспечения информационной безопасности',
+    //     'Средства обработки и визуализации массивов данных',
+    //     'Средства разработки программного обеспечения',
+    //     'Средства управления процессами организации',
+    //     'Встроенное программное обеспечение'
+    // ];
 
     function populateDropdown() {
         const filter = searchInput.value.toUpperCase();
@@ -2639,9 +2523,18 @@ function clickPAKOTRASL() {
     dropdown.style.display = 'block';
 }
 
+//Функция для бургер-меню
+document.getElementById('myButton-burger-menu').onclick = myFunctionForMyButtonMenu();
+
+function myFunctionForMyButtonMenu() {
+
+    var myMenu = document.getElementById('burger-menu');
 
 
+    if (myMenu.style.display === 'none') {
+        myMenu.style.display = 'flex';
+    } else {
+        myMenu.style.display = 'none';
+    }
 
-
-
-
+}
