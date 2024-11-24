@@ -34,40 +34,43 @@
         <a href="/auth#news" class="menu-burger-item">Новости</a>
         <a href="/auth#help" class="menu-burger-item">Помощь</a>
         <a href="/application" class="menu-burger-item" style="color: rgba(31, 43, 106, 0.5);">Заявления</a>
-        <a href="/region-contacts" class="menu-burger-item">Региональные представители</a>
+        <a href="" class="menu-burger-item">Региональные представители</a>
         <a href="#" class="menu-burger-item" style="color: red;">Выйти</a>
     </div>
 
     <div class="str-app"> <!--Целиком страница-->
-        <h1 style="font-size: 2.5vw; font-weight: 400; margin: 0vw;">Выберите тип заявления</h1>
-        <div style="display: flex; justify-content: space-between;">
-            <div class="app-card">
-                <h2>Заявление о включении сведений компании</h2>
-                <p>Если вы хотите добавить информацию о вашей компании, выберите этот вариант. После подачи заявления
-                    и прохождения проверки, информация станет доступна для пользователей портала.</p>
-                <img src="../static/images/image1app.png">
-                <form action="/application/new">
-                    <button>Заполнить заявление</button>
-                </form>
+        <h1 style="font-size: 2.5vw; font-weight: 400;     margin-bottom: 0; margin-top: 0; margin-left: 19.8vw;">Контакты региональных представителей</h1>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <div id="selected-tags-3" class="selected-tags"></div>
+                <div class="StrokaPoisk" id="clickPAKR" onclick="clickPAKR();">
+                    <input type="text" id="search-input-3" class = "search-input" placeholder="Вся Россия">
+                </div>
+                <div class="dropdown" id ="dropdown-3" style="display: none;">
+                    <ul id="dropdown-list-3">
+                        <!-- Список будет добавлен динамически -->
+                    </ul>
+                    <div id="no-results-3" class="no-results" style="display: none;">
+                        По вашему запросу ничего не найдено.
+                    </div>
+                </div>
             </div>
-            <div class="app-card">
-                <h2>Заявление о внесении изменений компании</h2>
-                <p>Если вам необходимо обновить или исправить данные вашей компании, выберите этот вариант. Вы сможете
-                    внести актуальные сведения, чтобы поддерживать достоверность информации.</p>
-                <img src="../static/images/image2app.png">
-                <form action="/application/update">
-                    <button>Заполнить заявление</button>
-                </form>
-            </div>
-            <div class="app-card">
-                <h2>Заявление об исключении компании</h2>
-                <p>Если вы хотите удалить данные вашей компании с портала, выберите этот вариант. После одобрения
-                    заявления все сведения о компании будут исключены.</p>
-                <img src="../static/images/image3app.png">
-                <form action="/application/delete">
-                    <button>Заполнить заявление</button>
-                </form>
-            </div>
+        </div>
+        
+        <div id="regions-container" style="display: flex; justify-content: center;flex-wrap: wrap;">
+            <!-- <div class="reg-container">
+                <img src="../static/images/emblems/AD.png" style="width: 2.6vw; height: 2.6vw;" >
+                <h2>Республика Адыгея</h2>
+                <div>
+                    <h3>Контакты</h3>
+                    <div style="display: flex;">
+                        <p>qqq@gmailcom</p>
+                        <p style="margin-left: 1.875vw;">+7 999 999-99-99</p>
+                        <p style="margin-left: 1.875vw;">+7 999 999-99-99</p>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
     <div class="footer" style="display: flex; justify-content: space-between; align-items: center;">
@@ -92,7 +95,7 @@
         </div>
         <div>
             <p style="margin-top: 2.66vw;">Все права защищены</p>
-            <p><a href="/privacy-policy">Политика конфиденциальности</a></p>
+            <p>Политика конфиденциальности</p>
             <div style="display: flex; align-items: center;">
                 <p style="margin: 0vw; margin-right: 0.26vw; cursor: default;">Портал разработан Kollab.pro</p>
                 <img src="../static/images/kollab.png">

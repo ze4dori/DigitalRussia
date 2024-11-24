@@ -38,35 +38,40 @@
         <a href="#" class="menu-burger-item" style="color: red;">Выйти</a>
     </div>
 
+    <!-- Модальное окно -->
+    <div id="modalsend" class="modal" onclick="closeModalsend(event)">
+        <div class="modal-content">
+            <p>Спасибо! <br> Заявление успешно отправлено</p>
+            <form action="/auth">
+                <button>
+                        На главную
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div class="str-app"> <!--Целиком страница-->
-        <h1 style="font-size: 2.5vw; font-weight: 400; margin: 0vw;">Выберите тип заявления</h1>
-        <div style="display: flex; justify-content: space-between;">
-            <div class="app-card">
-                <h2>Заявление о включении сведений компании</h2>
-                <p>Если вы хотите добавить информацию о вашей компании, выберите этот вариант. После подачи заявления
-                    и прохождения проверки, информация станет доступна для пользователей портала.</p>
-                <img src="../static/images/image1app.png">
-                <form action="/application/new">
-                    <button>Заполнить заявление</button>
-                </form>
-            </div>
-            <div class="app-card">
-                <h2>Заявление о внесении изменений компании</h2>
-                <p>Если вам необходимо обновить или исправить данные вашей компании, выберите этот вариант. Вы сможете
-                    внести актуальные сведения, чтобы поддерживать достоверность информации.</p>
-                <img src="../static/images/image2app.png">
-                <form action="/application/update">
-                    <button>Заполнить заявление</button>
-                </form>
-            </div>
-            <div class="app-card">
-                <h2>Заявление об исключении компании</h2>
-                <p>Если вы хотите удалить данные вашей компании с портала, выберите этот вариант. После одобрения
-                    заявления все сведения о компании будут исключены.</p>
-                <img src="../static/images/image3app.png">
-                <form action="/application/delete">
-                    <button>Заполнить заявление</button>
-                </form>
+        <h1 style="font-size: 2.5vw; font-weight: 400;     margin-bottom: 0; margin-top: 0; margin-left: 19.8vw;">Заявление о внесении изменений компании</h1>
+        <div style="display: flex; justify-content: center;">
+            <div class="app-card" style="width: 60.42vw; display: flex;">
+                <div>
+                    <h2 style="font-weight: 500;">Заполните форму</h2>
+                    <p>Мы свяжемся с вами в ближайшее время </p>
+                    <input type="text" id="" class="report-input" placeholder="Наименование компании">
+                    <input type="text" id="" class="report-input" style="height: 11.15vw;" placeholder="Опишите какую информацию хотите изменить">
+                    <input type="text" id="" class="report-input" placeholder="Оставьте номер телефона для связи">
+                    <div class="checkbox">
+                        <div class="">
+                            <input type="checkbox" id="agree" name="agree" checked />
+                            <label for="agree">Я согласен(на) с политикой конфиденциальности и даю согласие на
+                                обработку персональных данных</label>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        <button onclick="openModalsend()">Отправить</button>
+                    </div>
+                </div>
+                <img style="width: 30.16vw;" src="../static/images/image4app.png">
             </div>
         </div>
     </div>

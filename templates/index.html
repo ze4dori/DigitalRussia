@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <!--Для шрифтра из фигмы (не работает)-->
     <title>Map</title>
-	<link rel="stylesheet" href="static/css/style.css"> <!--ИЗМЕНЕНО-->
-    <script type="text/javascript" src="static/js/script.js"></script> <!--ИЗМЕНЕНО-->
+	<link rel="stylesheet" href="../static/css/style.css"> <!--ИЗМЕНЕНО-->
+    <script type="text/javascript" src="../static/js/script.js"></script> <!--ИЗМЕНЕНО-->
 </head>
 
-<body style="margin:0;">
+<body style="margin:0; overflow: hidden;">
     <div class="str"> <!--Целиком страница-->
 
         <div class="header-line"> <!--Шапка с менюшкой -->
@@ -30,8 +30,8 @@
             <div class="menu">
                 <form action="/" method="post"> <!--ИЗМЕНЕНО-->
                     <input type="hidden" name="active_button" id="active_button" value="">
-                    <button class="menu-item" id="ButtonPO" type="button" onclick="myFunctionClick(this.id)">Программное обеспечение</button>
-                    <button class="menu-item active" id="ButtonPAK" type="button" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
+                    <button class="menu-item active" id="ButtonPO" type="button" onclick="myFunctionClick(this.id)">Программное обеспечение</button>
+                    <button class="menu-item" id="ButtonPAK" type="button" onclick="myFunctionClick(this.id)">Программно-аппаратные комплексы</button>
                 </form>
                 <button class="menu-item" class ="filter" id="myButton" onclick="myFunction(); myFunctionForMyButton()">
                     Фильтр
@@ -46,12 +46,12 @@
 
             <div id="burger-menu" class="burger-menu" style="display: none;">
                 <p style="font-size: 0.83vw;">Петров А.В</p> <!--Динамические данные-->
-                <a href="/" class="menu-burger-item">Главная</a>
-                <a href="" class="menu-burger-item" style="color: rgba(31, 43, 106, 0.5);">Портал</a>
-                <a href="/#news" class="menu-burger-item">Новости</a>
-                <a href="/#help" class="menu-burger-item">Помощь</a>
-                <a href="/application" class="menu-burger-item">Заявления</a>
-                <a href="#" class="menu-burger-item">Региональные представители</a>
+                <a href="/auth" class="menu-burger-item">Главная</a>
+                <a href="/map" class="menu-burger-item">Портал</a>
+                <a href="/auth#news" class="menu-burger-item">Новости</a>
+                <a href="/auth#help" class="menu-burger-item">Помощь</a>
+                <a href="/application" class="menu-burger-item" style="color: rgba(31, 43, 106, 0.5);">Заявления</a>
+                <a href="/region-contacts" class="menu-burger-item">Региональные представители</a>
                 <a href="#" class="menu-burger-item" style="color: red;">Выйти</a>
             </div>
 

@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM загружен');
+    loadRegionContacts();
+});
+
+
 //Тумблер Российский /евразийский
 function toggleState() {
     const toggleButton = document.querySelector('.toggle-button');
@@ -141,7 +147,7 @@ function myFunctionForMyButton() {
 
     }
 }
-window.activeButtonId = 'ButtonPAK';
+window.activeButtonId = 'ButtonPO';
 
 // Обработчик кнопки Фильтр
 document.getElementById('myButton').onclick = myFunction();
@@ -2537,4 +2543,82 @@ function myFunctionForMyButtonMenu() {
         myMenu.style.display = 'none';
     }
 
+}
+
+
+//Для поп-аппа
+// Функция для открытия модального окна
+function openModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'flex'; // Показываем модальное окно
+    document.body.style.overflow = 'hidden'; // Отключаем скроллинг страницы
+}
+
+// Функция для закрытия модального окна
+function closeModal(event) {
+    const modal = document.getElementById('modal');
+    if (event.target === modal) { // Проверяем, что клик был по фону
+        modal.style.display = 'none'; // Скрываем модальное окно
+        document.body.style.overflow = 'auto'; // Включаем скроллинг страницы
+    }
+}
+
+//Для поп-аппа Спасибо
+// Функция для открытия модального окна
+function openModalsend() {
+    const modal = document.getElementById('modalsend');
+    modal.style.display = 'flex'; // Показываем модальное окно
+    document.body.style.overflow = 'hidden'; // Отключаем скроллинг страницы
+}
+
+// Функция для закрытия модального окна
+function closeModalsend(event) {
+    const modal = document.getElementById('modalsend');
+    if (event.target === modal) { // Проверяем, что клик был по фону
+        modal.style.display = 'none'; // Скрываем модальное окно
+        document.body.style.overflow = 'auto'; // Включаем скроллинг страницы
+    }
+}
+
+
+function loadRegionContacts() {
+    console.log('Функция загрузки данных вызывается');
+    fetch('/region-contacts/info')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка сети или неправильный ответ');
+            }
+            return response.json();
+        })
+        .then(data => {
+            
+            const regionsContainer = document.getElementById('regions-container');
+            if (!regionsContainer) {
+                return;
+            }
+
+            // Добавляем элементы
+            data.contacts.forEach(contact => {
+                console.log('Обрабатываем контакт:', contact);
+                const regContainer = document.createElement('div');
+                regContainer.classList.add('reg-container');
+
+                regContainer.innerHTML = `
+                    <img src="../static/images/emblems/${contact.id}.png" style="width: 2.6vw; height: 2.6vw;">
+                    <h2>${contact.region}</h2>
+                    <div>
+                        <h3>Контакты</h3>
+                        <div style="display: flex;">
+                            <p>${contact.email}</p>
+                            <p style="margin-left: 1.875vw;">${contact.phone}</p>
+                        </div>
+                    </div>
+                `;
+
+                regionsContainer.appendChild(regContainer);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке данных:', error);
+        });
 }

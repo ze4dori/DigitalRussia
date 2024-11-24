@@ -19,25 +19,25 @@
 
     <div class="header-line-main"> <!--Шапка с менюшкой -->
         <p style="font-size: 1.04vw;">Портал российских ИТ-решений</p>
-
-        <button class="menu-item filter" onclick="openModal()"
-            style="display: flex; margin-left: 22vw; align-items: center; border-color: rgba(31, 43, 106, 0.5); color: rgba(31, 43, 106, 1); margin-right: 0vw;">
-            Войти
+        <button class="menu-item" class="filter" id="myButton-burger-menu" onclick="myFunctionForMyButtonMenu()"
+            style=" display: flex; margin-left: 22vw; align-items: center; border-color: rgba(31, 43, 106, 0.5); color: rgba(31, 43, 106, 1); margin-right: 0vw;">
+            Меню
+            <img style="width: 1.52vw; margin-left: 2.4vw;" src="../static/images/menu.svg" alt="Кнопка_фильтр"
+                class="menu-icon" />
         </button>
 
     </div>
     <!-- Модальное окно -->
-    <div id="modal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <p>Портал доступен только <br> авторизованным пользователям</p>
-            <form action="/auth">
-                <button>
-                    <img style="width: 1.52vw; margin-left: 2.4vw; margin-right: 0.2vw;"
-                        src="../static/images/gosuslugi.png" alt="Кнопка_госуслуги" class="menu-icon" />
-                    Войти через Госуслуги
-                </button>
-            </form>
-        </div>
+
+    <div id="burger-menu" class="burger-menu" style="display: none;">
+        <p style="font-size: 0.83vw;">Петров А.В</p> <!--Динамические данные-->
+        <a href="#" class="menu-burger-item" style="color: rgba(31, 43, 106, 0.5);">Главная</a>
+        <a href="/map" class="menu-burger-item">Портал</a>
+        <a href="#news" class="menu-burger-item">Новости</a>
+        <a href="#help" class="menu-burger-item">Помощь</a>
+        <a href="/application" class="menu-burger-item">Заявления</a>
+        <a href="/region-contacts" class="menu-burger-item">Региональные представители</a>
+        <a href="#" class="menu-burger-item" style="color: red;">Выйти</a>
     </div>
 
     <div class="str-main"> <!--Целиком страница-->
@@ -45,10 +45,12 @@
             российских IT компаний</h1>
 
         <div style="display: flex;">
-            <div class="blockonmain mini-map">
+            <div class="blockonmain active-mini-map">
                 <h2>Портал российских IT компаний</h2>
-                <!--<img src="../static/images/map.png">-->
-                <button onclick="openModal()">Смотреть</button>
+            
+                <form action="/map">
+                    <button>Смотреть</button>
+                </form>
             </div>
             <div style="margin-left: 2.08vw;">
                 <div class="blockonmain" style="margin-bottom: 2.08vw; height: 13.07vw; width: 47.9vw;">
@@ -72,21 +74,21 @@
                 <div class="blockonmain" style="height: 13.07vw;">
                     <h2>Выберите тип заявления</h2>
 
-                    <div class="link-app" onclick="openModal()">
+                    <div class="link-app" onclick="window.location.href='application/new'">
                         <p style="font-size: 0.73vw; font-weight: 400; cursor: default;">Заявление о включении сведений компании</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="18" viewBox="0 0 26 18" fill="none">
                             <path d="M0 9H25M25 9L17.1053 1M25 9L17.1053 17" stroke="#1F2B6A" />
                         </svg>
                     </div>
 
-                    <div class="link-app" onclick="openModal()">
+                    <div class="link-app" onclick="window.location.href='application/update'">
                         <p style="font-size: 0.73vw; font-weight: 400; cursor: default;">Заявление о внесении изменений компании</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="18" viewBox="0 0 26 18" fill="none">
                             <path d="M0 9H25M25 9L17.1053 1M25 9L17.1053 17" stroke="#1F2B6A" />
                         </svg>
                     </div>
-
-                    <div class="link-app" onclick="openModal()">
+                    
+                    <div class="link-app" onclick="window.location.href='application/delete'">
                         <p style="font-size: 0.73vw; font-weight: 400; cursor: default;">Заявление об исключении компании</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="18" viewBox="0 0 26 18" fill="none">
                             <path d="M0 9H25M25 9L17.1053 1M25 9L17.1053 17" stroke="#1F2B6A" />
@@ -144,7 +146,7 @@
                     <p>Здесь будет одно или два предложения новости. Может быть три. Но не более.</p>
                 </div>
             </div>
-            <button style="float: right;" onclick="openModal()">Смотреть все новости</button>
+            <button style="float: right;">Смотреть все новости</button>
 
         </div>
         <div id="help">
@@ -247,16 +249,16 @@
             <h3>Навигация</h3>
             <div style="display: flex;">
                 <a href="">Главная</a>
-                <a onclick="openModal()" style="margin-left: 1.875vw;">Портал</a>
+                <a href="/map" style="margin-left: 1.875vw;">Портал</a>
                 <a href="#news" style="margin-left: 1.875vw;">Новости</a>
                 <a href="#help" style="margin-left: 1.875vw;">Помощь</a>
-                <a onclick="openModal()" style="margin-left: 1.875vw;">Заявления</a>
-                <a onclick="openModal()" style="margin-left: 1.875vw;">Региональные представители</a>
+                <a href="" style="margin-left: 1.875vw;">Заявления</a>
+                <a href="/region-contacts" style="margin-left: 1.875vw;">Региональные представители</a>
             </div>
         </div>
         <div>
             <p style="margin-top: 2.66vw;">Все права защищены</p>
-            <p onclick="openModal()">Политика конфиденциальности</p>
+            <p><a href="/privacy-policy">Политика конфиденциальности</a></p>
             <div style="display: flex; align-items: center;">
                 <p style="margin: 0vw; margin-right: 0.26vw; cursor: default;">Портал разработан Kollab.pro</p>
                 <img src="../static/images/kollab.png">

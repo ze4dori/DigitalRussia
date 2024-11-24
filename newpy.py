@@ -1,25 +1,100 @@
-from flask import Flask, render_template, request, redirect, session, jsonify
+from flask import Flask, render_template, request, redirect, session, jsonify, send_file
 import sqlite3 as sql
 from flask_cors import CORS
-import json
+import os
 
 
 app = Flask(__name__)
 CORS(app)
 
+# РАБОТА С ГЛАВНОЙ СТРАНИЦЕЙ
 @app.route("/")
-def main_str():
-    return render_template("main.html")
+def home():
+    with sql.connect("newdb.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT COUNT(id) FROM Companies""")
+            active_records_count = cursor.fetchone()[0]
 
+    conn.close()
+    return render_template("main.html", active_records_count=active_records_count)
+
+@app.route("/auth")
+def active_home():
+    with sql.connect("newdb.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT COUNT(id) FROM Companies""")
+            active_records_count = cursor.fetchone()[0]
+
+    conn.close()
+    return render_template("activemain.html", active_records_count=active_records_count)
+
+
+# РАБОТА СО СТРАНИЦЕЙ ЗАЯВЛЕНИЯ
 @app.route("/application")
 def application():
     return render_template("applications.html")
 
+
+# РАБОТА СО СТРАНИЦЕЙ ДОБАВИТЬ КОМАНИЮ
 @app.route("/application/new")
 def add_application():
     return render_template("addapplications.html")
 
+@app.route('/download')
+def download_file():
+    path_to_file = os.path.join(os.getcwd(), 'static/forms/ФормаЗаявления.pdf')
+    return send_file(path_to_file, as_attachment=True)
 
+
+# РАБОТА СО СТРАНИЦЕЙ РЕДАКТИРОВАТЬ КОМПАНИЮ
+@app.route("/application/update")
+def update_application():
+    return render_template("changes.html")
+
+
+# РАБОТА СО СТРАНИЦЕЙ УДАЛИТЬ КОМПАНИЮ
+@app.route("/application/delete")
+def delete_application():
+    return render_template("exclude.html")
+
+
+# РАБОТА СО СТРАНИЦЕЙ ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ 
+@app.route("/privacy-policy")
+def privacy_policy():
+    return render_template("confidentiality.html")
+
+
+# РАБОТА СО СТРАНИЦЕЙ РЕГИОНАЛЬНЫЕ ПРЕДСТАВИТЕЛИ
+@app.route("/region-contacts")
+def region_contacts():
+    return render_template("regcontacts.html")
+
+@app.route("/region-contacts/info")
+def info_region_contacts():
+    with sql.connect("newdb.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"""SELECT name, email, phone, abb 
+                           FROM Region""")
+        contacts = cursor.fetchall()
+        contacts_list = [{'region': name, 'email': email, 'phone': phone, 'id': abb} 
+                              for name, email, phone, abb in contacts]
+
+    return {'contacts': contacts_list}
+
+@app.route("/region-contacts/info-filter")
+def info_region_contacts_filter():
+    with sql.connect("newdb.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"""SELECT name, email, phone, abb 
+                           FROM Region""")
+        contacts = cursor.fetchall()
+        contacts_list = [{'region': name, 'email': email, 'phone': phone, 'id': abb} 
+                              for name, email, phone, abb in contacts]
+
+    return {'contacts': contacts_list}
+
+
+# ДЛЯ РАБОТЫ С КАРТОЙ
 @app.route("/map", methods=['POST', 'GET']) #КОЛИЧЕСТВО АКТИВНЫХ ЗАПИСЕЙ
 def second_filter():
     filter = "ПАК"
@@ -47,8 +122,8 @@ def second_filter():
         conn.close()
         return render_template("index.html", active_records_count=active_records_count)
 
-#Фильтр по компаниям ПАК
-@app.route("/filterPAK", methods=['POST', 'GET']) 
+
+@app.route("/filterPAK", methods=['POST', 'GET']) # ФИЛЬТР ПО КОМПАНИЯМ ПАК
 def third_filter():  
 
     type_company = 'ПАК'
@@ -119,8 +194,7 @@ def third_filter():
         return {'companies': companies_list, 'region': info}
 
 
-#Фильтр по компаниям ПО
-@app.route("/filterPO", methods=['POST', 'GET']) 
+@app.route("/filterPO", methods=['POST', 'GET']) #ФИЛЬТР ПО КОМПАНИЯМ ПО
 def fourth_filter():  
 
     type_company = 'ПО'
@@ -194,8 +268,7 @@ def fourth_filter():
         return {'companies': companies_list, 'region': info}
 
 
-#Информация о регионе
-@app.route('/region/<id>', methods=['GET'])
+@app.route('/region/<id>', methods=['GET']) #ИНФОРМАЦИЯ ПО РЕГИОНУ
 def region(id):
     activeButtonId = request.args.get('button')
     fields = request.args.get('fields') or []
@@ -267,7 +340,7 @@ def region(id):
     return jsonify(info)
 
 
-@app.route("/info", methods=['POST', 'GET'])
+@app.route("/info", methods=['POST', 'GET']) #ВЫВОД ИНФОРМАЦИИ ПО КОМПАНИИ
 def about_company():
     if request.method == "POST":
         data = request.get_json()
@@ -300,8 +373,8 @@ def about_company():
 
         return jsonify(info)
     
-#Вывод иконок
-@app.route("/icon/<int:id>", methods=['GET'])
+
+@app.route("/icon/<int:id>", methods=['GET']) #ВЫВОД ИКОНОК
 def icon_contact(id):
     with sql.connect("newdb.db") as conn:
         cursor = conn.cursor()
@@ -321,6 +394,6 @@ def icon_contact(id):
     }
 
     return jsonify(icon)
-    
+
 if __name__ == '__main__':
     app.run(debug=True)

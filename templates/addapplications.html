@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <title>Main</title>
-    <link rel="stylesheet" href="../static/css/style.css"> <!--ИЗМЕНЕНО-->
+    <link rel="stylesheet" href="../static/css/style2.css"> <!--ИЗМЕНЕНО-->
     <script type="text/javascript" src="../static/js/script.js"></script> <!--ИЗМЕНЕНО-->
 </head>
 
@@ -18,7 +18,7 @@
 
 
     <div class="header-line-app"> <!--Шапка с менюшкой -->
-        <p style="font-size: 1.04vw;">Реестр российских ИТ-решений</p>
+        <p style="font-size: 1.04vw;">Портал российских ИТ-решений</p>
         <button class="menu-item" class="filter" id="myButton-burger-menu" onclick="myFunctionForMyButtonMenu()"
             style=" display: flex; margin-left: 22vw; align-items: center; border-color: rgba(31, 43, 106, 0.5); color: rgba(31, 43, 106, 1); margin-right: 0vw;">
             Меню
@@ -29,12 +29,12 @@
 
     <div id="burger-menu" class="burger-menu" style="display: none;">
         <p style="font-size: 0.83vw;">Петров А.В</p> <!--Динамические данные-->
-        <a href="/" class="menu-burger-item" style="color: rgba(31, 43, 106, 0.5);">Главная</a>
+        <a href="/auth" class="menu-burger-item">Главная</a>
         <a href="/map" class="menu-burger-item">Портал</a>
-        <a href="/#news" class="menu-burger-item">Новости</a>
-        <a href="/#help" class="menu-burger-item">Помощь</a>
-        <a href="/application" class="menu-burger-item">Заявления</a>
-        <a href="#" class="menu-burger-item">Региональные представители</a>
+        <a href="/auth#news" class="menu-burger-item">Новости</a>
+        <a href="/auth#help" class="menu-burger-item">Помощь</a>
+        <a href="/application" class="menu-burger-item" style="color: rgba(31, 43, 106, 0.5);">Заявления</a>
+        <a href="/region-contacts" class="menu-burger-item">Региональные представители</a>
         <a href="#" class="menu-burger-item" style="color: red;">Выйти</a>
     </div>
 
@@ -45,6 +45,11 @@
                 <h2 style="font-weight: 500;">Форма для сбора данных о компаниях в области разработки ПО</h2>
                 <img src="../static/images/PO.png">
                 <button>Заполнить заявление</button>
+                <!-- <button onclick="downloadFile('report.pdf', '../static/forms/report.pdf')">Скачать отчет</button> -->
+                <button onclick="window.location.href='/download'">Скачать файл</button>
+                <a download="download" class="ydisk-onclick" href="https://disk.yandex.ru/i/kVYMRy8g00NyaA" target="_blank">Публичная ссылка на файл с Яндекс Диска</a>
+
+
             </div>
             <div class="app-card" style="width: 47.9vw;">
                 <h2 style="font-weight: 500;">Форма для сбора данных о компаниях в области ПАК</h2>
@@ -65,19 +70,19 @@
         <div>
             <h3>Навигация</h3>
             <div style="display: flex;">
-                <a  href="/">Главная</a>
-                <a  href="/map" style="margin-left: 1.875vw;">Портал</a>
-                <a  href="/#news" style="margin-left: 1.875vw;">Новости</a>
-                <a  href="/#help" style="margin-left: 1.875vw;">Помощь</a>
-                <a  href="/application" style="margin-left: 1.875vw;">Заявления</a>
-                <a  href="#" style="margin-left: 1.875vw;">Региональные представители</a>
+                <a href="/auth">Главная</a>
+                <a href="/map" style="margin-left: 1.875vw;">Портал</a>
+                <a href="/auth#news" style="margin-left: 1.875vw;">Новости</a>
+                <a href="/auth#help" style="margin-left: 1.875vw;">Помощь</a>
+                <a href="" style="margin-left: 1.875vw;">Заявления</a>
+                <a href="/region-contacts" style="margin-left: 1.875vw;">Региональные представители</a>
             </div>
         </div>
         <div>
             <p style="margin-top: 2.66vw;">Все права защищены</p>
-            <p>Политика конфиденциальности</p>
+            <p><a href="/privacy-policy">Политика конфиденциальности</a></p>
             <div style="display: flex; align-items: center;">
-                <p style="margin: 0vw; margin-right: 0.26vw;">Портал разработан Kollab.pro</p>
+                <p style="margin: 0vw; margin-right: 0.26vw; cursor: default;">Портал разработан Kollab.pro</p>
                 <img src="../static/images/kollab.png">
             </div>
         </div>
