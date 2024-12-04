@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer" />
+    <!--Этот элемент определяет параметры отображения на мобильных устройствах width=device-width указывает, что ширина страницы должна соответствовать ширине устройства, а initial-scale=1.0 задает начальный масштаб отображения-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <title>Main</title>
+    <link rel="stylesheet" href="../static/css/style2.css"> <!--ИЗМЕНЕНО-->
+    <script type="text/javascript" src="../static/js/script.js"></script> <!--ИЗМЕНЕНО-->
+</head>
+
+<body style="margin:0;" class="parent">
+
+
+    <div class="header-line-main"> <!--Шапка с менюшкой -->
+        <p style="font-size: 1.04vw; cursor: default;" onclick="window.location.href='/'">Портал российских ИТ-решений</p>
+
+        <button class="" onclick="openModal()">
+            Войти
+        </button>
+
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <div id="close" onclick="closeModalPopApp(event)">
+                <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="1.25vw" height="1.25vw"
+                    viewBox="0 0 24 24" fill="none">
+                    <path d="M1.78516 22.2134L22.9984 1.00018" stroke="#383874" stroke-width="2"
+                        stroke-linecap="round" />
+                    <path d="M1.78516 1.21338L22.9984 22.4266" stroke="#383874" stroke-width="2"
+                        stroke-linecap="round" />
+                </svg>
+            </div>
+            <p style="font-size: 1.25vw; font-weight: 500;">Портал доступен только <br> авторизованным пользователям</p>
+            <form action="/auth">
+                <button style="width: 42.55vw;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img style="width: 1.52vw; margin-left: 2.4vw; margin-right: 0.2vw;"
+                            src="../static/images/gosuslugi.png" alt="Кнопка_госуслуги" class="menu-icon" />
+                        <p>Войти через Госуслуги</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+
+    <div class="str-main"> <!--Целиком страница-->
+        <h1 style="font-size: 3.33vw; font-weight: 400; margin-top: 0vw; margin-bottom: 2.6vw; cursor: default;">
+            Информационный портал
+            российских IT компаний</h1>
+
+        <div style="display: flex;">
+            <div class="blockonmain mini-map">
+                <h2>Портал российских IT компаний</h2>
+                <!--<img src="../static/images/map.png">-->
+                <button onclick="openModal()">Смотреть</button>
+            </div>
+            <div style="margin-left: 2.08vw;">
+                <div class="blockonmain"
+                    style="margin-bottom: 2.08vw; height: 13.07vw; width: 47.9vw; cursor: default;">
+                    <h2>О портале</h2>
+                    <p style="font-size: 0.73vw; font-weight: 400; margin-right: 1.5625vw;">
+                        Наш портал создан для удобного поиска и выбора отечественного программного обеспечения и
+                        технологий.
+                        Здесь представлены проверенные и актуальные решения для различных отраслей: от промышленности до
+                        образования
+                        и медицины. Мы объединяем инновации и профессионализм российских разработчиков, чтобы помочь
+                        вашему
+                        бизнесу оставаться независимым, безопасным и конкурентоспособным.
+                    </p>
+                    <div
+                        style="display: flex; justify-content: flex-end; align-items: center; margin-right: 1.5625vw; margin-top: 2vw; font-size: 0.83vw; font-weight: 500;">
+                        <p style="color: rgba(31, 43, 106, 0.4);">Активных записей ПО и ПАК</p>
+                        <p style="margin-left: 0.36vw; color: rgba(31, 43, 106, 1);">{{ active_records_count }}</p>
+                        <!--Динамическое число с бэка-->
+                    </div>
+                </div>
+
+                <div class="blockonmain" style="height: 13.07vw; cursor: default;">
+                    <h2>Выберите тип заявления</h2>
+
+                    <div class="link-app" onclick="openModal()">
+                        <p style="font-size: 0.73vw; font-weight: 400;">Заявление о включении сведений компании</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="1.58vw" viewBox="0 0 26 18"
+                            fill="none">
+                            <path d="M0 9H25M25 9L17.1053 1M25 9L17.1053 17" stroke="#1F2B6A" />
+                        </svg>
+                    </div>
+
+                    <div class="link-app" onclick="openModal()">
+                        <p style="font-size: 0.73vw; font-weight: 400;">Заявление о внесении изменений компании</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="1.58vw" viewBox="0 0 26 18"
+                            fill="none">
+                            <path d="M0 9H25M25 9L17.1053 1M25 9L17.1053 17" stroke="#1F2B6A" />
+                        </svg>
+                    </div>
+
+                    <div class="link-app" onclick="openModal()">
+                        <p style="font-size: 0.73vw; font-weight: 400;">Заявление об исключении компании</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="1.58vw" viewBox="0 0 26 18"
+                            fill="none">
+                            <path d="M0 9H25M25 9L17.1053 1M25 9L17.1053 17" stroke="#1F2B6A" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 style="cursor: default;">Что вы найдёте на нашем портале:</h2>
+            <div style="display: flex; cursor: default;">
+                <div class="card-inactive" style="margin-left: 0vw;">
+                    <h3>Обширный каталог ИТ-решений</h3>
+                    <p>Удобный поиск и структурированная информация по каждому продукту помогут вам найти подходящее
+                        решение.</p>
+                </div>
+                <div class="card-inactive">
+                    <h3>Интерактивная карта с фильтрами</h3>
+                    <p>Лёгкий поиск решений по регионам, отраслям и функционалу с помощью удобной интерактивной карты.
+                    </p>
+                </div>
+                <div class="card-inactive">
+                    <h3>Профили российских ИТ-компаний</h3>
+                    <p>Подробная информация о ведущих российских разработчиках, их продуктах и услугах. Указаны адреса и
+                        контактные данные компаний.</p>
+                </div>
+                <div class="card-inactive">
+                    <h3>Актуальные новости</h3>
+                    <p>Раздел с информацией о новых разработках, событиях и тенденциях в сфере российского ПО.</p>
+                </div>
+            </div>
+        </div>
+        <div id="news">
+            <h2 style="cursor: default;">Новости</h2> <!--Динамические 4 свежие из БД-->
+            <div style="display: flex; cursor: default;">
+                <div class="news" style="margin-left: 0vw;">
+                    <img src="../static/images/news_primer1.png">
+                    <h3>Заголовок новости</h3>
+                    <p>Здесь будет одно или два предложения новости. Может быть три. Но не более.</p>
+                </div>
+                <div class="news">
+                    <img src="../static/images/news_primer2.png">
+                    <h3>Заголовок новости</h3>
+                    <p>Здесь будет одно или два предложения новости. Может быть три. Но не более.</p>
+                </div>
+                <div class="news">
+                    <img src="../static/images/news_primer3.png">
+                    <h3>Заголовок новости</h3>
+                    <p>Здесь будет одно или два предложения новости. Может быть три. Но не более.</p>
+                </div>
+                <div class="news">
+                    <img src="../static/images/news_primer4.png">
+                    <h3>Заголовок новости</h3>
+                    <p>Здесь будет одно или два предложения новости. Может быть три. Но не более.</p>
+                </div>
+            </div>
+            <button style="margin-left: 74.8vw;" onclick="openModal()">Смотреть все новости</button>
+
+        </div>
+        <div id="help">
+            <h2 style="cursor: default;">Помощь</h2>
+            <div style="display: flex; padding-bottom: 1.56vw;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; cursor: default;">
+                    <div class="QA" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Здесь будет часто задаваемый вопрос</h3>
+                            <!--<p>Здесь будет ответ на часто задаваемый вопрос. Здесь будет ответ на часто задаваемый вопрос.
+                            Здесь
+                            будет ответ на часто задаваемый вопрос. Здесь будет ответ на часто задаваемый вопрос. Здесь
+                            будет
+                            ответ на часто задаваемый вопрос.</p>-->
+                        </div>
+                        <!--<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+                        <rect x="9.09961" y="10.5156" width="2" height="26" transform="rotate(-45 9.09961 10.5156)"
+                            fill="#1F2B6A" />
+                        <rect x="27.4844" y="9.09961" width="2" height="26" transform="rotate(45 27.4844 9.09961)"
+                            fill="#1F2B6A" />
+                    </svg>-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.35vw" height="1.35vw" viewBox="0 0 26 26"
+                            fill="none">
+                            <rect x="12" width="2" height="26" fill="#1F2B6A" />
+                            <rect x="26" y="12" width="2" height="26" transform="rotate(90 26 12)" fill="#1F2B6A" />
+                        </svg>
+                    </div>
+                    <div class="QA" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Здесь будет часто задаваемый вопрос</h3>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.35vw" height="1.35vw" viewBox="0 0 26 26"
+                            fill="none">
+                            <rect x="12" width="2" height="26" fill="#1F2B6A" />
+                            <rect x="26" y="12" width="2" height="26" transform="rotate(90 26 12)" fill="#1F2B6A" />
+                        </svg>
+                    </div>
+                    <div class="QA" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Здесь будет часто задаваемый вопрос</h3>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.35vw" height="1.35vw" viewBox="0 0 26 26"
+                            fill="none">
+                            <rect x="12" width="2" height="26" fill="#1F2B6A" />
+                            <rect x="26" y="12" width="2" height="26" transform="rotate(90 26 12)" fill="#1F2B6A" />
+                        </svg>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; cursor: default;">
+                    <div class="QA" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Здесь будет часто задаваемый вопрос</h3>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.35vw" height="1.35vw" viewBox="0 0 26 26"
+                            fill="none">
+                            <rect x="12" width="2" height="26" fill="#1F2B6A" />
+                            <rect x="26" y="12" width="2" height="26" transform="rotate(90 26 12)" fill="#1F2B6A" />
+                        </svg>
+                    </div>
+                    <div class="QA" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Здесь будет часто задаваемый вопрос</h3>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.35vw" height="1.35vw" viewBox="0 0 26 26"
+                            fill="none">
+                            <rect x="12" width="2" height="26" fill="#1F2B6A" />
+                            <rect x="26" y="12" width="2" height="26" transform="rotate(90 26 12)" fill="#1F2B6A" />
+                        </svg>
+                    </div>
+                    <div class="QA" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Здесь будет часто задаваемый вопрос</h3>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.35vw" height="1.35vw" viewBox="0 0 26 26"
+                            fill="none">
+                            <rect x="12" width="2" height="26" fill="#1F2B6A" />
+                            <rect x="26" y="12" width="2" height="26" transform="rotate(90 26 12)" fill="#1F2B6A" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h3 style="cursor: default;">Контакты</h3>
+            <div style="display: flex; cursor: default;">
+                <p>qqq@gmailcom</p>
+                <p style="margin-left: 1.875vw;">+7 999 999-99-99</p>
+                <p style="margin-left: 1.875vw;">+7 999 999-99-99</p>
+            </div>
+        </div>
+        <div>
+            <h3 style="cursor: default;">Навигация</h3>
+            <div style="display: flex;">
+                <a href="">Главная</a>
+                <a onclick="openModal()" style="margin-left: 1.875vw;">Портал</a>
+                <a href="#news" style="margin-left: 1.875vw;">Новости</a>
+                <a href="#help" style="margin-left: 1.875vw;">Помощь</a>
+                <a onclick="openModal()" style="margin-left: 1.875vw;">Заявления</a>
+                <a onclick="openModal()" style="margin-left: 1.875vw;">Региональные представители</a>
+            </div>
+        </div>
+        <div>
+            <p style="margin-top: 2.66vw; cursor: default;">Все права защищены</p>
+            <p><a href="/privacy-policy">Политика конфиденциальности</a></p>
+            <div style="display: flex; align-items: center; cursor: default;">
+                <p style="margin: 0vw; margin-right: 0.26vw;">Портал разработан Kollab.pro</p>
+                <img src="../static/images/kollab.png">
+            </div>
+        </div>
+    </div>
+</body>

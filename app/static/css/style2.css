@@ -1,0 +1,1107 @@
+/*-----------------------------------------для главной-----------------*/
+
+.header-line-main {
+    background-color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 3.125vw;
+
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-family: "Inter", sans-serif;
+    color: rgba(31, 43, 106, 1);
+
+
+}
+
+.header-line-main button {
+
+    height: 2.08vw;
+
+    color: rgb(31 43 106 /100%);
+    background-color: #FFFF;
+    text-decoration: none;
+
+    margin-right: 1.04vw;
+    border: 0.078vw solid rgba(31, 43, 106, 0.5);
+
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+    /*Доступная замена*/
+}
+
+.header-line-main button:hover {
+    background-color: rgba(57, 56, 212, 1);
+    border-color: rgba(57, 56, 212, 1);
+    color: white;
+}
+
+.header-line-main button:hover rect {
+    fill: white;
+}
+
+.str-main {
+    background-color: #F0F2FF;
+    padding-left: 1.042vw;
+    padding-right: 1.042vw;
+
+    font-family: "Inter", sans-serif;
+    color: rgba(31, 43, 106, 1);
+
+    padding-top: 2.6vw;
+
+}
+
+
+/* Стилизация ползунка прокрутки */
+::-webkit-scrollbar {
+    width: 0.36vw;
+    /* Ширина ползунка */
+}
+
+::-webkit-scrollbar-track {
+    background: #F0F2FF;
+    /* Цвет фона трека */
+    border-radius: 0.32vh;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1F2B6A;
+    /* Цвет ползунка */
+    border-radius: 0.32vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Цвет ползунка при наведении */
+}
+
+.str-main h2 {
+    padding-top: 1.56vw;
+    margin-top: 0vw;
+
+    font-size: 1.25vw;
+    font-weight: 500;
+}
+
+.blockonmain {
+
+    background-color: white;
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+    padding-left: 1.56vw;
+}
+
+.blockonmain button:hover {
+    background-color: rgba(57, 56, 212, 1);
+    color: white;
+
+}
+
+.mini-map {
+    width: 47.9vw;
+    height: 28.23;
+
+    background-image: url(../images/map.png);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+
+}
+
+.mini-map img {
+    height: 23.54vw;
+}
+
+.mini-map button {
+    height: 2.14vw;
+    width: 10.68vw;
+
+    color: rgba(31, 43, 106, 1);
+    background-color: #FFFF;
+    text-decoration: none;
+
+    border: 0.078vw solid rgba(31, 43, 106, 0.5);
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+
+    margin-top: 20.6vw;
+    margin-right: 1.56vw;
+    float: right;
+}
+
+.active-mini-map {
+
+    width: 47.9vw;
+    height: 28.23;
+
+    background-image: url(../images/activemap.png);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+
+}
+
+.active-mini-map img {
+    height: 23.54vw;
+}
+
+.active-mini-map button {
+    height: 2.19vw;
+    width: 10.68vw;
+
+    background-color: rgba(125, 159, 232, 1);
+    border-color: rgba(125, 159, 232, 0.5);
+    color: white;
+
+    text-decoration: none;
+
+    border: 0.078vw solid;
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+
+    margin-top: 20.6vw;
+    margin-right: 1.56vw;
+    float: right;
+}
+
+
+.link-app {
+    height: 2.08vw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 1.5625vw;
+
+    border: 0.052vw solid rgba(31, 43, 106, 0.5);
+    border-radius: 0.26vw;
+
+    margin-bottom: 0.52vw;
+    padding-left: 1.042vw;
+    padding-right: 1.042vw;
+
+}
+
+.link-app:hover {
+    background-color: rgba(57, 56, 212, 1);
+    border-color: rgba(57, 56, 212, 1);
+    color: white;
+
+}
+
+.link-app:hover path {
+    stroke: white;
+}
+
+.link-app-active {
+    height: 2.08vw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 1.5625vw;
+
+    border: 0.052vw solid rgba(125, 159, 232, 0.5);
+    border-radius: 0.26vw;
+
+    margin-bottom: 0.52vw;
+    padding-left: 1.042vw;
+    padding-right: 1.042vw;
+
+    background-color: rgba(125, 159, 232, 1);
+    color: white;
+
+}
+
+.link-app-active:hover {
+    border-color: rgba(57, 56, 212, 1);
+    background-color: rgba(57, 56, 212, 1);
+
+}
+
+.card-inactive {
+    background-color: white;
+    background-size: 100% 100%;
+    color: rgba(31, 43, 106, 1);
+
+    width: 22.9vw;
+    margin-left: 2.08vw;
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+
+    padding-top: 1.56vw;
+    padding-bottom: 1.56vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+}
+
+.card-inactive h3 {
+    font-size: 0.83vw;
+    font-weight: 500;
+
+    margin: 0vw;
+}
+
+.card-inactive p {
+    font-size: 0.73vw;
+    font-weight: 400;
+
+    margin-top: 1.04vw;
+}
+
+
+.card {
+    /* background-image: url(../images/card_background.png); */
+    background-size: 100% 100%;
+
+    height: 13vw;
+    width: 22.9vw;
+    margin-left: 2.08vw;
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+
+    padding-top: 1.56vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+    color: white;
+}
+
+.card h3 {
+    font-size: 0.83vw;
+    font-weight: 500;
+
+    margin: 0vw;
+}
+
+.card p {
+    font-size: 0.73vw;
+    font-weight: 400;
+
+    margin-top: 1.04vw;
+}
+
+.news {
+    width: 22.9vw;
+    height: 20.83vw;
+
+    margin-left: 2.08vw;
+
+    background-color: white;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+}
+
+.news img {
+    height: 13vw;
+    width: 100%;
+
+    object-fit: cover;
+
+    border-radius: 0.26vw 0.26vw 0vw 0vw;
+
+}
+
+.news h3 {
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+
+    margin-top: 1.56vw;
+    margin-bottom: 0vw;
+
+    font-size: 0.83vw;
+    font-weight: 500;
+}
+
+.news p {
+
+    margin-top: 0.52vw;
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+
+    font-size: 0.73vw;
+    font-weight: 400;
+}
+
+#news button {
+    height: 2.19vw;
+    width: 22.92vw;
+
+    color: rgba(31, 43, 106, 1);
+    background-color: #FFFF;
+
+    text-decoration: none;
+
+    border: 0.078vw solid rgba(31, 43, 106, 0.5);
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+
+    margin-top: 1.56vw;
+}
+
+#news button:hover {
+    background-color: rgba(57, 56, 212, 1);
+    color: white;
+
+}
+
+#news-active button {
+    height: 2.19vw;
+    width: 22.92vw;
+
+    background-color: rgba(125, 159, 232, 1);
+    color: white;
+
+    text-decoration: none;
+
+    border: 0.078vw solid rgba(125, 159, 232, 1);
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+
+    margin-top: 1.56vw;
+
+}
+
+#news-active button:hover {
+    background-color: rgba(57, 56, 212, 1);
+    border-color: rgba(57, 56, 212, 1);
+    color: white;
+}
+
+.QA {
+    background-color: white;
+    width: 44.79vw;
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+    margin-bottom: 1.04vw;
+
+}
+
+.QA h3 {
+    font-size: 0.83vw;
+    font-weight: 500;
+}
+
+.footer {
+    background-color: rgba(125, 159, 232, 1);
+
+    padding-left: 1.042vw;
+    padding-right: 1.042vw;
+
+    font-family: "Inter", sans-serif;
+
+    height: 10.850vw;
+
+}
+
+.footer img {
+    width: 0.99vw;
+    height: 0.99vw;
+}
+
+.footer h3 {
+    font-size: 1.25vw;
+    font-weight: 500;
+    color: white;
+
+    margin-top: 3.65vw;
+}
+
+.footer a {
+    font-size: 0.83vw;
+    font-weight: 400;
+    color: white;
+
+    text-decoration: none;
+}
+
+.footer p {
+    font-size: 0.83vw;
+    font-weight: 400;
+    color: white;
+}
+
+
+/*------Для заявления------*/
+
+.header-line-app {
+    background-color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 3.125vw;
+
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-family: "Inter", sans-serif;
+    color: rgba(31, 43, 106, 1);
+
+
+}
+
+.header-line-app button {
+
+    height: 2.08vw;
+
+    color: rgb(31 43 106 /100%);
+    background-color: #FFFF;
+    text-decoration: none;
+
+    margin-right: 1.04vw;
+    border: 0.078vw solid rgba(31, 43, 106, 0.5);
+
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+    /*Доступная замена*/
+}
+
+.header-line-app button:hover {
+    background-color: rgba(57, 56, 212, 1);
+    border-color: rgba(57, 56, 212, 1);
+    color: white;
+}
+
+.header-line-app:hover rect {
+    fill: white;
+}
+
+
+.str-app {
+    background-color: rgba(240, 242, 255, 1);
+    padding-left: 1.042vw;
+    padding-right: 1.042vw;
+
+    font-family: "Inter", sans-serif;
+    color: rgba(31, 43, 106, 1);
+
+    padding-top: 2.6vw;
+
+}
+
+.app-card {
+    background-color: white;
+
+    width: 31.25vw;
+    height: 31.77vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+
+    margin-top: 2.6vw;
+    margin-bottom: 2.6vw;
+
+
+}
+
+.app-card img {
+    width: 100%;
+}
+
+.app-card h2 {
+    font-size: 1.25vw;
+    font-weight: 400;
+}
+
+.app-card p {
+    font-size: 0.73vw;
+    font-weight: 400;
+}
+
+.app-card button {
+
+    font-size: 0.73vw;
+    border: 0;
+    background-color: rgba(13, 76, 211, 1);
+    width: 27.6vw;
+    height: 2.34vw;
+    color: white;
+    border-radius: 0.26vw;
+    margin-top: 1vw;
+
+}
+
+.app-cards {
+    background-color: white;
+
+    width: 31.25vw;
+    height: 31.77vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+
+    margin-top: 2.6vw;
+    margin-bottom: 2.6vw;
+
+
+}
+
+.app-cards img {
+    width: 100%;
+}
+
+.app-cards h2 {
+    font-size: 1.25vw;
+    font-weight: 400;
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+}
+
+.app-cards p {
+    font-size: 0.73vw;
+    font-weight: 400;
+
+    padding-left: 1.56vw;
+    padding-right: 1.56vw;
+}
+
+.app-cards button {
+    font-size: 0.73vw;
+    background-color: white;
+    height: 2.29vw;
+    color: rgba(31, 43, 106, 1);
+    border-radius: 0.26vw;
+    border: 0.05vw solid rgba(31, 43, 106, 0.5);
+
+    margin-right: 1.56vw;
+    margin-top: 1vw;
+
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    float: right;
+}
+
+.knopki-form {
+    display: flex;
+    width: 60.42vw;
+    flex-direction: row-reverse;
+    margin-top: 2vw;
+}
+
+.blue-button {
+    width: 23.23vw;
+    background-color: rgba(57, 56, 212, 1);
+    color: white;
+    border: 0.078vw solid rgba(57, 56, 212, 1);
+}
+
+.blue-button:hover {
+    background-color: rgba(31, 43, 106, 1);
+    border-color: rgba(31, 43, 106, 1);
+}
+
+.white-button-no-hover {
+    width: 10.68vw;
+
+    color: rgba(31, 43, 106, 1);
+    background-color: #FFFF;
+    border: 0.078vw solid rgba(31, 43, 106, 0.5);
+}
+
+.white-button {
+    width: 10.68vw;
+
+    color: rgba(31, 43, 106, 1);
+    background-color: #FFFF;
+    border: 0.078vw solid rgba(31, 43, 106, 0.5);
+}
+
+.white-button:hover {
+    background-color: rgba(57, 56, 212, 1);
+    border-color: rgba(57, 56, 212, 1);
+    color: white;
+}
+
+
+
+.burger-menu {
+    width: 13.073vw;
+    height: 11.35vw;
+
+    background-color: white;
+
+    top: 4vw;
+    right: 1.5vw;
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    font-size: 0.73vw;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+    color: rgba(31, 43, 106, 1);
+
+    padding-left: 1.04vw;
+    padding-bottom: 1.04vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+}
+
+.burger-menu a {
+    text-decoration: none;
+    color: rgba(31, 43, 106, 1);
+}
+
+
+.menu {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.menu-item {
+    height: 2.08vw;
+
+    color: rgb(31 43 106 /50%);
+    background-color: #FFFF;
+    text-decoration: none;
+
+    margin-right: 1.04vw;
+    border: 0.078vw solid #F0F2FF;
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+    /*Доступная замена*/
+}
+
+
+
+.report-input {
+    margin-top: 1.04vw;
+    /* margin-bottom: 1.56vw; */
+    border: 0.052vw solid rgba(240, 242, 255, 1);
+    border-radius: 0.26vw;
+    outline: none;
+    /* width: 27.6vw; */
+    width: 60.42vw;
+    box-sizing: border-box;
+
+
+    color: rgba(56, 56, 116, 1);
+    font-size: 0.73vw;
+
+    height: 2.08vw;
+    padding-left: 1.04vw;
+}
+
+.report-input::placeholder {
+    color: rgb(31 43 106 /50%);
+    margin-top: 1vw;
+}
+
+/* Скрываем оригинальный чекбокс */
+input[type="checkbox"] {
+    display: none;
+    order: 1;
+}
+
+/* Создаем новый квадратный чекбокс */
+input[type="checkbox"]+label {
+    position: relative;
+    padding-left: 1.56vw;
+    /* Пространство для нового чекбокса */
+    cursor: pointer;
+}
+
+input[type="checkbox"]+label::before {
+    content: "";
+    background-color: #F0F2FF;
+    position: absolute;
+    left: 0;
+    top: 0.5vw;
+    width: 1.04vw;
+    height: 1.04vw;
+    border: 0.12vw solid rgba(31, 43, 106, 0.5);
+    border-radius: 0.16vw;
+}
+
+/* Стилизуем чекбокс, когда он отмечен*/
+input[type="checkbox"]:checked+label::before {
+    background-image: url(../images/checked.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0.73vw 0.73vw;
+}
+
+
+.checkbox label {
+    order: 2;
+    width: 19.53vw;
+    padding: 0.2vw;
+    font-size: 0.73vw;
+}
+
+.checkbox {
+
+    color: rgb(31 43 106 /40%);
+    margin-top: 1.04vw;
+    /* margin-bottom: 1.56vw; */
+}
+
+/*Для нового поиска*/
+
+.search-container {
+
+    color: rgb(31 43 106 /40%);
+
+    margin-top: 1.04vw;
+    margin-bottom: 1.56vw;
+
+    width: 60.42vw;
+
+
+}
+
+.search-box {
+    position: relative;
+    margin-top: 0.52vw;
+}
+
+/* .StrokaPoisk{
+    margin-top: 3px;
+    border: 0.052vw solid rgba(240, 242, 255, 1);
+    border-radius: 0.26vw;
+} */
+
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2vw;
+}
+
+.selected-tags .tag {
+    background-color: #e0e0e0;
+    border-radius: 0.16vw;
+    padding: 0.2vw;
+    font-size: 0.73vw;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.selected-tags .tag::after {
+    content: '×';
+    margin-left: 0.26vw;
+    cursor: pointer;
+}
+
+.search-input {
+    margin-top: 3px;
+    border: 0.052vw solid rgba(240, 242, 255, 1);
+    border-radius: 0.26vw;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+
+
+    color: rgba(31, 43, 106, 1);
+    font-size: 0.73vw;
+
+    height: 2.08vw;
+    padding-left: 1.04vw;
+}
+
+.search-input::placeholder{
+    color: rgb(31 43 106 /50%);
+}
+
+.dropdown {
+    /*display: block;*/
+    /*position: absolute;*/
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border-top: none;
+    background-color: #fff;
+    z-index: 1000;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    height: 9.9vw;
+
+    border: 0.052vw solid rgba(240, 242, 255, 1);
+    border-radius: 0.26vw;
+
+    margin-top: 0.46vw;
+}
+
+.dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.73vw;
+}
+
+.dropdown ul li {
+    padding: 0.42vw;
+    cursor: pointer;
+}
+
+.dropdown ul li:hover {
+    background-color: rgba(240, 242, 255, 1);
+}
+
+.no-results {
+    padding: 0.42vw;
+    color: #888;
+    font-size: 0.73vw;
+}
+
+/* Стилизация ползунка прокрутки */
+.dropdown::-webkit-scrollbar {
+    width: 0.36vw;
+    /* Ширина ползунка */
+}
+
+.dropdown::-webkit-scrollbar-track {
+    background: #F0F2FF;
+    /* Цвет фона трека */
+    border-radius: 0.32vh;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+    background: #1F2B6A;
+    /* Цвет ползунка */
+    border-radius: 0.32vh;
+}
+
+.dropdown::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Цвет ползунка при наведении */
+}
+
+/* Стили для подсветки совпадений */
+.highlight {
+    background-color: rgba(240, 242, 255, 1);
+    border-radius: 0.26vw;
+}
+
+.listContainer {
+    padding: 0;
+}
+
+.reg-container {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 6.3vw;
+    width: 60.42vw;
+    margin-bottom: 1.04vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+}
+
+
+/* Стиль для модального окна */
+.modal {
+    display: none;
+    /* Изначально окно скрыто */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Полупрозрачный черный фон */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    /* Отключаем скроллинг */
+
+
+}
+
+.modal-content {
+    background-color: white;
+    color: rgba(31, 43, 106, 1);
+    font-size: 1.25vw;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    cursor: default;
+    width: 44.64vw;
+
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content button {
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    padding-left: 5.2vw;
+    padding-right: 5.2vw;
+    background-color: rgba(13, 76, 211, 1);
+    height: 2.6vw;
+    color: white;
+    border-radius: 0.26vw;
+    border: 0.05vw solid rgba(13, 76, 211, 1);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content a {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    align-items: center;
+}
+
+
+/* Для форм заявления */
+
+.app-card-big {
+    background-color: white;
+
+    width: 60.42vw;
+
+    border-radius: 0.26vw;
+    box-shadow: 0 0 0.26vw rgb(143 143 143 /35%);
+
+    padding-left: 2.6vw;
+    padding-right: 2.6vw;
+
+    margin-top: 2.6vw;
+    margin-bottom: 2.6vw;
+}
+
+.app-card-big h2 {
+    font-size: 1.25vw;
+    font-weight: 400;
+    color: rgba(31, 43, 106, 1);
+}
+
+.app-card-big p {
+    margin: 0vw;
+    font-size: 0.73vw;
+    font-weight: 400;
+    color: rgba(56, 56, 116, 1);
+}
+
+.app-card-big button {
+
+    height: 2.19vw;
+    text-decoration: none;
+
+    margin-left: 1.04vw;
+    margin-bottom: 1.56vw;
+
+    border-radius: 0.26vw;
+    padding: 0.74vh 0.74vh;
+    padding-left: 1.04vw;
+    padding-right: 1.04vw;
+
+    font-weight: 400;
+    font-size: 0.73vw;
+    font-family: Inter;
+    /*Доступная замена*/
+}
+
+#regions-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    cursor: default;
+}
+
+#regions-container h2 {
+    font-size: 1.04vw;
+    font-weight: 400;
+}
+
+#regions-container h3 {
+    font-size: 1.04vw;
+    font-weight: 500;
+}
+
+#regions-container p {
+    font-size: 0.73vw;
+    font-weight: 400;
+    color: rgba(31, 43, 106, 0.5);
+}
+
+.Q {
+    margin-bottom: 1.56vw;
+}
+
+.Q p{
+    color: rgba(56, 56, 116, 1);
+}
+
+.rotate {
+    transform: rotate(180deg);
+    /* transition: transform 0.3s ease; */
+}

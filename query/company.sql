@@ -1,0 +1,60 @@
+-- CREATE TABLE Companies (
+--     id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     name VARCHAR(255) NOT NULL,
+--     inn VARCHAR(12) UNIQUE NOT NULL,
+--     type VARCHAR(255) NOT NULL,
+--     short_description TEXT,
+--     full_description TEXT,
+--     products TEXT NOT NULL,
+--     services TEXT NOT NULL,
+--     video_url VARCHAR(255),
+--     main_logo_url VARCHAR(255),
+--     logo_url VARCHAR(255),
+--     image1_url VARCHAR(255),
+--     image2_url VARCHAR(255),
+--     image3_url VARCHAR(255),
+--     image4_url VARCHAR(255),
+--     region VARCHAR(100) NOT NULL,
+--     address VARCHAR(255) NOT NULL,
+--     phone VARCHAR(20),
+--     telegram VARCHAR(255),
+--     vk VARCHAR(255),
+--     rutube VARCHAR(20),
+--     dzen VARCHAR(20),
+--     website_url VARCHAR(255)
+-- );
+
+-- DROP TABLE NewCompanies;
+
+
+-- CREATE TABLE NewCompanies (
+--     id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     name VARCHAR(255) NOT NULL,
+--     inn VARCHAR(12) UNIQUE NOT NULL,
+--     type VARCHAR(255) NOT NULL,
+--     short_description TEXT NOT NULL,
+--     full_description TEXT NOT NULL,
+--     products TEXT NOT NULL,
+--     services TEXT NOT NULL,
+--     video_url VARCHAR(255),
+--     main_logo_url VARCHAR(255) NOT NULL,
+--     logo_url VARCHAR(255) NOT NULL,
+--     image1_url VARCHAR(255),
+--     image2_url VARCHAR(255),
+--     image3_url VARCHAR(255),
+--     region VARCHAR(100) NOT NULL,
+--     address VARCHAR(255) NOT NULL,
+--     phone VARCHAR(20) NOT NULL,
+--     telegram VARCHAR(255),
+--     vk VARCHAR(255),
+--     rutube VARCHAR(20),
+--     dzen VARCHAR(20),
+--     website_url VARCHAR(255),
+--     is_in_registry BOOLEAN NOT NULL,
+--     is_specializing_in_ai BOOLEAN NOT NULL,
+--     softwareclasses TEXT,
+--     hardwareclasses TEXT,
+--     field TEXT
+-- );
+
+SELECT * FROM Companies

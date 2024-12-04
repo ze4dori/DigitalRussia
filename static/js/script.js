@@ -1242,11 +1242,11 @@ function updateICON(response) {
         }
     });
 
-    const staticLinksHtml = `
-        <div class="link"><img class="link-icon" src="static/images/Ico Save.png"></div>
-        <div class="link"><img class="link-icon" src="static/images/Ico Send.png"></div>
-    `;
-    listContainer.insertAdjacentHTML('beforeend', staticLinksHtml);
+    // const staticLinksHtml = `
+    //     <div class="link"><img class="link-icon" src="static/images/Ico Save.png"></div>
+    //     <div class="link"><img class="link-icon" src="static/images/Ico Send.png"></div>
+    // `;
+    // listContainer.insertAdjacentHTML('beforeend', staticLinksHtml);
 }
 
 document.getElementById('close').onclick = closeMyModalInfo;
